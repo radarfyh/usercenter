@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.metanet.server.dao.BusinessAppMapper">
+
+	<select id="latestBusinessApp" resultType="work.metanet.api.businessApp.vo.BusinessAppVo">
+		select
+			ba.package_name,
+			ba.version_code,
+			ba.app_url url,
+			ba.instruction
+		from t_business_app ba
+		join t_business b on b.business_id=ba.business_id
+		where 1=1
+			and ba.`status`=true
+			and b.business_code=#{businessCode}
+			and ba.package_name=#{packageName}
+		order by ba.version_code desc
+		limit 1
+	</select>
+
+	<select id="getBusinessAppTree" resultType="map">
+		select
+		business_app_id id,
+		CONCAT_WS(' ',app_name,package_name,version_code) name,
+		package_name packageName,
+		business_id pId
+		from t_business_app
+		where status=true and business_id=#{businessId}
+		order by version_code desc
+	</select>
+
+	<update id="removeBusinessApp">
+		update t_business_app set status=false 
+		where business_app_id in
+		(
+		<foreach collection="list" item="item" separator=",">
+			#{item.businessAppId}
+		</foreach>
+		)
+	</update>
+	
+	<select id="getBusinessApp" resultType="work.metanet.model.BusinessApp">
+		select * from t_business_app ba where ba.status=true
+		<if test="packageName!=null and packageName!=''">
+			and ba.package_name=#{packageName}
+		</if>
+		<if test="versionCode!=null and versionCode!=''">
+			and ba.version_code=#{versionCode}
+		</if>
+	</select>
+	
+	<select id="businessAppInfo" resultType="work.metanet.api.businessApp.protocol.ReqBusinessAppInfo$RespBusinessAppInfo">
+		select
+			bs.business_id,
+			bs.business_name,
+			ba.business_app_id,
+			ba.app_name,
+			ba.package_name,
+			ba.version_code,
+			ba.app_url,
+			ba.instruction,
+			ba.remark,
+			DATE_FORMAT(ba.create_time,'%Y-%m-%d %H:%i:%s') create_time
+		from t_business_app ba
+		left join t_business bs on bs.status=true and bs.business_id=ba.business_id
+		where 1=1
+			and ba.`status`=true 
+			and ba.business_app_id=#{businessAppId}
+	</select>
+	
+	<select id="businessAppList" resultType="work.metanet.api.businessApp.protocol.ReqBusinessAppList$RespBusinessAppList">
+		select
+			bs.business_id,
+			bs.business_name,
+			ba.business_app_id,
+			ba.app_name,
+			ba.package_name,
+			ba.version_code,
+			ba.app_url,
+			ba.instruction,
+			ba.remark,
+			DATE_FORMAT(ba.create_time,'%Y-%m-%d %H:%i:%s') create_time
+		from t_business_app ba
+		left join t_business bs on bs.status=true and bs.business_id=ba.business_id
+		where ba.`status`=true
+			<if test="businessId!=null and businessId!=''">
+				and ba.business_id=#{businessId}
+			</if>
+			<if test="appName!=null and appName!=''">
+				and ba.app_name like CONCAT('%',#{appName},'%')
+			</if>
+			<if test="packageName!=null and packageName!=''">
+				and ba.package_name like CONCAT('%',#{packageName},'%')
+			</if>
+			<if test="versionCode!=null and versionCode!=''">
+				and ba.version_code like CONCAT('%',#{versionCode},'%')
+			</if>
+			<if test="startTime!=null and startTime!=''">
+				and DATE_FORMAT(ba.create_time,'%Y%m%d')>=DATE_FORMAT(#{startTime},'%Y%m%d')
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				and DATE_FORMAT(ba.create_time,'%Y%m%d')<![CDATA[<=]]>DATE_FORMAT(#{endTime},'%Y%m%d')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and ba.remark like CONCAT('%',#{remark},'%')
+			</if>
+		order by ba.version_code desc
+	</select>
+	
+	
+	
+</mapper>

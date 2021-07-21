@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.metanet.server.dao.ThirdBusinessMapper">
+
+	<select id="thirdBusinessList" resultType="work.metanet.api.thirdBusiness.protocol.ReqThirdBusinessList$RespThirdBusinessList">
+		select
+		tb.third_business_id,
+		tb.third_business_name,
+		tb.third_business_code,
+		tb.remark,
+		DATE_FORMAT(tb.create_time,'%Y-%m-%d %H:%i:%s') create_time,
+		DATE_FORMAT(tb.update_time,'%Y-%m-%d %H:%i:%s') update_time
+		from t_third_business tb
+		where 1=1
+		and tb.status=true
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>work.metanet</groupId>
+	<artifactId>metanet</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>metanet services</name>
+	<description>metanet services for AI SaaS</description>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.12.RELEASE</version>
+		<!-- <version>2.2.13.RELEASE</version> -->
+		<!-- <version>2.1.15.RELEASE</version> -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<maven.test.skip>true</maven.test.skip>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<revision>${project.version}</revision>
+		<spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
+		<!-- <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version> -->
+		<swagger.version>2.9.2</swagger.version>
+		<kaptcha.version>0.0.9</kaptcha.version>
+		<lombok.version>1.18.20</lombok.version>
+		<spring.data.version>2.3.9.RELEASE</spring.data.version>
+		<spring.boot.version>2.3.12.RELEASE</spring.boot.version>
+		<spring.cloud.version>2.2.8.RELEASE</spring.cloud.version>
+		<spring.version>5.2.15.RELEASE</spring.version>
+		<slf4j.version>1.7.1</slf4j.version>
+		<logback.version>1.0.6</logback.version>
+		<querydsl.version>2.9.0</querydsl.version>
+		<hamcrest.version>2.2</hamcrest.version>
+		<hibernate.version>5.5.3.Final</hibernate.version>
+		<fasterxml.jackson.version>2.11.4</fasterxml.jackson.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/libs-snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>central-repository</id>
+			<name>Central Repository</name>
+			<url>http://central.maven.org/maven2/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>nexus</id>
+			<name>Nexus Repository</name>
+			<url>http://106.52.183.111:8099/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>Nexus Plugin Repository</name>
+			<url>http://106.52.183.111:8099/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<!-- 父POM负责管理版本 -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- spring -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<!-- Logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.17</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.logging.log4j</groupId>
+			    <artifactId>log4j-core</artifactId>
+			    <version>2.14.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+<!-- 			<dependency> -->
+<!-- 			    <groupId>ch.qos.logback</groupId> -->
+<!-- 			    <artifactId>classic</artifactId> -->
+<!-- 			    <version>1.0.0</version> -->
+<!-- 			</dependency> -->
+
+			<dependency>
+				<groupId>org.logback-extensions</groupId>
+				<artifactId>logback-ext-spring</artifactId>
+				<version>0.1.4</version>
+			</dependency>
+        
+			<!-- alibaba -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-dubbo</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+			</dependency>
+
+			<!-- spring boot -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			
+			<!-- 使用log4j或者log4j2应排除spring-boot-starter-logging -->
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-log4j2</artifactId>
+			    <version>${spring.boot.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>4.0.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring.boot.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- security -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-test</artifactId>
+				<version>5.3.10.RELEASE</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<!-- spring data -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-commons</artifactId>
+				<version>${spring.data.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>persistence-api</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>${spring.data.version}</version>
+			</dependency>
+
+			<!-- Hibernate -->
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.0-api</artifactId>
+				<version>1.0.1.Final</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.hibernate.javax.persistence</groupId>
+			    <artifactId>hibernate-jpa-2.1-api</artifactId>
+			    <version>1.0.2.Final</version>
+			</dependency>			
+			<dependency> 
+			    <groupId>org.hibernate</groupId> 
+			    <artifactId>hibernate-core</artifactId> 
+			    <version>${hibernate.version}</version> 
+			</dependency> 
+			
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.hibernate</groupId>
+			    <artifactId>hibernate-validator</artifactId>
+			    <version>7.0.1.Final</version>
+			</dependency>
+			
+			<!-- mybatis -->
+			<dependency>
+	            <groupId>tk.mybatis</groupId>
+	            <artifactId>mapper-spring-boot-starter</artifactId>
+	            <version>2.1.5</version>
+	        </dependency>	
+	        		
+			<!-- druid -->
+			<dependency>
+	            <groupId>com.alibaba</groupId>
+	            <artifactId>druid-spring-boot-starter</artifactId>
+	            <version>1.1.10</version>
+	        </dependency>
+	        
+		  	<!-- mysql -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>8.0.25</version>
+			</dependency>
+			
+			<!--mongodb-->
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+	            <version>${spring.boot.version}</version>
+	        </dependency>
+	        <dependency>
+			    <groupId>com.spring4all</groupId>
+			    <artifactId>mongodb-plus-spring-boot-starter</artifactId>
+			    <version>1.0.0.RELEASE</version>
+			</dependency>
+		
+			<!-- Querydsl -->
+			<dependency>
+				<groupId>com.mysema.querydsl</groupId>
+				<artifactId>querydsl-jpa</artifactId>
+				<version>${querydsl.version}</version>
+			</dependency>
+
+			<!-- HSQL -->
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>2.2.9</version>
+				<scope>runtime</scope>
+			</dependency>
+			
+			<!-- tencentcloud -->
+			<dependency>
+			     <groupId>com.tencentcloudapi</groupId>
+			     <artifactId>tencentcloud-sdk-java</artifactId>
+			     <version>3.1.67</version>
+			</dependency>
+			
+			<!-- spring cloud config -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-config</artifactId>
+				<version>${spring.cloud.version}</version>
+			</dependency>
+			
+			<!--swagger2 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.github.xiaoymin</groupId>
+			    <artifactId>swagger-bootstrap-ui</artifactId>
+			    <version>1.9.4</version>
+			</dependency>
+
+			<!--lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</dependency>
+
+			<!--JSON相关 -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.8.7</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.codehaus.jettison</groupId>
+				<artifactId>jettison</artifactId>
+				<version>1.4.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>1.2.17</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${fasterxml.jackson.version}</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-core</artifactId>
+			    <version>${fasterxml.jackson.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-annotations</artifactId>
+			    <version>${fasterxml.jackson.version}</version>
+			</dependency>
+
+			<!--常用工具 ArrayUtils CharUtils ClassUtils EnumUtils ObjectUtils RandomUtils 
+				StringUtils -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.12.0</version>
+			</dependency>
+			<!--常用工具 IOUtils FileUtils FilenameUtils FileSystemUtils -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.6</version>
+			</dependency>
+			<!-- 常用工具 MethodUtils ConstructorUtils PropertyUtils BeanUtils ConvertUtils -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.9.4</version>
+			</dependency>
+
+			<!--常用工具 HUTOOL -->
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>5.3.4</version>
+			</dependency>
+			<!--常用工具 对象池 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-pool2</artifactId>
+				<version>2.10.0</version>
+			</dependency>
+			<!--常用工具 时间日期处理 -->
+			<dependency>
+				<groupId>org.ocpsoft.prettytime</groupId>
+				<artifactId>prettytime</artifactId>
+				<version>4.0.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>2.10.10</version>
+			</dependency>
+			<!--常用工具 JWT -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>0.9.1</version>
+			</dependency>
+			<!--常用工具 Java Excel API -->
+			<dependency>
+				<groupId>net.sourceforge.jexcelapi</groupId>
+				<artifactId>jxl</artifactId>
+				<version>2.6.12</version>
+			</dependency>
+			<!--常用工具 POI微软OFFICE处理 Poor Obfuscation Implementation -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>3.17</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>3.17</version>
+			</dependency>
+			<!--常用工具 CSR 数字证书处理 -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>1.64</version>
+			</dependency>
+
+			<!--常用工具 汉字转拼音 -->
+			<dependency>
+				<groupId>com.github.promeg</groupId>
+				<artifactId>tinypinyin</artifactId>
+				<version>2.0.3</version>
+			</dependency>
+			
+			<!--常用工具 pagehelper -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>1.2.5</version>
+			</dependency>
+		  	<dependency>
+			    <groupId>com.github.pagehelper</groupId>
+			    <artifactId>pagehelper</artifactId>
+			    <version>5.1.10</version>
+			</dependency>
+			
+			<!--常用工具 测试matcher -->
+			<dependency>
+			    <groupId>org.hamcrest</groupId>
+			    <artifactId>hamcrest-core</artifactId>
+			    <version>${hamcrest.version}</version>
+			    <scope>test</scope>
+			</dependency>
+			
+			<!--常用工具 kaptcha -->
+			<dependency>
+				<groupId>com.github.axet</groupId>
+				<artifactId>kaptcha</artifactId>
+				<version>${kaptcha.version}</version>
+			</dependency>
+			<!--常用工具 Guava -->
+			<dependency>
+			    <groupId>com.google.guava</groupId>
+			    <artifactId>guava</artifactId>
+			    <version>30.1.1-jre</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<modules>
+		<module>api</module>
+		<module>common</module>
+		<module>common-user</module>
+
+		<module>common-server</module>
+
+		<module>daas-device</module>
+		<module>daas-usercenter</module>
+
+		<module>common-client</module>
+
+		<module>baas-openapi</module>
+		<module>baas-user</module>
+		<module>gateway</module>
+	</modules>
+
+</project>

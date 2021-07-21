@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.metanet.server.dao.BusinessMapper">
+
+	<select id="getBusinessTree" resultType="map">
+		select 
+		business_id id,
+		business_name name
+		from t_business
+		where status=true
+		order by business_id desc
+	</select>
+
+	<update id="removeBusiness">
+		update t_business set status=false 
+		where business_id in
+		(
+		<foreach collection="list" item="item" separator=",">
+			#{item.businessId}
+		</foreach>
+		)
+	</update>
+	
+	<select id="getBusiness" resultType="work.metanet.model.Business">
+		select * from t_business bs where bs.status=true
+		<if test="businessName!=null and businessName!=''">
+			and bs.business_name=#{businessName}
+		</if>
+		<if test="businessCode!=null and businessCode!=''">
+			and bs.business_code=#{businessCode}
+		</if>
+	</select>
+	
+	<select id="businessInfo" resultType="work.metanet.api.business.protocol.ReqBusinessInfo$RespBusinessInfo">
+		select
+			bs.business_id,
+			bs.business_name,
+			bs.business_code,
+			bs.remark,
+			DATE_FORMAT(bs.create_time,'%Y-%m-%d %H:%i:%s') create_time
+		from t_business bs
+		where 1=1
+			and bs.`status`=true 
+			and bs.business_id=#{businessId}
+	</select>
+	
+	<select id="businessList" resultType="work.metanet.api.business.protocol.ReqBusinessList$RespBusinessList">
+		select
+			bs.business_id,
+			bs.business_name,
+			bs.business_code,
+			bs.remark,
+			DATE_FORMAT(bs.create_time,'%Y-%m-%d %H:%i:%s') create_time
+		from t_business bs
+		where bs.`status`=true
+			<if test="business!=null and business!=''">
+				and (bs.business_id like CONCAT('%',#{business},'%') 
+				or bs.business_name  like CONCAT('%',#{business},'%')
+				or bs.business_code like CONCAT('%',#{business},'%'))
+			</if>
+			<if test="startTime!=null and startTime!=''">
+				and DATE_FORMAT(bs.create_time,'%Y%m%d')>=DATE_FORMAT(#{startTime},'%Y%m%d')
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				and DATE_FORMAT(bs.create_time,'%Y%m%d')<![CDATA[<=]]>DATE_FORMAT(#{endTime},'%Y%m%d')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and bs.remark like CONCAT('%',#{remark},'%')
+			</if>
+		order by bs.business_id desc
+	</select>
+	
+	
+	
+</mapper>

@@ -1,0 +1,52 @@
+  
+server:
+  port: 8889
+  
+dubbo:
+  application:
+    id: ${spring.application.name}
+    name: ${spring.application.name}
+    qosEnable: false
+  cloud:
+    subscribed-services: daas-usercenter
+  consumer:
+    check: false
+    timeout: 10000
+    retries: 0
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: -1
+  provider:
+    loadbalance: roundrobin
+    retries: 0
+    timeout: 60000
+    version: 1.0.0
+#  scan:
+#    base-packages: work.metanet.client.vision
+  registry:
+    id: ${spring.application.name}-registry
+    address: nacos://192.168.17.125:8848
+
+#专用配置
+metanet: 
+  custom:
+    kafka:
+      topic:
+        operLog: kafka.topic.operLog.openapi
+    openapi:
+      sign:
+        enable: true
+#腾讯配置
+tencent:
+  cloud:
+    accessKey: AKID2OZcTBcLxUze5Kf4OUKwTqjRtJUPfTcV
+    cos:
+      bucketName: devpb-12345678
+      region: ap-guangzhou
+    secretKey: nYSChvue8MJB3g28B7sS1KNBpDLCnIad
+    sms:
+      appid: 1400384061
+      region: ap-guangzhou
+      
+      

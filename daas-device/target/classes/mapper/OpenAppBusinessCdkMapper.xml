@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.metanet.server.dao.OpenAppBusinessCdkMapper">
+	
+	<select id="getOpenAppBusinessCdk" resultType="string">
+		select 
+		a.cdk
+		from t_open_app_business_cdk a
+		join t_open_app_business b on b.open_app_business_id=a.open_app_business_id
+		where a.`status`=true 
+		and b.app_id=#{appId}
+		and b.business_code=#{businessCode} 
+		and a.open_device_id=#{openDeviceId}
+	</select>
+	
+	<select id="appBusinessCdkList" resultType="work.metanet.api.openAppBusinessCdk.protocol.ReqOpenAppBusinessCdkList$RespOpenAppBusinessCdkList">
+		select
+			oab.business_name,
+			oa.app_name,
+			c.channel_name,
+			od.device_id,
+			cdk.*
+		from t_open_app_business_cdk cdk
+		join t_open_app_business oab on oab.open_app_business_id=cdk.open_app_business_id
+		join t_open_app oa on oa.app_id=oab.app_id
+		join t_channel c on c.channel_id=oa.channel_id
+		left join t_open_device od on od.open_device_id=cdk.open_device_id
+		where 1=1
+			and oa.`status`=true
+			and c.`status`=true
+			and cdk.`status`=true
+			<if test="channelId!=null and channelId!=''">
+				and oa.channel_id=#{channelId}
+			</if>
+			<if test="appId!=null and appId!=''">
+				and oab.app_id=#{appId}
+			</if>
+			<if test="openAppBusinessId!=null and openAppBusinessId!=''">
+				and oab.open_app_business_id=#{openAppBusinessId}
+			</if>
+			<if test="cdk!=null and cdk!=''">
+				and cdk.cdk like CONCAT('%',#{cdk},'%')
+			</if>
+			<if test="deviceId!=null and deviceId!=''">
+				and od.device_id like CONCAT('%',#{deviceId},'%')
+			</if>
+			<if test="startTime!=null and startTime!=''">
+				and DATE_FORMAT(cdk.create_time,'%Y%m%d')>=DATE_FORMAT(#{startTime},'%Y%m%d')
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				and DATE_FORMAT(cdk.create_time,'%Y%m%d')<![CDATA[<=]]>DATE_FORMAT(#{endTime},'%Y%m%d')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and cdk.remark like CONCAT('%',#{remark},'%')
+			</if>
+		order by cdk.update_time desc
+	</select>
+	
+	<update id="removeAppBusinessCdk">
+		update t_open_app_business_cdk set status=false
+		where open_app_business_cdk_id in
+		(
+		<foreach collection="list" item="item" separator=",">
+			#{item.openAppBusinessCdkId}
+		</foreach>
+		)
+	</update>
+	
+</mapper>

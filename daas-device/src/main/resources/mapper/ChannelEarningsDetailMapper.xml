@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.metanet.server.dao.ChannelEarningsDetailMapper">
+
+	<sql id="where_channelEarningsDetailList">
+		and ce.`status`=true
+		and ced.channel_earnings_id=#{channelEarningsId}
+		<if test="appId!=null and appId!=''">
+			and ap.app_id=#{appId}
+		</if>
+		<if test="thirdBusinessId!=null and thirdBusinessId!=''">
+			and ced.third_business_id=#{thirdBusinessId}
+		</if>
+		<if test="username!=null and username!=''">
+			and u.username=#{username}			
+		</if>
+		<if test="orderNumber!=null and orderNumber!=''">
+			and ced.order_number=#{orderNumber}			
+		</if>
+		<if test="orderPayStartTime!=null and orderPayStartTime!=''">
+			and DATE_FORMAT(ced.order_pay_time,'%Y%m%d')>=DATE_FORMAT(#{orderPayStartTime},'%Y%m%d')
+		</if>
+		<if test="orderPayEndTime!=null and orderPayEndTime!=''">
+			and DATE_FORMAT(ced.order_pay_time,'%Y%m%d')<![CDATA[<=]]>DATE_FORMAT(#{orderPayStartTime},'%Y%m%d')
+		</if>
+		<if test="startTime!=null and startTime!=''">
+			and DATE_FORMAT(ced.create_time,'%Y%m%d')>=DATE_FORMAT(#{startTime},'%Y%m%d')
+		</if>
+		<if test="endTime!=null and endTime!=''">
+			and DATE_FORMAT(ced.create_time,'%Y%m%d')<![CDATA[<=]]>DATE_FORMAT(#{endTime},'%Y%m%d')
+		</if>
+		<if test="remark!=null and remark!=''">
+			and ced.remark like CONCAT('%',#{remark},'%')
+		</if>
+	</sql>
+	
+	<select id="channelEarningsDetailListSum" resultType="map">
+		select
+			sum(ced.order_pay_amount) orderPayAmount,
+			sum(ced.original_earnings_amount) originalEarningsAmount,
+			sum(ced.actual_earnings_amount) actualEarningsAmount
+		from t_channel_earnings_detail ced
+			join t_channel_earnings ce on ce.status=true and ce.channel_earnings_id=ced.channel_earnings_id
+			left join t_third_business tb on tb.third_business_id=ced.third_business_id
+			left join t_channel ch on ch.channel_id=ce.channel_id
+			left join t_user u on u.user_id=ced.user_id
+			left join t_app ap on ap.app_id=u.app_id
+		where 1=1
+			<include refid="where_channelEarningsDetailList"/>
+	</select>
+	
+	<select id="channelEarningsDetailList" resultType="work.metanet.api.channelEarningsDetail.protocol.ReqChannelEarningsDetailList$RespChannelEarningsDetailList">
+		select
+			ced.channel_earnings_detail_id,
+			ch.channel_name,
+			ap.app_name,
+			ce.`month`,
+			tb.third_business_name,
+			u.username,
+			ced.order_number,
+			ced.order_pay_amount,
+			ced.original_earnings_amount,
+			ced.settlement_ratio,
+			ced.actual_earnings_amount,
+			ced.remark,
+			DATE_FORMAT(ced.order_pay_time,'%Y-%m-%d %H:%i:%s') order_pay_time,
+			DATE_FORMAT(ce.create_time,'%Y-%m-%d %H:%i:%s') create_time,
+			DATE_FORMAT(ce.update_time,'%Y-%m-%d %H:%i:%s') update_time
+		from t_channel_earnings_detail ced
+			join t_channel_earnings ce on ce.status=true and ce.channel_earnings_id=ced.channel_earnings_id
+			left join t_third_business tb on tb.third_business_id=ced.third_business_id
+			left join t_channel ch on ch.channel_id=ce.channel_id
+			left join t_user u on u.user_id=ced.user_id
+			left join t_app ap on ap.app_id=u.app_id
+		where 1=1
+			<include refid="where_channelEarningsDetailList"/>
+		order by ced.order_pay_time desc,ced.create_time desc
+	</select>
+	
+</mapper>

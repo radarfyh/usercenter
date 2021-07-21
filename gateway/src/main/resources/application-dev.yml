@@ -1,0 +1,78 @@
+  
+server:
+  port: 8891
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+      - id: baas-user
+        uri: http://127.0.0.1:8889
+        predicates:
+        - Path=/api/v1/baas-user/**
+        filters:
+#        - RewritePath=/api/v1/baas-user/(?<segment>/?.*), /regexp$\{segment}
+        - StripPrefix=3
+        - AddResponseHeader=X-Response-Client-User, Client-User
+
+      - id: baas-vision
+        uri: http://127.0.0.1:8886
+        predicates:
+        - Path=/api/v1/baas-vision/**
+        filters:
+#        - RewritePath=/api/v1/baas-user/(?<segment>/?.*), /regexp$\{segment}
+        - StripPrefix=3
+        - AddResponseHeader=X-Response-Client-Vision, Client-Vision
+  redis:
+    database: 0
+    host: 192.168.17.125
+    port: 6379
+    password: radar
+    lettuce:
+      pool:
+        max-active: 300
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+  session:
+    store-type: redis
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+# 默认熔断超时时间30s
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+    hystrix1:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+# 报文转换配置
+trans:
+  url-list:
+    - paths: /api/v1/baas-vision/visionTable/getVisionTableList
+      content-type: application/json
+      request-fields:
+        # 老字段:新字段:类型，若新老字段一致，可以只配置新字段；类型为1表示字符串映射，2表示beanToMap,3表示mapToBean,4自定义
+        - pageNum:pageNum:1
+        - pageSize:pageSize:1
+        - columnFilters::4
+      response-fields:
+        # 老字段:新字段:类型，若新老字段一致，可以只配置新字段；类型为1表示字符串映射，2表示beanToMap,3表示mapToBean,4自定义
+        - pageNum:pageNum:1
+        - pageSize:pageSize:1
+        - total:totalSize:1
+        - pages:totalPages:1
+        - list:content:1
+    - paths: /war/api/delivertool
+      response-fields:
+        - code:rs
+        - msg:rsdesp
+        - data:resultMessage
