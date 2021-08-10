@@ -1,7 +1,9 @@
   
 server:
   port: 8889
-  
+  servlet:
+    encoding:
+      force: true  
 dubbo:
   application:
     id: ${spring.application.name}
@@ -26,17 +28,8 @@ dubbo:
 #    base-packages: work.metanet.client.vision
   registry:
     id: ${spring.application.name}-registry
-    address: nacos://192.168.17.125:8848
+    address: nacos://localhost:8848
 
-#专用配置
-metanet: 
-  custom:
-    kafka:
-      topic:
-        operLog: kafka.topic.operLog.openapi
-    openapi:
-      sign:
-        enable: true
 #腾讯配置
 tencent:
   cloud:
@@ -49,4 +42,21 @@ tencent:
       appid: 1400384061
       region: ap-guangzhou
       
-      
+spring: 
+  #thymeleaf配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 300MB
+      max-request-size: 300MB
+  resources:
+    static-locations: classpath:/static/    
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    servlet:
+      content-type: text/html 
+    mode: HTML
+    cache: false     

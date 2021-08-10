@@ -3,6 +3,7 @@ package work.metanet.client.user.controller;
 import java.util.List;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import work.metanet.server.usercenter.service.RolesService;
 import work.metanet.utils.HttpResult;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 角色控制器
@@ -34,6 +36,7 @@ public class RolesController {
 	@DubboReference
 	private RolesService rolesService;
 	
+	@ApiOperation(value="角色保存")
 	@PreAuthorize("hasAuthority('sys:role:add') AND hasAuthority('sys:role:edit')")
 	@PostMapping(value="/save")
 	public HttpResult save(@RequestBody UcRoles record) {
@@ -51,30 +54,35 @@ public class RolesController {
 		return HttpResult.ok(rolesService.save(record));
 	}
 
+	@ApiOperation(value="角色删除")
 	@PreAuthorize("hasAuthority('sys:role:delete')")
-	@PostMapping(value="/delete")
+	@DeleteMapping(value="/delete")
 	public HttpResult delete(@RequestBody List<UcRoles> records) {
 		return HttpResult.ok(rolesService.delete(records));
 	}
 
+	@ApiOperation(value="角色按页查询")
 	@PreAuthorize("hasAuthority('sys:role:view')")
 	@PostMapping(value="/findPage")
 	public HttpResult findPage(@RequestBody MyPageRequest pageRequest) {
 		return HttpResult.ok(rolesService.findPage(pageRequest));
 	}
 	
+	@ApiOperation(value="角色查询")
 	@PreAuthorize("hasAuthority('sys:role:view')")
 	@GetMapping(value="/findAll")
 	public HttpResult findAll() {
 		return HttpResult.ok(rolesService.findAll());
 	}
 	
+	@ApiOperation(value="角色菜单查询")
 	@PreAuthorize("hasAuthority('sys:role:view')")
 	@GetMapping(value="/findRoleMenus")
 	public HttpResult findRoleMenus(@RequestParam String roleId) {
 		return HttpResult.ok(rolesService.findRoleMenus(roleId));
 	}
 	
+	@ApiOperation(value="角色菜单保存")
 	@PreAuthorize("hasAuthority('sys:role:view')")
 	@PostMapping(value="/saveRoleMenus")
 	public HttpResult saveRoleMenus(@RequestBody List<UcAcls> records) {

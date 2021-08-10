@@ -8,7 +8,7 @@
 		<artifactId>metanet</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<groupId>work.metanet</groupId>
+
 	<artifactId>baas-user</artifactId>
 	<name>user service for BaaS</name>
 	<description>user client project for Spring Boot</description>
@@ -56,7 +56,6 @@
 			<groupId>com.github.axet</groupId>
 			<artifactId>kaptcha</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>

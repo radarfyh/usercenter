@@ -51,35 +51,35 @@ public class DeptsController {
 		return HttpResult.ok(deptsService.update(id, record));
 	}
 
-	@ApiOperation(value="部门删除1")
+	@ApiOperation(value="部门删除")
 	@PreAuthorize("hasAuthority('sys:dept:delete')")
-	@PostMapping(value="/delete")
+	@DeleteMapping(value="/delete")
 	public HttpResult delete(@RequestBody List<UcDepartments> records) {
 		return HttpResult.ok(deptsService.delete(records));
 	}
 	
-	@ApiOperation(value="部门删除2")
+	@ApiOperation(value="部门按ID删除")
 	@PreAuthorize("hasAuthority('sys:dept:delete')")
 	@DeleteMapping(value="/{id}")
 	public HttpResult delete(@PathVariable String id) {
 		return HttpResult.ok(deptsService.delete(id));
 	}
 	
-	@ApiOperation(value="部门查询1")
+	@ApiOperation(value="部门按ID查询")
 	@PreAuthorize("hasAuthority('sys:dept:view')")
 	@GetMapping(value="/{id}")
 	public HttpResult findById(@PathVariable String id) {
 		return HttpResult.ok(deptsService.findById(id));
 	}
 
-	@ApiOperation(value="部门查询2")
+	@ApiOperation(value="部门树查询")
 	@PreAuthorize("hasAuthority('sys:dept:view')")
 	@GetMapping(value="/findTree")
 	public HttpResult findTree() {
 		return HttpResult.ok(deptsService.findTree());
 	}
 	
-	@ApiOperation(value="部门查询3")
+	@ApiOperation(value="部门按页查询")
 	@PreAuthorize("hasAuthority('sys:dept:view')")
 	@GetMapping(value="/{length}/{start}")
 	public HttpResult findPage(@PathVariable("length") int length, @PathVariable("start") int start) {

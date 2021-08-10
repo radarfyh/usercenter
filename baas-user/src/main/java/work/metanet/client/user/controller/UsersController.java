@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +19,8 @@ import work.metanet.server.usercenter.service.UsersService;
 import work.metanet.utils.PasswordUtils;
 
 import io.swagger.annotations.Api;
-
+import io.swagger.annotations.ApiOperation;
 import work.metanet.utils.HttpResult;
-
-
 
 /**
  * 用户控制器
@@ -33,11 +32,10 @@ import work.metanet.utils.HttpResult;
 @RestController
 @RequestMapping("user")
 public class UsersController {
-
-//	@Resource
 	@DubboReference
 	private UsersService usersService;
 	
+	@ApiOperation(value="用户保存")
 	@PreAuthorize("hasAuthority('sys:user:add') AND hasAuthority('sys:user:edit')")
 	@PostMapping(value="/save")
 	public HttpResult save(@RequestBody UcUsers record) {
@@ -68,11 +66,11 @@ public class UsersController {
 			}
 		}
 		return HttpResult.ok(usersService.save(record));
-
 	}
 
+	@ApiOperation(value="用户删除")
 	@PreAuthorize("hasAuthority('sys:user:delete')")
-	@PostMapping(value="/delete")
+	@DeleteMapping(value="/delete")
 	public HttpResult delete(@RequestBody List<UcUsers> records) {
 		for(UcUsers record:records) {
 			UcUsers user = usersService.findById(record.getId());
@@ -84,6 +82,7 @@ public class UsersController {
 
 	}
 	
+	@ApiOperation(value="用户按名称查询")
 	@PreAuthorize("hasAuthority('sys:user:view')")
 	@GetMapping(value="/findByName")
 	public HttpResult findByUserName(@RequestParam String name) {
@@ -91,6 +90,7 @@ public class UsersController {
 
 	}
 	
+	@ApiOperation(value="权限查询")
 	@PreAuthorize("hasAuthority('sys:user:view')")
 	@GetMapping(value="/findPermissions")
 	public HttpResult findPermissions(@RequestParam String name) {
@@ -98,18 +98,17 @@ public class UsersController {
 
 	}
 	
+	@ApiOperation(value="用户角色查询")
 	@PreAuthorize("hasAuthority('sys:user:view')")
 	@GetMapping(value="/findUserRoles")
 	public HttpResult findUserRoles(@RequestParam String userId) {
 		return HttpResult.ok(usersService.findUserRoles(userId));
-
-			
 	}
 
+	@ApiOperation(value="用户按页查询")
 	@PreAuthorize("hasAuthority('sys:user:view')")
 	@PostMapping(value="/findPage")
 	public HttpResult findPage(@RequestBody MyPageRequest pageRequest) {
 		return HttpResult.ok(usersService.findPage(pageRequest));
-
 	}
 }

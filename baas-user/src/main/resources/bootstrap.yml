@@ -12,12 +12,11 @@ spring:
       seata:
         tx-service-group: ${spring.application.name}-group
     nacos:
-      server-addr: 192.168.17.125:8848
+      server-addr: localhost:8848
       discovery:
-#        server-addr: 192.168.17.125:8848
-        namespace: a2965a4f-13b2-4b57-8251-fad4411006bd
+        namespace: f7c685e5-24eb-4be5-af83-6366b9595bd4
         group: DEFAULT_GROUP
-        server-addr: 192.168.17.125:8848
+#        server-addr: localhost:8848
       config:
         # nacos 配置中心服务地址 nginx 代理的地址
         # 默认  ${spring.cloud.nacos.server-addr}
@@ -26,11 +25,11 @@ spring:
         prefix: ${spring.application.name}
         # dataID  ${prefix}-${spring.profiles.active}.${file-extension}
         # 命名空间 默认 public
-        namespace: a2965a4f-13b2-4b57-8251-fad4411006bd
+        namespace: f7c685e5-24eb-4be5-af83-6366b9595bd4
         # 配置组  默认 DEFAULT_GROUP
         group: DEFAULT_GROUP
         # 共享配置(公共配置)
-        server-addr: 192.168.17.125:8848
+#        server-addr: localhost:8848
 #        shared-configs:
 #          - data-id: ${spring.application.name}-shared.yml
 #            group: DEFAULT_GROUP  # 配置组  默认 DEFAULT_GROUP

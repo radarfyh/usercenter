@@ -12,6 +12,7 @@ import work.metanet.base.page.MyPageRequest;
 import work.metanet.utils.HttpResult;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * log日志控制器
@@ -27,6 +28,7 @@ public class LogsController {
 	@DubboReference
 	private LogsService logsService;
 
+	@ApiOperation(value="日志按页查询")
 	@PreAuthorize("hasAuthority('sys:log:view')")
 	@PostMapping(value="/findPage")
 	public HttpResult findPage(@RequestBody MyPageRequest pageRequest) {

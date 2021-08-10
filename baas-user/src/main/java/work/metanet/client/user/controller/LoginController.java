@@ -25,7 +25,7 @@ import work.metanet.server.usercenter.service.UsersService;
 import work.metanet.utils.PasswordUtils;
 
 import io.swagger.annotations.Api;
-
+import io.swagger.annotations.ApiOperation;
 import work.metanet.api.user.protocol.LoginBean;
 import work.metanet.server.usercenter.domain.UcUsers;
 import work.metanet.utils.IOUtils;
@@ -48,6 +48,7 @@ public class LoginController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	@ApiOperation(value="获取验证码图片")
 	@GetMapping("captcha.jpg")
 	public void captcha(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
@@ -68,6 +69,7 @@ public class LoginController {
 	/**
 	 * 登录接口
 	 */
+	@ApiOperation(value="登录")
 	@PostMapping(value = "/login")
 	public HttpResult login(@RequestBody LoginBean loginBean, HttpServletRequest request) throws IOException {
 		String username = loginBean.getAccount();

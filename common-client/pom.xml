@@ -10,8 +10,8 @@
 	<artifactId>common-client</artifactId>
 	<name>common baas for libraries</name>
 	<description>common baas library</description>
+	
 	<dependencies>
-
 		<dependency>
 			<groupId>work.metanet</groupId>
 			<artifactId>common</artifactId>

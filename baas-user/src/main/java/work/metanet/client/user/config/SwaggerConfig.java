@@ -87,7 +87,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
         		.title(appName.toUpperCase() + " RESTful APIs")
-                .description("全局header【 timestamp | nonce | Authorization | sign 】")
+                .description("Metanet网API，header包含4个字段：timestamp | nonce | Authorization | sign")
                 //服务条款
                 .termsOfServiceUrl("/api")
                 .contact(new Contact("edison","","radarfyh@hotmail.com"))
