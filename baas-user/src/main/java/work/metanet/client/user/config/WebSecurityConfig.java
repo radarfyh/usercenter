@@ -39,16 +39,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 禁用 csrf, 由于使用的是JWT，我们这里不需要csrf
-        http.cors().and().csrf().disable()
-    		.authorizeRequests()
+        http.authorizeRequests()
     		// 跨域预检请求
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            // 首页
+            .antMatchers("/**").permitAll()
             // web jars
             .antMatchers("/webjars/**").permitAll()
             // 查看SQL监控（druid）
             .antMatchers("/druid/**").permitAll()
-            // 首页和登录页面
-            .antMatchers("/").permitAll()
+            // 部门
+            .antMatchers("/departments/**").permitAll()
+            // 登录页面
             .antMatchers("/login").permitAll()
             // swagger
             .antMatchers("/swagger-ui.html").permitAll()
@@ -61,7 +63,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // 服务监控
             .antMatchers("/actuator/**").permitAll()
             // 其他所有请求需要身份认证
-            .anyRequest().authenticated();
+            .anyRequest().authenticated()
+            .and().csrf().disable()
+            ;
         // 退出登录处理器
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
         // token验证过滤器

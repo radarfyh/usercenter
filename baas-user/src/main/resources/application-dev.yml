@@ -29,7 +29,10 @@ dubbo:
   registry:
     id: ${spring.application.name}-registry
     address: nacos://localhost:8848
-
+logging: 
+  level:
+    root: info
+    '[org.springframework.web.servlet]': info
 #腾讯配置
 tencent:
   cloud:
@@ -41,7 +44,7 @@ tencent:
     sms:
       appid: 1400384061
       region: ap-guangzhou
-      
+
 spring: 
   #thymeleaf配置
   servlet:
