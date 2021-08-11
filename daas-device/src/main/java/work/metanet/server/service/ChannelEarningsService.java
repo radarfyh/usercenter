@@ -20,7 +20,7 @@ import work.metanet.api.channelEarnings.protocol.ReqImportChannelEarnings;
 import work.metanet.api.user.IUserService;
 import work.metanet.api.user.protocol.ReqUserInfo.RespUserInfo;
 import work.metanet.base.RespPaging;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.App;
 import work.metanet.model.AppEarningsSetting;
 import work.metanet.model.ChannelEarnings;
@@ -69,19 +69,19 @@ public class ChannelEarningsService implements IChannelEarningsService{
 	@Transactional
 	public void importChannelEarnings(ReqImportChannelEarnings req) throws Exception {
 		ThirdBusiness thirdBusiness = thirdBusinessMapper.getThirdBusinessByCode(req.getThirdBusinessCode());
-		if(BeanUtil.isEmpty(thirdBusiness)) throw LxException.of().setMsg("第三方内容商不存在");
+		if(BeanUtil.isEmpty(thirdBusiness)) throw MetanetException.of().setMsg("第三方内容商不存在");
 		
 		ChannelEarningsDetail channelEarningsDetail = channelEarningsDetailMapper.getChannelEarningsDetailOnly(req.getUserId(), req.getOrderNumber());
-		if(BeanUtil.isNotEmpty(channelEarningsDetail)) throw LxException.of().setMsg("收益明细记录已存在");
+		if(BeanUtil.isNotEmpty(channelEarningsDetail)) throw MetanetException.of().setMsg("收益明细记录已存在");
 		
 		RespUserInfo userInfo = userService.userInfo(req.getUserId());
-		if(BeanUtil.isEmpty(userInfo)) throw LxException.of().setMsg("用户不存在");
+		if(BeanUtil.isEmpty(userInfo)) throw MetanetException.of().setMsg("用户不存在");
 		
 		App app = appMapper.selectByPrimaryKey(userInfo.getAppId());
-		if(BeanUtil.isEmpty(app)) throw LxException.of().setMsg("产品不存在");
+		if(BeanUtil.isEmpty(app)) throw MetanetException.of().setMsg("产品不存在");
 		
 		AppEarningsSetting appEarningsSetting = appEarningsSettingMapper.getAppEarningsSetting(app.getAppId(), thirdBusiness.getThirdBusinessId());
-		if(BeanUtil.isEmpty(appEarningsSetting)) throw LxException.of().setMsg("产品【"+app.getAppName()+"】收益信息未设置");
+		if(BeanUtil.isEmpty(appEarningsSetting)) throw MetanetException.of().setMsg("产品【"+app.getAppName()+"】收益信息未设置");
 		
 		ChannelEarnings channelEarnings = channelEarningsMapper.getChannelEarnings(req.getMonth(), app.getChannelId());
 		

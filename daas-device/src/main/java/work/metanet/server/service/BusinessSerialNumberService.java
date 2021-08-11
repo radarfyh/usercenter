@@ -32,7 +32,7 @@ import work.metanet.constant.ConstBusinessSnCallType;
 import work.metanet.constant.ConstBusinessSnCodeUseStatus;
 import work.metanet.constant.ConstCacheKey;
 import work.metanet.constant.Constant;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.App;
 import work.metanet.model.AppVersion;
 import work.metanet.model.Business;
@@ -96,7 +96,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 	public void importBusinessSerialNumber(ReqImportBusinessSerialNumber req) throws Exception {
 		Business business = businessMapper.getBusiness(BeanUtil.beanToMap(req));
 		if(business==null)
-			throw LxException.of().setMsg("内容商不存在");
+			throw MetanetException.of().setMsg("内容商不存在");
 		
 		BusinessSerialNumber businessSerialNumber = businessSerialNumberMapper.getBusinessSerialNumber(BeanUtil.beanToMap(req));
 		
@@ -111,7 +111,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 			businessSerialNumberMapper.insertSelective(businessSerialNumber);			
 		}else {
 			if(businessSerialNumber.getUseNumber()>=req.getMaxUseNumber()) 
-				throw LxException.of().setMsg("激活码已达到最大使用次数");
+				throw MetanetException.of().setMsg("激活码已达到最大使用次数");
 			businessSerialNumber.setUseStatus(ConstBusinessSnCodeUseStatus.NO_USE.name());
 			businessSerialNumberMapper.updateByPrimaryKeySelective(businessSerialNumber);
 		}
@@ -174,7 +174,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 		List<RespGetBusinessSn> businessSns = new ArrayList<ReqGetBusinessSn.RespGetBusinessSn>();
 		for (ReqGetBusinessSn reqGetBusinessSn : req) {
 			Business business = businessMapper.getBusiness(BeanUtil.beanToMap(reqGetBusinessSn));
-			if(business==null) throw LxException.of().setMsg("内容商错误");
+			if(business==null) throw MetanetException.of().setMsg("内容商错误");
 			
 			RespGetBusinessSn respGetBusinessSn  = new RespGetBusinessSn();
 			BeanUtil.copyProperties(reqGetBusinessSn, respGetBusinessSn);
@@ -219,7 +219,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 					App app = appMapper.getApp(MapUtil.builder("packageName", packageName).build());
 					smsUtil.sendSmsWarning(constant.getAdminPhone(), app.getAppName(), DateUtil.formatChineseDate(new Date(), false), "内容商激活码不足");
 				}
-				throw LxException.of().setMsg("内容商激活码不足");
+				throw MetanetException.of().setMsg("内容商激活码不足");
 			}
 			
 			businessSns.add(respGetBusinessSn);
@@ -242,17 +242,17 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 		}
 		AppVersion appVersion = appVersionMapper.getAppVersion(MapUtil.builder(new HashMap<String, Object>()).put("packageName", packageName).put("versionCode", versionCode).build());
 		if(appVersion==null)
-			throw LxException.of().setMsg("版本信息错误");
+			throw MetanetException.of().setMsg("版本信息错误");
 		
 		DeviceApp deviceApp = deviceAppMapper.getDeviceApp(MapUtil.builder().put("deviceId", deviceId).put("appId", appVersion.getAppId()).build());
 		if(deviceApp==null)
-			throw LxException.of().setMsg("设备产品信息错误");
+			throw MetanetException.of().setMsg("设备产品信息错误");
 		
 		BusinessSerialNumber businessSerialNumber = businessSerialNumberMapper.getBusinessSerialNumber(BeanUtil.beanToMap(req));
 		if(businessSerialNumber==null)
-			throw LxException.of().setMsg("内容商激活码错误");
+			throw MetanetException.of().setMsg("内容商激活码错误");
 		if(businessSerialNumber.getUseNumber()>=businessSerialNumber.getMaxUseNumber()) 
-			throw LxException.of().setMsg("内容商激活码已达到最大使用次数");
+			throw MetanetException.of().setMsg("内容商激活码已达到最大使用次数");
 		//未使用则不记录使用记录-恢复缓存激活码
 		if(ConstBusinessSnCodeUseStatus.NO_USE.name().equals(req.getUseStatus())) {
 			List<ReqRestoreSn> reqRestoreSns = CollUtil.newArrayList(new ReqRestoreSn().setBusinessSerialNumberId(businessSerialNumber.getBusinessSerialNumberId()));

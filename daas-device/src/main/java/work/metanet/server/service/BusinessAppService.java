@@ -23,9 +23,10 @@ import work.metanet.api.businessApp.protocol.ReqSaveBusinessApp;
 import work.metanet.api.businessApp.protocol.ReqUpgradeThirdApp;
 import work.metanet.api.businessApp.vo.BusinessAppVo;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+
 import work.metanet.constant.ConstCacheKey;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.Business;
 import work.metanet.model.BusinessApp;
 import work.metanet.server.dao.BusinessAppMapper;
@@ -134,16 +135,16 @@ public class BusinessAppService implements IBusinessAppService{
 		if(StringUtils.isNotBlank(businessApp.getBusinessAppId())) {
 			//修改操作
 			if(dbBusinessApp!=null && !dbBusinessApp.getBusinessAppId().equals(businessApp.getBusinessAppId())) 
-				throw LxException.of().setMsg("内容商产品已存在");
+				throw MetanetException.of().setMsg("内容商产品已存在");
 			if(BeanUtil.isEmpty(dbBusinessApp) || dbBusinessApp.getBusinessAppId().equals(businessApp.getBusinessAppId())) {
 				businessAppMapper.updateByPrimaryKeySelective(businessApp);				
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());				
 			}
 		}else {
 			//新增操作
 			if(dbBusinessApp!=null)
-				throw LxException.of().setMsg("内容商产品已存在");
+				throw MetanetException.of().setMsg("内容商产品已存在");
 			businessApp.setBusinessAppId(IdUtil.fastSimpleUUID());
 			businessAppMapper.insertSelective(businessApp);
 		}

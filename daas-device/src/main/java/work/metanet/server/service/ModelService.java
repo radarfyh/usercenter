@@ -20,9 +20,9 @@ import work.metanet.api.model.protocol.ReqRemoveModel;
 import work.metanet.api.model.protocol.ReqSaveModel;
 import work.metanet.api.model.protocol.ReqSaveModel.RespSaveModel;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.constant.ConstSource;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.Model;
 import work.metanet.server.dao.ModelMapper;
 import work.metanet.server.dao.SequenceMapper;
@@ -86,16 +86,16 @@ public class ModelService implements IModelService{
 		if(StringUtils.isNotBlank(model.getModelId())) {
 			//修改操作
 			if(!BeanUtil.isEmpty(dbModel) && !dbModel.getBrandId().equals(model.getBrandId()))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			if(BeanUtil.isEmpty(dbModel) || dbModel.getBrandId().equals(model.getBrandId())) {
 				modelMapper.updateByPrimaryKeySelective(model);				
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());				
 			}
 		}else {
 			//新增操作
 			if(!BeanUtil.isEmpty(dbModel))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			model.setModelId(sequenceMapper.generateModelId());
 			modelMapper.insertSelective(model);
 		}

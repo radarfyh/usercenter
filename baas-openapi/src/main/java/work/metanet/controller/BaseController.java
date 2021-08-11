@@ -3,8 +3,8 @@ package work.metanet.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import work.metanet.api.openDevice.vo.OpenDeviceToken;
-import work.metanet.base.ResultMessage;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetExceptionAssert;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.utils.HttpServletRequestUtil;
 import work.metanet.utils.token.TokenUtil;
 
@@ -28,7 +28,8 @@ public class BaseController {
     	}else {
     		appId = getOpenDeviceToken().getAppId();
     	}
-		if(StrUtil.isBlank(appId)) throw LxException.of().setResult(ResultMessage.FAILURE_REQUEST_PARAM.result().setMsg("appId is not empty"));
+//		if(StrUtil.isBlank(appId)) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_REQUEST_PARAM.result().setMsg("appId is not empty"));
+		MetanetExceptionAssert.assertTrue(StrUtil.isBlank(appId), ResultResponseEnum.INVALID_REQUEST.getResponseCode(), "%s", "appId is not empty");
 		return appId;
 	}
 	

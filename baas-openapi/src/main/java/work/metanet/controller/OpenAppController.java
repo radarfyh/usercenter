@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import work.metanet.api.openAppBusiness.IOpenAppBusinessService;
 import work.metanet.api.openAppBusiness.protocol.ReqOpenAppBusinessKey;
 import work.metanet.api.openAppBusiness.protocol.ReqOpenAppBusinessKey.RespOpenAppBusinessKey;
-import work.metanet.base.Result;
-import work.metanet.base.ResultMessage;
-
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,8 +26,8 @@ public class OpenAppController extends BaseController{
 	
 	@ApiOperation(value="获取业务KEY")
 	@PostMapping("getBusinessKey")
-	public Result<RespOpenAppBusinessKey> getOpenAppBusinessKey(@Valid @RequestBody ReqOpenAppBusinessKey req) throws Exception {
-		return ResultMessage.SUCCESS.result(openAppThirdService.getOpenAppBusinessKey(getAppId(),req.getBusinessCode()));
+	public ResultResponse<RespOpenAppBusinessKey> getOpenAppBusinessKey(@Valid @RequestBody ReqOpenAppBusinessKey req) throws Exception {
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(openAppThirdService.getOpenAppBusinessKey(getAppId(),req.getBusinessCode()));
 	}
 	
 }

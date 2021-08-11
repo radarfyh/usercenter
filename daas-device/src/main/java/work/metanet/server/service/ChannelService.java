@@ -29,10 +29,11 @@ import work.metanet.api.permission.IPermissionService;
 import work.metanet.api.permission.vo.MenuVo;
 import work.metanet.api.role.IRoleService;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+
 import work.metanet.constant.ConstCacheKey;
 import work.metanet.constant.Constant;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.Channel;
 import work.metanet.server.dao.ChannelMapper;
 import work.metanet.server.dao.SequenceMapper;
@@ -95,7 +96,7 @@ public class ChannelService implements IChannelService{
 		map.put("password", req.getPassword());
 		Channel channel = channelMapper.getChannel(map);
 		if(channel==null)
-			throw LxException.of().setMsg("用户名或密码错误");
+			throw MetanetException.of().setMsg("用户名或密码错误");
 		
 		//菜单权限
 		List<MenuVo> menuList = permissionService.adminMenuList(channel.getChannelId());
@@ -117,7 +118,7 @@ public class ChannelService implements IChannelService{
 	public void updChannelPassword(String channelId, ReqUpdChannelPassword req) throws Exception {
 		Channel channel = channelMapper.selectByPrimaryKey(channelId);
 		if(!channel.getPassword().equals(SecureUtil.md5(req.getOldPassword())))
-			throw LxException.of().setMsg("原密码错误");
+			throw MetanetException.of().setMsg("原密码错误");
 		channel.setPassword(SecureUtil.md5(req.getNewPassword()));
 		channelMapper.updateByPrimaryKeySelective(channel);
 	}
@@ -170,17 +171,17 @@ public class ChannelService implements IChannelService{
 		if(StringUtils.isNotBlank(channel.getChannelId())) {
 			//修改操作
 			if(!BeanUtil.isEmpty(dbChannel) && !dbChannel.getChannelId().equals(channel.getChannelId())) 
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			if(BeanUtil.isEmpty(dbChannel) || dbChannel.getChannelId().equals(channel.getChannelId())) {
 				channel.setPassword(null);
 				channelMapper.updateByPrimaryKeySelective(channel);
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());			
+				throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());			
 			}
 		}else {
 			//新增操作
 			if(!BeanUtil.isEmpty(dbChannel))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			channel.setChannelId(sequenceMapper.generateChannelId());
 			channel.setPassword(constant.getDefault_password());
 			channelMapper.insertSelective(channel);

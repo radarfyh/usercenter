@@ -29,12 +29,13 @@ import work.metanet.api.app.vo.AppVo;
 import work.metanet.api.upgradePlan.protocol.ReqUpgrade;
 import work.metanet.api.upgradePlan.protocol.ReqUpgrade.RespUpgrade;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+
 import work.metanet.constant.ConstAppType;
 import work.metanet.constant.ConstCacheKey;
 import work.metanet.constant.ConstDeviceAuthType;
 import work.metanet.constant.ConstUrlType;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetExceptionAssert;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.App;
 import work.metanet.model.AppEarningsSetting;
 import work.metanet.server.dao.AppEarningsSettingMapper;
@@ -80,7 +81,12 @@ public class AppService implements IAppService{
 	@Override
 	public AppVo getAppByPackageName(String packageName) throws Exception{
 		App app = appMapper.getApp(MapUtil.builder("packageName", packageName).build());
-		if(app==null)throw LxException.of().setMsg("产品信息错误");
+
+		MetanetExceptionAssert.assertTrue(app==null
+				, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+				, "%s"
+				, "产品信息错误");
+		
 		AppVo appVo = new AppVo();
 		BeanUtil.copyProperties(app, appVo);
 		return appVo;
@@ -89,7 +95,11 @@ public class AppService implements IAppService{
 	@Override
 	public AppVo getAppByAppId(String appId) throws Exception {
 		App app = appMapper.selectOne(new App().setAppId(appId).setStatus(true));
-		if(app==null)throw LxException.of().setMsg("产品信息错误");
+		MetanetExceptionAssert.assertTrue(app==null
+				, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+				, "%s"
+				, "产品信息错误");
+		
 		AppVo appVo = new AppVo();
 		BeanUtil.copyProperties(app, appVo);
 		return appVo;
@@ -144,19 +154,26 @@ public class AppService implements IAppService{
 		
 		if(StringUtils.isNotBlank(app.getAppId())) {
 			//修改操作
-			if(!BeanUtil.isEmpty(dbApp) && !dbApp.getAppId().equals(app.getAppId()))
-				throw LxException.of().setMsg("包名已存在");
-			if(BeanUtil.isEmpty(dbApp) || dbApp.getAppId().equals(app.getAppId())) {
-				app.setAppKey(null);//不要更新
-				app.setAppSecret(null);//不要更新
-				appMapper.updateByPrimaryKeySelective(app);
-			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
-			}
+
+			MetanetExceptionAssert.assertTrue(!BeanUtil.isEmpty(dbApp) && !dbApp.getAppId().equals(app.getAppId())
+					, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+					, "%s"
+					, "包名已存在");
+			MetanetExceptionAssert.assertFalse(BeanUtil.isEmpty(dbApp) || dbApp.getAppId().equals(app.getAppId())
+					, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+					, "%s"
+					, "重复，不需要更新");	
+			
+			app.setAppKey(null);//不要更新
+			app.setAppSecret(null);//不要更新
+			appMapper.updateByPrimaryKeySelective(app);
+
 		}else {
 			//新增操作
-			if(!BeanUtil.isEmpty(dbApp))
-				throw LxException.of().setMsg("包名已存在");
+			MetanetExceptionAssert.assertTrue(!BeanUtil.isEmpty(dbApp)
+					, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+					, "%s"
+					, "包名已存在");
 			app.setAppId(IdUtil.fastSimpleUUID());
 			app.setAppKey(LxKeyUtil.appKey());
 			app.setAppSecret(LxKeyUtil.appSecret());
@@ -216,8 +233,11 @@ public class AppService implements IAppService{
 	@Override
 	public RespUpgrade upgrade(ReqUpgrade requestParam, String versionCode, String packageName) throws Exception {
 		RespUpgrade resp = appMapper.upgrade(requestParam.getDeviceId(),null,null,versionCode, packageName);
-		if(BeanUtil.isEmpty(resp))
-			throw LxException.of().setMsg("暂无升级");
+
+		MetanetExceptionAssert.assertTrue(BeanUtil.isEmpty(resp)
+				, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+				, "%s"
+				, "暂无升级");	
 		
 		if(resp.getUrlType().equals(ConstUrlType._0.getVal())) 
 			resp.setUrl(cosUtil.getAccessUrl(resp.getUrl()));
@@ -241,7 +261,11 @@ public class AppService implements IAppService{
 			resp = appMapper.upgrade(null,requestParam.getBrandName(),requestParam.getModelName(), versionCode, packageName);
 			stringRedisTemplate.opsForValue().set(ConstCacheKey.UPGRADE.cacheKey(packageName,versionCode,requestParam.getBrandName(),requestParam.getModelName()), BeanUtil.isEmpty(resp)?"{}":JSONUtil.toJsonStr(resp),Duration.ofSeconds(ConstCacheKey.UPGRADE.getExpire()));
 		}
-		if(resp==null || StrUtil.isBlank(resp.getUpgradePlanId())) throw LxException.of().setResult(ResultMessage.FAILURE_TIP_NOT_UPGRADE.result());
+		
+		MetanetExceptionAssert.assertTrue(resp==null || StrUtil.isBlank(resp.getUpgradePlanId())
+				, ResultResponseEnum.FAILURE_TIP_NOT_UPGRADE.getResponseCode()
+				, "%s"
+				, ResultResponseEnum.FAILURE_TIP_NOT_UPGRADE.getMessage());	
 		
 		if(resp.getUrlType().equals(ConstUrlType._0.getVal())) 
 			resp.setUrl(cosUtil.getAccessUrl(resp.getUrl()));
@@ -257,12 +281,14 @@ public class AppService implements IAppService{
 	@Override
 	public void enableSn(ReqEnableSn req) throws Exception {
 		App app = appMapper.selectByPrimaryKey(req.getAppId());
-		if(app!=null) {
-			app.setEnableSn(req.getEnableSn());
-			appMapper.updateByPrimaryKeySelective(app);
-		}else {
-			throw LxException.of().setMsg("操作失败");			
-		}
+		
+		MetanetExceptionAssert.assertFalse(app!=null
+				, ResultResponseEnum.FAILURE_ACTIVATE.getResponseCode()
+				, "%s"
+				, "使用激活码激活失败");	
+
+		app.setEnableSn(req.getEnableSn());
+		appMapper.updateByPrimaryKeySelective(app);
 	}
 	
 	@Override

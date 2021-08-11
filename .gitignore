@@ -1,0 +1,16 @@
+**/target/**
+/baas-openapi/target/classes/META-INF/MANIFEST.MF
+/baas-openapi/target/classes/META-INF/maven/work.metanet/baas-openapi/pom.properties
+/api/target/classes/META-INF/MANIFEST.MF
+/api/target/classes/META-INF/maven/work.metanet/api/pom.properties
+/common-client/target/classes/META-INF/MANIFEST.MF
+/common-client/target/classes/META-INF/maven/work.metanet/common-client/pom.properties
+/common-client/target/classes/META-INF/maven/work.metanet/common-client/pom.xml
+/common-server/target/classes/META-INF/MANIFEST.MF
+/common-server/target/classes/META-INF/maven/work.metanet/common-server/pom.properties
+/common-user/target/classes/META-INF/MANIFEST.MF
+/common-user/target/classes/META-INF/maven/work.metanet/common-user/pom.properties
+/common/target/classes/META-INF/MANIFEST.MF
+/common/target/classes/META-INF/maven/work.metanet/common/pom.properties
+/daas-device/target/classes/META-INF/MANIFEST.MF
+/daas-device/target/classes/META-INF/maven/work.metanet/daas-device/pom.properties

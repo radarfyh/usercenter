@@ -18,7 +18,7 @@ import work.metanet.api.sn.protocol.ReqSerialNumberInfo.RespSerialNumberInfo;
 import work.metanet.api.sn.protocol.ReqSerialNumberList;
 import work.metanet.api.sn.protocol.ReqSerialNumberList.RespSerialNumberList;
 import work.metanet.base.RespPaging;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.App;
 import work.metanet.model.SerialNumber;
 import work.metanet.server.dao.AppMapper;
@@ -73,16 +73,16 @@ public class SerialNumberService implements ISerialNumberService{
 		
 		if(StringUtils.isNotBlank(serialNumber.getSnCode())) {
 			SerialNumber snDB = serialNumberMapper.selectByPrimaryKey(serialNumber);
-			if(snDB.getUseStatus() && !snDB.getAppId().equals(req.getAppId())) throw LxException.of().setMsg("使用过的激活码不能更换到其他产品上哦");
-			if(req.getMaxUseNumber()<snDB.getUseNumber()) throw LxException.of().setMsg("最大使用次数不能低于已使用次数");
+			if(snDB.getUseStatus() && !snDB.getAppId().equals(req.getAppId())) throw MetanetException.of().setMsg("使用过的激活码不能更换到其他产品上哦");
+			if(req.getMaxUseNumber()<snDB.getUseNumber()) throw MetanetException.of().setMsg("最大使用次数不能低于已使用次数");
 			//修改操作
 			serialNumberMapper.updateByPrimaryKeySelective(serialNumber);
 		}else {
 			App app = appMapper.selectByPrimaryKey(req.getAppId());
 			if(!app.getEnableSn()) {
 				int appSnNumber = serialNumberMapper.appSnNumber(req.getAppId());
-				if(appSnNumber>0) throw LxException.of().setMsg("此产品为禁用激活码激活,已经存在一个可用的激活码,不能再添加哦");
-				if(appSnNumber==0 && req.getSnCodeNum()>1) throw LxException.of().setMsg("此产品为禁用激活码激活,只允许添加1个可用的激活码哦");
+				if(appSnNumber>0) throw MetanetException.of().setMsg("此产品为禁用激活码激活,已经存在一个可用的激活码,不能再添加哦");
+				if(appSnNumber==0 && req.getSnCodeNum()>1) throw MetanetException.of().setMsg("此产品为禁用激活码激活,只允许添加1个可用的激活码哦");
 			}
 			//新增操作  《这里需要做对比,否则15位SN码日后可能出现重复》 必要时可使用@Async异步处理
 			List<SerialNumber> serialNumbers = new ArrayList<SerialNumber>();
@@ -107,7 +107,7 @@ public class SerialNumberService implements ISerialNumberService{
 		if(req.size()==1) {
 			SerialNumber serialNumber = serialNumberMapper.getSerialNumber(req.get(0).getSnCode());
 			if(serialNumber.getUseStatus())
-				throw LxException.of().setMsg("SN码已经被使用，不能删除！");
+				throw MetanetException.of().setMsg("SN码已经被使用，不能删除！");
 		}
 		serialNumberMapper.removeSerialNumber(req);
 	}

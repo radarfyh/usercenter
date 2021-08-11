@@ -23,10 +23,11 @@ import work.metanet.api.version.protocol.ReqSaveAppVersion;
 import work.metanet.api.version.protocol.ReqSaveAppVersion.RespSaveAppVersion;
 import work.metanet.api.version.vo.AppVersionVo;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+
 import work.metanet.constant.ConstUrlType;
 import work.metanet.constant.ConstVersionType;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.App;
 import work.metanet.model.AppVersion;
 import work.metanet.server.dao.AppMapper;
@@ -55,7 +56,7 @@ public class AppVersionService implements IAppVersionService{
 		map.put("versionCode", versionCode);
 		AppVersion appVersion = appVersionMapper.getAppVersion(map);
 		if(BeanUtil.isEmpty(appVersion))
-			throw LxException.of().setMsg("版本信息错误");
+			throw MetanetException.of().setMsg("版本信息错误");
 		AppVersionVo appVersionVo = new AppVersionVo();
 		BeanUtil.copyProperties(appVersion, appVersionVo);
 		return appVersionVo;
@@ -121,15 +122,15 @@ public class AppVersionService implements IAppVersionService{
 		if(StringUtils.isNotBlank(appVersion.getVersionId())) {
 			//修改操作
 			if(!BeanUtil.isEmpty(dbAppVersion) && !dbAppVersion.getVersionId().equals(appVersion.getVersionId()))
-				throw LxException.of().setMsg("版本号已存在");
+				throw MetanetException.of().setMsg("版本号已存在");
 			if(BeanUtil.isEmpty(dbAppVersion) || dbAppVersion.getVersionId().equals(appVersion.getVersionId())) {
 				appVersionMapper.updateByPrimaryKeySelective(appVersion);
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.INVALID_REQUEST.resultResponse());				
 			}
 		}else {
 			//新增操作
-			if(!BeanUtil.isEmpty(dbAppVersion)) throw LxException.of().setMsg("版本号已存在");
+			if(!BeanUtil.isEmpty(dbAppVersion)) throw MetanetException.of().setMsg("版本号已存在");
 			
 			appVersion.setVersionId(IdUtil.fastSimpleUUID());
 			appVersionMapper.insertSelective(appVersion);

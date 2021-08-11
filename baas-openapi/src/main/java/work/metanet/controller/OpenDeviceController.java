@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import work.metanet.api.openDevice.IOpenDeviceService;
 import work.metanet.api.openDevice.protocol.ReqOpenDeviceAuth;
 import work.metanet.api.openDevice.protocol.ReqOpenDeviceAuth.RespOpenDeviceAuth;
-import work.metanet.base.Result;
-import work.metanet.base.ResultMessage;
-
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,8 +26,8 @@ public class OpenDeviceController extends BaseController{
 	
 	@ApiOperation(value="认证")
 	@PostMapping("auth")
-	public Result<RespOpenDeviceAuth> auth(@Valid @RequestBody ReqOpenDeviceAuth req) throws Exception {
-		return ResultMessage.SUCCESS.result(openDeviceService.auth(req));
+	public ResultResponse<RespOpenDeviceAuth> auth(@Valid @RequestBody ReqOpenDeviceAuth req) throws Exception {
+		return ResultResponseEnum.AUTH_SUCCESS.resultResponse(openDeviceService.auth(req));
 	}
 	
 }

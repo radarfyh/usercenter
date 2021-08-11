@@ -10,10 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import work.metanet.api.openDevice.IOpenDeviceService;
 import work.metanet.api.openDevice.vo.OpenDeviceToken;
-import work.metanet.base.ResultMessage;
-import work.metanet.controller.BaseController;
-import work.metanet.exception.LxException;
 
+import work.metanet.controller.BaseController;
+
+import work.metanet.exception.MetanetExceptionAssert;
+import work.metanet.exception.ResultResponseEnum;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,9 +31,11 @@ public class DeviceAuthInterceptor extends BaseController implements HandlerInte
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	if(!(handler instanceof HandlerMethod)) return true;
     	String token = request.getHeader("Authorization");
-        if(StrUtil.isBlank(token)) {
-        	throw LxException.of().setResult(ResultMessage.FAILURE_REQUEST_PARAM.result().setMsg("token不能为空"));
-        }
+
+        MetanetExceptionAssert.assertTrue(StrUtil.isBlank(token)
+        		, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+        		, "%s", "token不能为空");
+        
         OpenDeviceToken openDeviceToken = getOpenDeviceToken();
         String newToken = openDeviceService.checkToken(token, openDeviceToken);
         if(StrUtil.isNotBlank(newToken)) {

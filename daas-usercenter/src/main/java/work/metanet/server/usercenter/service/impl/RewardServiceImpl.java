@@ -15,7 +15,7 @@ import work.metanet.api.eduTimetable.IEduTimetableService;
 import work.metanet.api.fmreward.protocol.ReqAddReward;
 import work.metanet.base.page.MyPageRequest;
 import work.metanet.base.page.MyPageResult;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.server.usercenter.domain.UcRewards;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -35,8 +35,8 @@ public class RewardServiceImpl implements RewardService {
 	 */
 	@Override
 	public void addReward(ReqAddReward req) throws Exception {
-		if(rewardRepository.existsReward(req)) throw LxException.of().setMsg("请勿重复奖励");
-		if(!eduTimetableService.existsThisWeekResource(req.getUserId(), req.getResourceId())) throw LxException.of().setMsg("此资源不在本周资源奖励范围内");
+		if(rewardRepository.existsReward(req)) throw MetanetException.of().setMsg("请勿重复奖励");
+		if(!eduTimetableService.existsThisWeekResource(req.getUserId(), req.getResourceId())) throw MetanetException.of().setMsg("此资源不在本周资源奖励范围内");
 		UcRewards reward = new UcRewards();
 		BeanUtil.copyProperties(req, reward);
 		rewardRepository.save(reward);

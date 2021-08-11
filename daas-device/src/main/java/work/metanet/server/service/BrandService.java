@@ -20,9 +20,10 @@ import work.metanet.api.brand.protocol.ReqRemoveBrand;
 import work.metanet.api.brand.protocol.ReqSaveBrand;
 import work.metanet.api.brand.protocol.ReqSaveBrand.RespSaveBrand;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+
 import work.metanet.constant.ConstSource;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.Brand;
 import work.metanet.server.dao.BrandMapper;
 import work.metanet.server.dao.SequenceMapper;
@@ -85,16 +86,16 @@ public class BrandService implements IBrandService{
 		if(StringUtils.isNotBlank(brand.getBrandId())) {
 			//修改操作
 			if(!BeanUtil.isEmpty(dbBrand) && !dbBrand.getBrandId().equals(brand.getBrandId()))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			if(BeanUtil.isEmpty(dbBrand) || dbBrand.getBrandId().equals(brand.getBrandId())) {
 				brandMapper.updateByPrimaryKeySelective(brand);
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());				
 			}
 		}else {
 			//新增操作
 			if(!BeanUtil.isEmpty(dbBrand))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			brand.setBrandId(sequenceMapper.generateBrandId());
 			brandMapper.insertSelective(brand);
 		}

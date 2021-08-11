@@ -23,9 +23,9 @@ import work.metanet.api.upgradePlan.protocol.ReqUpgradePlanList;
 import work.metanet.api.upgradePlan.protocol.ReqUpgradePlanList.RespUpgradePlanList;
 import work.metanet.api.upgradePlan.protocol.ReqUpgradePlanScopeInfo.RespUpgradePlanScopeInfo;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.constant.ConstUpgradeScore;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.App;
 import work.metanet.model.UpgradePlan;
 import work.metanet.model.UpgradePlanScope;
@@ -93,7 +93,7 @@ public class UpgradePlanService implements IUpgradePlanService{
 	public void saveUpgradePlan(ReqSaveUpgradePlan req) throws Exception {
 		
 		if(ConstUpgradeScore.SPECIFIED.getVal().equals(req.getDeviceScope()) && CollectionUtil.isEmpty(req.getUpgradePlanScopeInfoList())) 
-			throw LxException.of().setMsg("指定范围不能为空，请选择！");
+			throw MetanetException.of().setMsg("指定范围不能为空，请选择！");
 		
 		UpgradePlan upgradePlan = new UpgradePlan();
 		BeanUtil.copyProperties(req, upgradePlan);
@@ -105,16 +105,16 @@ public class UpgradePlanService implements IUpgradePlanService{
 		if(StringUtils.isNotBlank(upgradePlan.getUpgradePlanId())) {
 			//修改操作
 			if(!BeanUtil.isEmpty(dbUpgradePlan) && !dbUpgradePlan.getUpgradePlanId().equals(upgradePlan.getUpgradePlanId()))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			if(BeanUtil.isEmpty(dbUpgradePlan) || dbUpgradePlan.getUpgradePlanId().equals(upgradePlan.getUpgradePlanId())) {
 				upgradePlanMapper.updateByPrimaryKeySelective(upgradePlan);
 				resetUpgradePlanScope(req.getUpgradePlanScopeInfoList(), upgradePlan.getUpgradePlanId());
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());				
 			}
 		}else {
 			//新增操作
-			if(!BeanUtil.isEmpty(dbUpgradePlan)) throw LxException.of().setMsg("名称已存在");
+			if(!BeanUtil.isEmpty(dbUpgradePlan)) throw MetanetException.of().setMsg("名称已存在");
 			
 			String upgradePlanId = IdUtil.fastSimpleUUID();
 			upgradePlan.setUpgradePlanId(upgradePlanId);
@@ -164,7 +164,7 @@ public class UpgradePlanService implements IUpgradePlanService{
 	@Override
 	public void sendUpgradePlan(ReqSendUpgradePlan req) throws Exception {
 		UpgradePlan upgradePlan = upgradePlanMapper.selectByPrimaryKey(req.getUpgradePlanId());
-		if(BeanUtil.isEmpty(upgradePlan)) throw LxException.of().setResult(ResultMessage.FAILURE.result());
+		if(BeanUtil.isEmpty(upgradePlan)) throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());
 		upgradePlanMapper.sendUpgradePlan(req.getUpgradePlanId(), req.getSendStatus());
 		App app = appMapper.selectByPrimaryKey(upgradePlan.getAppId());
 		appService.clearAppUpgradeCache(app.getPackageName());

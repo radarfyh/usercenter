@@ -25,9 +25,10 @@ import work.metanet.api.vision.protocol.ReqSaveVisionTest.RespSaveVisionTest;
 import work.metanet.api.vision.protocol.ReqSearchVisionReport.RespSearchReportList;
 import work.metanet.api.vision.protocol.ReqVisionReportInfo.RespVisionReportInfo;
 import work.metanet.base.RespPaging;
-import work.metanet.base.Result;
-import work.metanet.base.ResultMessage;
+
 import work.metanet.constant.ConstEyeType;
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,43 +51,43 @@ public class VisionReportController extends BaseController {
 	
 	@ApiOperation(value="视力报告搜索")
 	@PostMapping("searchReport")
-	public Result<RespPaging<RespSearchReportList>> searchReport(@Valid @RequestBody ReqSearchVisionReport req) throws Exception {
+	public ResultResponse<RespPaging<RespSearchReportList>> searchReport(@Valid @RequestBody ReqSearchVisionReport req) throws Exception {
 		RespPaging<RespSearchReportList> resp = null;
 		if(StringUtils.isBlank(req.getKeyword())
 				&& StringUtils.isBlank(req.getOwnerId())
 				&& StringUtils.isBlank(req.getUserId())) {
-			return ResultMessage.FAILURE_REQUEST_PARAM.result(resp).setMsg("关键词、UserID和OwnerID参数不能都为空");
+			return ResultResponseEnum.INVALID_REQUEST.resultResponse(resp).setMessage("关键词、UserID和OwnerID参数不能都为空");
 		}
 		
 		try {
 			resp = visionReportService.searchVisionReport(req);
 		}
 		catch(Exception e) {
-			String msg = e.getMessage();
-			if(StringUtils.isBlank(msg)) msg = "未知异常";
-			return ResultMessage.FAILURE.result(resp).setMsg(msg);
+//			String msg = e.getMessage();
+//			if(StringUtils.isBlank(msg)) msg = "未知异常";
+			return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp);
 		}
-		return ResultMessage.SUCCESS.result(resp);
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(resp);
 	}
 	
 	@ApiOperation(value="视力报告详情")
 	@PostMapping("visionReportInfo")
-	public Result<RespVisionReportInfo> getVisionReportInfo(@Valid @RequestBody ReqVisionReportInfo req) throws Exception {
+	public ResultResponse<RespVisionReportInfo> getVisionReportInfo(@Valid @RequestBody ReqVisionReportInfo req) throws Exception {
 		RespVisionReportInfo resp = null;
 		try {
 			resp = visionReportService.getVisionReportInfo(req);
 		}
 		catch(Exception e) {
-			String msg = e.getMessage();
-			if(StringUtils.isBlank(msg)) msg = "未知异常";
-			return ResultMessage.FAILURE.result(resp).setMsg(msg);
+//			String msg = e.getMessage();
+//			if(StringUtils.isBlank(msg)) msg = "未知异常";
+			return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp);
 		}
-		return ResultMessage.SUCCESS.result(resp);
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(resp);
 	}
 
 	@ApiOperation(value="家长端手工新增测试结果")
 	@PostMapping("addVisionReportManually")
-	public Result<RespAddVisionReportManually> addVisionReportManually(@RequestBody ReqAddVisionReportManually req) throws Exception {
+	public ResultResponse<RespAddVisionReportManually> addVisionReportManually(@RequestBody ReqAddVisionReportManually req) throws Exception {
 		RespAddVisionReportManually resp = new RespAddVisionReportManually();
 		RespSyncUserFromThird respSyncUserFromThird = null;
 		RespSaveEye respSaveLeftEye = null;
@@ -97,7 +98,7 @@ public class VisionReportController extends BaseController {
 			BeanUtil.copyProperties(req, reqSyncUserFromThird);
 			respSyncUserFromThird = userService.syncUserMore(reqSyncUserFromThird);
 			if(BeanUtil.isEmpty(respSyncUserFromThird)) {
-				return ResultMessage.FAILURE.result(resp).setMsg("用户同步异常");
+				return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp).setMessage("用户同步异常");
 			}
 			respSyncUserFromThird.setAppID(req.getAppID());
 			
@@ -129,7 +130,7 @@ public class VisionReportController extends BaseController {
 				reqSaveLeftEye.setType(ConstEyeType.LEFT_EYE.ordinal());
 				respSaveLeftEye = eyeService.saveEye(reqSaveLeftEye);
 				if(BeanUtil.isEmpty(respSaveLeftEye)) {
-					return ResultMessage.FAILURE.result(resp).setMsg("同步左眼信息异常");
+					return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp).setMessage("同步左眼信息异常");
 				}
 				respSyncUserFromThird.setLeftEyeID(respSaveLeftEye.getEyeId());
 	
@@ -139,7 +140,7 @@ public class VisionReportController extends BaseController {
 				reqSaveRightEye.setType(ConstEyeType.RIGHT_EYE.ordinal());
 				respSaveRightEye = eyeService.saveEye(reqSaveRightEye);
 				if(BeanUtil.isEmpty(respSaveRightEye)) {
-					return ResultMessage.FAILURE.result(resp).setMsg("同步右眼信息异常");
+					return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp).setMessage("同步右眼信息异常");
 				}
 				respSyncUserFromThird.setRightEyeID(respSaveRightEye.getEyeId());
 			}
@@ -154,7 +155,7 @@ public class VisionReportController extends BaseController {
 			RespSaveVisionTest respSaveVisionTestForLeftEye = null;
 			respSaveVisionTestForLeftEye = visionTestService.saveVisionTest(reqSaveVisionTestForLeftEye);
 			if(BeanUtil.isEmpty(respSaveVisionTestForLeftEye)) {
-				return ResultMessage.FAILURE.result(resp).setMsg("同步左眼测试活动异常");
+				return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp).setMessage("同步左眼测试活动异常");
 			}
 
 			// 同步右眼测试活动
@@ -164,7 +165,7 @@ public class VisionReportController extends BaseController {
 			RespSaveVisionTest respSaveVisionTestForRightEye = null;
 			respSaveVisionTestForRightEye = visionTestService.saveVisionTest(reqSaveVisionTestForRightEye);
 			if(BeanUtil.isEmpty(respSaveVisionTestForRightEye)) {
-				return ResultMessage.FAILURE.result(resp).setMsg("同步右眼测试活动异常");
+				return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp).setMessage("同步右眼测试活动异常");
 			}
 
 			// 返回测试活动ID
@@ -178,7 +179,7 @@ public class VisionReportController extends BaseController {
 			RespSaveVisionReport respSaveVisionReportForLeftEye = null;
 			respSaveVisionReportForLeftEye = visionReportService.saveVisionReport(reqSaveVisionReportForLeftEye);
 			if(BeanUtil.isEmpty(respSaveVisionReportForLeftEye)) {
-				return ResultMessage.FAILURE.result(resp).setMsg("同步左眼测试报告异常");
+				return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp).setMessage("同步左眼测试报告异常");
 			}
 			
 			// 同步右眼测试结果
@@ -188,7 +189,7 @@ public class VisionReportController extends BaseController {
 			RespSaveVisionReport respSaveVisionReportForRightEye = null;
 			respSaveVisionReportForRightEye = visionReportService.saveVisionReport(reqSaveVisionReportForRightEye);
 			if(BeanUtil.isEmpty(respSaveVisionReportForRightEye)) {
-				return ResultMessage.FAILURE.result(resp).setMsg("同步右眼测试报告异常");
+				return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp).setMessage("同步右眼测试报告异常");
 			}
 			
 			// 返回测试结果ID
@@ -196,10 +197,10 @@ public class VisionReportController extends BaseController {
 			resp.setReportIdForRightEye(respSaveVisionReportForRightEye.getReportId());
 		}
 		catch(Exception e) {
-			String msg = e.getMessage();
-			if(StringUtils.isBlank(msg)) msg = "未知异常";
-			return ResultMessage.FAILURE.result(resp).setMsg(msg);
+//			String msg = e.getMessage();
+//			if(StringUtils.isBlank(msg)) msg = "未知异常";
+			return ResultResponseEnum.SERVER_FAILURE.resultResponse(resp);
 		}
-		return ResultMessage.SUCCESS.result(resp);
+		return ResultResponseEnum.CREATE_SUCCESS.resultResponse(resp);
 	}
 }

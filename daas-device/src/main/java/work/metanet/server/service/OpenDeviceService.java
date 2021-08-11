@@ -23,10 +23,10 @@ import work.metanet.api.openDevice.protocol.ReqOpenDeviceList.RespOpenDeviceList
 import work.metanet.api.openDevice.protocol.ReqOpenDeviceRemove;
 import work.metanet.api.openDevice.vo.OpenDeviceToken;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.constant.ConstCacheKey;
 import work.metanet.constant.Constant;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.OpenApp;
 import work.metanet.model.OpenDevice;
 import work.metanet.server.dao.OpenDeviceMapper;
@@ -70,7 +70,7 @@ public class OpenDeviceService implements IOpenDeviceService{
     		try {
     			//token是否存在
     			Boolean existCache = existCacheKey(appId, deviceId);
-    			if(!existCache) throw LxException.of().setResult(ResultMessage.FAILURE_OPENAPI_AUTH.result());
+    			if(!existCache) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_OPENAPI_AUTH.resultResponse());
     			
     			String cacheToken = cacheToken(appId, deviceId);
     			Boolean checkJWT = JwtUtil.checkJWT(token);
@@ -91,17 +91,17 @@ public class OpenDeviceService implements IOpenDeviceService{
     			}
     			
     			//重复设备在另一端认证
-    			if(checkJWT && !token.equals(cacheToken)) throw LxException.of().setResult(ResultMessage.FAILURE_OPENAPI_AUTH_OTHER_CLIENT.result());
+    			if(checkJWT && !token.equals(cacheToken)) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_OPENAPI_AUTH_OTHER_CLIENT.resultResponse());
     			//未使用刷新后的token
-    			if(!checkJWT && !token.equals(cacheToken)) throw LxException.of().setResult(ResultMessage.FAILURE_OPENAPI_AUTH_REFRESH_TOKEN.result());
-    			throw LxException.of().setResult(ResultMessage.FAILURE_OPENAPI_AUTH.result());
+    			if(!checkJWT && !token.equals(cacheToken)) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_OPENAPI_AUTH_REFRESH_TOKEN.resultResponse());
+    			throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_OPENAPI_AUTH.resultResponse());
     		}finally {
     			//log.info("---{} 我释放了锁---:{}",id,lock.toString());
     			lock.unlock();
     		}
     	}else {
     		log.info("---{} 我等待了{}秒还未拿到锁---:{}",id,constant.getRedis_lock_timeout_seconds(),lock.toString());
-    		throw LxException.of().setMsg("服务器繁忙！");
+    		throw MetanetException.of().setMsg("服务器繁忙！");
     	}
 	}
 	
@@ -182,16 +182,16 @@ public class OpenDeviceService implements IOpenDeviceService{
 		
 		//检查认证次数
 		Integer authNumber = Convert.toInt(stringRedisTemplate.opsForValue().get(cacheOpenAuthNumberKey), 0);
-		if(authNumber >= constant.getOpenapi_device_24h_max_auth_number()) throw LxException.of().setResult(ResultMessage.FAILURE_OPENAPI_AUTH_24H_MAX_NUMBER.result());
+		if(authNumber >= constant.getOpenapi_device_24h_max_auth_number()) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_OPENAPI_AUTH_24H_MAX_NUMBER.resultResponse());
 		
 		//获取应用与设备信息
 		OpenApp openApp = openAppService.openApp(appId);
 		OpenDevice openDevice = openDeviceMapper.selectOne(new OpenDevice().setAppId(appId).setDeviceId(deviceId).setStatus(true));
 		if(BeanUtil.isNotEmpty(openDevice)) {
-			if(!openDevice.getEnable()) throw LxException.of().setResult(ResultMessage.FAILURE_DEVICE_DISABLE.result());
+			if(!openDevice.getEnable()) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_DEVICE_DISABLE.resultResponse());
 		}else {
 			Integer openDeviceNumber = openDeviceMapper.selectCount(new OpenDevice().setAppId(appId).setStatus(true));
-			if(openDeviceNumber >= openApp.getSignDeviceNumber()) throw LxException.of().setResult(ResultMessage.FAILURE_OPENAPI_AUTH_SIGN_MAX_NUMBER.result());
+			if(openDeviceNumber >= openApp.getSignDeviceNumber()) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_OPENAPI_AUTH_SIGN_MAX_NUMBER.resultResponse());
 			openDevice = BeanUtil.copyProperties(req, OpenDevice.class).setOpenDeviceId(IdUtil.fastSimpleUUID()).setAppId(appId).setDeviceId(deviceId);
 			openDeviceMapper.insertSelective(openDevice);
 		}

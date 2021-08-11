@@ -14,7 +14,7 @@ import work.metanet.api.openAppBusiness.protocol.ReqOpenAppBusinessList.RespOpen
 import work.metanet.api.openAppBusiness.protocol.ReqOpenAppBusinessRemove;
 import work.metanet.api.openAppBusiness.protocol.ReqOpenAppBusinessSave;
 import work.metanet.base.RespPaging;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.OpenAppBusiness;
 import work.metanet.server.dao.OpenAppBusinessMapper;
 
@@ -32,14 +32,14 @@ public class OpenAppBusinessService implements IOpenAppBusinessService{
 	@Override
 	public OpenAppBusiness getOpenAppBusinessByName(String appId,String businessName) throws Exception{
 		OpenAppBusiness openAppBusiness = openAppBusinessMapper.selectOne(new OpenAppBusiness().setAppId(appId).setBusinessName(businessName));
-		if(BeanUtil.isEmpty(openAppBusiness)) throw LxException.of().setMsg("业务名称不存在");
+		if(BeanUtil.isEmpty(openAppBusiness)) throw MetanetException.of().setMsg("业务名称不存在");
 		return openAppBusiness;
 	}
 	
 	@Override
 	public OpenAppBusiness getOpenAppBusiness(String appId, String businessCode) throws Exception {
 		OpenAppBusiness openAppBusiness = openAppBusinessMapper.selectOne(new OpenAppBusiness().setAppId(appId).setBusinessCode(businessCode));
-		if(BeanUtil.isEmpty(openAppBusiness)) throw LxException.of().setMsg("暂未配置此业务信息:"+businessCode);
+		if(BeanUtil.isEmpty(openAppBusiness)) throw MetanetException.of().setMsg("暂未配置此业务信息:"+businessCode);
 		return openAppBusiness;
 	}
 	
@@ -72,14 +72,14 @@ public class OpenAppBusinessService implements IOpenAppBusinessService{
 		OpenAppBusiness openAppBusinessCode = openAppBusinessMapper.selectOne(new OpenAppBusiness().setChannelId(req.getChannelId()).setAppId(req.getAppId()).setBusinessCode(req.getBusinessCode()));
 		OpenAppBusiness openAppBusinessName = openAppBusinessMapper.selectOne(new OpenAppBusiness().setChannelId(req.getChannelId()).setAppId(req.getAppId()).setBusinessName(req.getBusinessName()));
 		if(StrUtil.isBlank(req.getOpenAppBusinessId())) {
-			if(BeanUtil.isNotEmpty(openAppBusinessCode)) throw LxException.of().setMsg("业务代码已存在");
-			if(BeanUtil.isNotEmpty(openAppBusinessName)) throw LxException.of().setMsg("业务名称已存在");
+			if(BeanUtil.isNotEmpty(openAppBusinessCode)) throw MetanetException.of().setMsg("业务代码已存在");
+			if(BeanUtil.isNotEmpty(openAppBusinessName)) throw MetanetException.of().setMsg("业务名称已存在");
 			OpenAppBusiness openAppBusiness = BeanUtil.copyProperties(req, OpenAppBusiness.class).setOpenAppBusinessId(IdUtil.fastSimpleUUID());
 			openAppBusinessMapper.insertSelective(openAppBusiness);
 		}else {
 			OpenAppBusiness db =  openAppBusinessMapper.selectByPrimaryKey(req.getOpenAppBusinessId());
-			if(BeanUtil.isNotEmpty(openAppBusinessCode) && !StrUtil.equals(db.getOpenAppBusinessId(), openAppBusinessCode.getOpenAppBusinessId())) throw LxException.of().setMsg("业务代码已存在");
-			if(BeanUtil.isNotEmpty(openAppBusinessName) && !StrUtil.equals(db.getOpenAppBusinessId(), openAppBusinessName.getOpenAppBusinessId())) throw LxException.of().setMsg("业务名称已存在");
+			if(BeanUtil.isNotEmpty(openAppBusinessCode) && !StrUtil.equals(db.getOpenAppBusinessId(), openAppBusinessCode.getOpenAppBusinessId())) throw MetanetException.of().setMsg("业务代码已存在");
+			if(BeanUtil.isNotEmpty(openAppBusinessName) && !StrUtil.equals(db.getOpenAppBusinessId(), openAppBusinessName.getOpenAppBusinessId())) throw MetanetException.of().setMsg("业务名称已存在");
 			BeanUtil.copyProperties(req, db, CopyOptions.create().ignoreNullValue());
 			openAppBusinessMapper.updateByPrimaryKeySelective(db);
 		}

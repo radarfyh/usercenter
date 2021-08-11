@@ -29,7 +29,7 @@ import work.metanet.base.RespPaging;
 import work.metanet.constant.ConstCacheKey;
 import work.metanet.constant.ConstUserScoreChangeType;
 import work.metanet.constant.Constant;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.server.usercenter.domain.UcUserScores;
 import work.metanet.server.usercenter.domain.UcScoreDetail;
 
@@ -101,7 +101,7 @@ public class ScoreServiceImpl implements ScoreService{
 		}
 		
 		//日累计积分上限
-		if(NumberUtil.compare(beforCall.getDaySumScore().intValue(),constant.getDay_max_convert_score().intValue())>=0) throw LxException.of().setMsg("日累计积分已达上限");
+		if(NumberUtil.compare(beforCall.getDaySumScore().intValue(),constant.getDay_max_convert_score().intValue())>=0) throw MetanetException.of().setMsg("日累计积分已达上限");
 		
 		//前后调用时间间隔(分钟)
 		Long betweenMinutes = DateUtil.between(DateUtil.parse(beforCall.getCallTime()), DateUtil.parse(nowTime), DateUnit.MINUTE,false);
@@ -113,7 +113,7 @@ public class ScoreServiceImpl implements ScoreService{
 		log.info("---learningMinutes:"+req.getLearningMinutes());
 		log.info("---betweenMinutes:---"+betweenMinutes);
 		log.info("-----------end");
-		throw LxException.of().setMsg("违规触发学习积分");
+		throw MetanetException.of().setMsg("违规触发学习积分");
 	}
 	
 	private void LearningMinutesConvertScore(String userId, String nowTime, ReqLearningChangeUserScore beforCall, ReqLearningChangeUserScore req) throws Exception{

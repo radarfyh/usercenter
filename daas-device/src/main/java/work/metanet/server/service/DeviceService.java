@@ -32,9 +32,9 @@ import work.metanet.api.device.protocol.ReqSaveDevice;
 import work.metanet.api.device.vo.DeviceAppVo;
 import work.metanet.api.statistical.vo.ChartVo;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.constant.ConstSource;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.App;
 import work.metanet.model.Brand;
 import work.metanet.model.Device;
@@ -122,10 +122,10 @@ public class DeviceService implements IDeviceService{
 	 */
 	@Override
 	public RespDeviceAuth deviceAuth(ReqDeviceAuth req) throws Exception {
-		if(StringUtils.isBlank(req.getSerialNumber()) && StringUtils.isBlank(req.getMac())) throw LxException.of().setMsg("序列号与MAC不能同时为空");
+		if(StringUtils.isBlank(req.getSerialNumber()) && StringUtils.isBlank(req.getMac())) throw MetanetException.of().setMsg("序列号与MAC不能同时为空");
 		
 		App app = appMapper.getApp(MapUtil.builder("packageName",req.getPackageName()).build());
-		if(BeanUtil.isEmpty(app)) throw LxException.of().setMsg("产品信息错误");
+		if(BeanUtil.isEmpty(app)) throw MetanetException.of().setMsg("产品信息错误");
 		
 		AuthDeviceParam authDeviceParam = AuthDeviceParam.of()
 				.setBrandName(req.getBrandName())
@@ -151,18 +151,18 @@ public class DeviceService implements IDeviceService{
 		
 		//启用激活码方式
 		if(app.getEnableSn()) {
-			if(BeanUtil.isEmpty(deviceVo)) throw LxException.of().setResult(ResultMessage.FAILURE_DEVICE_NOT_ACTIVATE.result());
-			if (!deviceVo.getEnableStatus()) throw LxException.of().setResult(ResultMessage.FAILURE_DEVICE_DISABLE.result());
+			if(BeanUtil.isEmpty(deviceVo)) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_DEVICE_NOT_ACTIVATE.resultResponse());
+			if (!deviceVo.getEnableStatus()) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_DEVICE_DISABLE.resultResponse());
 			
 			RespDeviceAuth respDeviceAuth = activeDeviceApp(deviceVo.getDeviceId(), app.getAppId());
 			if(BeanUtil.isNotEmpty(respDeviceAuth)) {
 				return respDeviceAuth;
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE_DEVICE_NOT_ACTIVATE.result());
+				throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_DEVICE_NOT_ACTIVATE.resultResponse());
 			}
 		}else {//禁用激活码方式
 			SerialNumberVo serialNumber = serialNumberMapper.getSerialNumberOnlyOne(app.getAppId());
-			if(BeanUtil.isEmpty(serialNumber)) throw LxException.of().setMsg("未找到激活码，请联系管理员！");
+			if(BeanUtil.isEmpty(serialNumber)) throw MetanetException.of().setMsg("未找到激活码，请联系管理员！");
 			ReqActivate reqActivate = new ReqActivate();
 			BeanUtil.copyProperties(req, reqActivate);
 			reqActivate.setSnCode(serialNumber.getSnCode());
@@ -207,7 +207,7 @@ public class DeviceService implements IDeviceService{
 		}
 		
 		//验证设备禁用状态
-		if (!deviceVo.getEnableStatus()) throw LxException.of().setResult(ResultMessage.FAILURE_DEVICE_DISABLE.result());
+		if (!deviceVo.getEnableStatus()) throw MetanetException.of().setResult(ResultResponseEnum.FAILURE_DEVICE_DISABLE.resultResponse());
 		
 		//查找设备产品
 		DeviceApp deviceApp = deviceAppMapper.getDeviceApp(MapUtil.builder().put("deviceId", deviceVo.getDeviceId()).put("appId", app.getAppId()).build());
@@ -241,10 +241,10 @@ public class DeviceService implements IDeviceService{
 	@Override
 	@Transactional
 	public RespActivate activate(ReqActivate req) throws Exception{
-		if(StringUtils.isBlank(req.getSerialNumber()) && StringUtils.isBlank(req.getMac())) throw LxException.of().setMsg("序列号与MAC不能同时为空");
+		if(StringUtils.isBlank(req.getSerialNumber()) && StringUtils.isBlank(req.getMac())) throw MetanetException.of().setMsg("序列号与MAC不能同时为空");
 		
 		App app = appMapper.getApp(MapUtil.builder("packageName",req.getPackageName()).build());
-		if(BeanUtil.isEmpty(app)) throw LxException.of().setMsg("产品信息错误");
+		if(BeanUtil.isEmpty(app)) throw MetanetException.of().setMsg("产品信息错误");
 		
 		DeviceVo deviceApp = activate(req, app);
 		return new RespActivate().setDeviceId(deviceApp.getDeviceId()).setCid(deviceApp.getDeviceAppId());
@@ -298,11 +298,11 @@ public class DeviceService implements IDeviceService{
 	 * @DateTime 2020/03/09
 	 */
 	private SerialNumberVo validationSn(String snCode,App app) throws Exception{
-		if(StringUtils.isBlank(snCode))  throw LxException.of().setMsg("激活码不能为空");
+		if(StringUtils.isBlank(snCode))  throw MetanetException.of().setMsg("激活码不能为空");
 		SerialNumberVo serialNumber = serialNumberMapper.getSerialNumber(snCode);
-		if(BeanUtil.isEmpty(serialNumber))  throw LxException.of().setMsg("激活码无效");
-		if(serialNumber.getUseNumber()>=serialNumber.getMaxUseNumber()) throw LxException.of().setMsg("激活码使用次数已达上限");
-		if(!serialNumber.getAppId().equals(app.getAppId())) throw LxException.of().setMsg("激活码不能在用于此产品");
+		if(BeanUtil.isEmpty(serialNumber))  throw MetanetException.of().setMsg("激活码无效");
+		if(serialNumber.getUseNumber()>=serialNumber.getMaxUseNumber()) throw MetanetException.of().setMsg("激活码使用次数已达上限");
+		if(!serialNumber.getAppId().equals(app.getAppId())) throw MetanetException.of().setMsg("激活码不能在用于此产品");
 		return serialNumber;
 	}
 	
@@ -344,7 +344,7 @@ public class DeviceService implements IDeviceService{
 	@Transactional
 	public void importDevice(ReqImportDevice req) throws Exception {
 		App app = appMapper.getApp(MapUtil.builder("packageName",req.getPackageName()).build());
-		if(BeanUtil.isEmpty(app)) throw LxException.of().setMsg("产品信息错误");
+		if(BeanUtil.isEmpty(app)) throw MetanetException.of().setMsg("产品信息错误");
 		
 		//检查品牌
 		Brand brand = checkBrand(req.getBrandName(),ConstSource.IMPORT);
@@ -379,7 +379,7 @@ public class DeviceService implements IDeviceService{
 		//查找设备产品
 		DeviceApp deviceApp = deviceAppMapper.getDeviceApp(MapUtil.builder().put("deviceId", device.getDeviceId()).put("appId", app.getAppId()).build());
 		
-		if(BeanUtil.isNotEmpty(deviceApp)) throw LxException.of().setMsg("设备产品已存在");
+		if(BeanUtil.isNotEmpty(deviceApp)) throw MetanetException.of().setMsg("设备产品已存在");
 		
 		//新增设备产品
 		deviceApp = new DeviceApp().setDeviceAppId(IdUtil.fastSimpleUUID()).setDeviceId(device.getDeviceId()).setAppId(app.getAppId());
@@ -395,7 +395,7 @@ public class DeviceService implements IDeviceService{
 	@Transactional
 	@Override
 	public void saveDevice(ReqSaveDevice req) throws Exception {
-		if(CollectionUtil.isEmpty(req.getDeviceApps())) throw LxException.of().setMsg("产品不能为空");
+		if(CollectionUtil.isEmpty(req.getDeviceApps())) throw MetanetException.of().setMsg("产品不能为空");
 		
 		App app = appMapper.selectByPrimaryKey(req.getDeviceApps().get(0).getAppId());
 		
@@ -420,18 +420,18 @@ public class DeviceService implements IDeviceService{
 		
 		if(StringUtils.isNotBlank(device.getDeviceId())) {
 			//修改操作
-			if(BeanUtil.isNotEmpty(dbDevice) && !dbDevice.getDeviceId().equals(device.getDeviceId())) throw LxException.of().setMsg("设备已存在");
+			if(BeanUtil.isNotEmpty(dbDevice) && !dbDevice.getDeviceId().equals(device.getDeviceId())) throw MetanetException.of().setMsg("设备已存在");
 			if(BeanUtil.isEmpty(dbDevice) || dbDevice.getDeviceId().equals(device.getDeviceId())) {
 				if(StringUtils.isBlank(device.getDeviceName())) {
 					device.setDeviceName(brand.getBrandName()+"-"+model.getModelName()+"-"+device.getDeviceId());
 				}
 				deviceMapper.updateByPrimaryKeySelective(device);
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());				
 			}
 		}else {
 			//新增操作
-			if(BeanUtil.isNotEmpty(dbDevice))throw LxException.of().setMsg("设备已存在");
+			if(BeanUtil.isNotEmpty(dbDevice))throw MetanetException.of().setMsg("设备已存在");
 			
 			device.setDeviceId(sequenceMapper.generateDeviceId());
 			if(StringUtils.isBlank(device.getDeviceName())) {
@@ -492,7 +492,7 @@ public class DeviceService implements IDeviceService{
 	public void enableDevice(ReqEnableDevice req) throws Exception {
 		Device device = deviceMapper.selectByPrimaryKey(req.getDeviceId());
 		if(BeanUtil.isEmpty(device))
-			throw LxException.of().setResult(ResultMessage.FAILURE.result());
+			throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());
 		deviceMapper.enableDevice(req.getDeviceId(), req.getEnableStatus());
 	}
 	

@@ -41,7 +41,7 @@ import work.metanet.constant.ConstPrizeStatus;
 import work.metanet.constant.ConstUserLogisticsStatus;
 import work.metanet.constant.ConstUserScoreChangeType;
 import work.metanet.constant.Constant;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.server.usercenter.domain.UcScoreExchanges;
 import work.metanet.server.usercenter.domain.UcTargetPrizes;
 import work.metanet.server.usercenter.domain.UcUserLogistics;
@@ -87,16 +87,16 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 	@Override
 	public void userScoreExchange(String userId, ReqUserScoreExchange req) throws Exception {
 		PrizeVo prizeVo = prizeService.getPrizeVoByIdLock(req.getPrizeId());
-		if(BeanUtil.isEmpty(prizeVo) || !prizeVo.getStatus()) throw LxException.of().setMsg("奖品不存在，请重新选择您要兑换的奖品哦！");
-		if(ConstPrizeStatus.DOWN.name().equals(prizeVo.getPrizeStatus())) throw LxException.of().setMsg("奖品已下架，请重新选择您要兑换的奖品哦！");
-		if(prizeVo.getInventory()<1) throw LxException.of().setMsg("库存不足，请重新选择您要兑换的奖品哦！");
+		if(BeanUtil.isEmpty(prizeVo) || !prizeVo.getStatus()) throw MetanetException.of().setMsg("奖品不存在，请重新选择您要兑换的奖品哦！");
+		if(ConstPrizeStatus.DOWN.name().equals(prizeVo.getPrizeStatus())) throw MetanetException.of().setMsg("奖品已下架，请重新选择您要兑换的奖品哦！");
+		if(prizeVo.getInventory()<1) throw MetanetException.of().setMsg("库存不足，请重新选择您要兑换的奖品哦！");
 		
 		UserScoreVo userScore = userScoreService.initUserScore(userId);
-		if(NumberUtil.isLess(userScore.getValue(), prizeVo.getScore())) throw LxException.of().setMsg("您的积分不足哦！赶紧加油学习吧^^");
+		if(NumberUtil.isLess(userScore.getValue(), prizeVo.getScore())) throw MetanetException.of().setMsg("您的积分不足哦！赶紧加油学习吧^^");
 		
 		Optional<UcUsers> user = userRepository.findById(userId);
 		if(!user.isPresent())
-			throw LxException.of().setMsg("用户不存在");	
+			throw MetanetException.of().setMsg("用户不存在");	
 		AppVo appVo = appService.getAppByAppId(user.get().getAppId());
 		
 		UcScoreExchanges userScoreExchange = BeanUtil.copyProperties(req, UcScoreExchanges.class)
@@ -132,7 +132,7 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 			}
 		}else {
 			log.info("---我等待了{}秒还未拿到锁---:{}",constant.getRedis_lock_timeout_seconds(),lock.toString());
-    		throw LxException.of().setMsg("服务器繁忙！");
+    		throw MetanetException.of().setMsg("服务器繁忙！");
 		}
 	}
 	

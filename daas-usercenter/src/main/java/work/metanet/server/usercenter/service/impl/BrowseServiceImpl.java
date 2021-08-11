@@ -24,7 +24,7 @@ import work.metanet.base.RespPaging;
 import work.metanet.base.page.MyPageRequest;
 import work.metanet.base.page.MyPageResult;
 import work.metanet.constant.Constant;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.server.usercenter.domain.UcBrowses;
 import work.metanet.utils.CosUtil;
 
@@ -73,7 +73,7 @@ public class BrowseServiceImpl implements BrowseService{
 			}
 		}else {
 			log.info("---我等待了{}秒还未拿到锁---:{}",constant.getRedis_lock_timeout_seconds(),lock.toString());
-    		throw LxException.of().setMsg("服务器繁忙！");
+    		throw MetanetException.of().setMsg("服务器繁忙！");
 		}
 	}
 	

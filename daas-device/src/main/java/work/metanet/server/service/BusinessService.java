@@ -20,8 +20,9 @@ import work.metanet.api.business.protocol.ReqRemoveBusiness;
 import work.metanet.api.business.protocol.ReqSaveBusiness;
 import work.metanet.api.business.protocol.ReqSaveBusiness.RespSaveBusiness;
 import work.metanet.base.RespPaging;
-import work.metanet.base.ResultMessage;
-import work.metanet.exception.LxException;
+
+import work.metanet.exception.MetanetException;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.Business;
 import work.metanet.server.dao.BusinessMapper;
 
@@ -76,16 +77,16 @@ public class BusinessService implements IBusinessService{
 		if(StringUtils.isNotBlank(business.getBusinessId())) {
 			//修改操作
 			if(!BeanUtil.isEmpty(dbBusiness) && !dbBusiness.getBusinessId().equals(business.getBusinessId())) 
-				throw LxException.of().setMsg("内容商代码已存在");
+				throw MetanetException.of().setMsg("内容商代码已存在");
 			if(BeanUtil.isEmpty(dbBusiness) || dbBusiness.getBusinessId().equals(business.getBusinessId())) {
 				businessMapper.updateByPrimaryKeySelective(business);				
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.SERVER_FAILURE.resultResponse());				
 			}
 		}else {
 			//新增操作
 			if(!BeanUtil.isEmpty(dbBusiness))
-				throw LxException.of().setMsg("内容商代码已存在");
+				throw MetanetException.of().setMsg("内容商代码已存在");
 			business.setBusinessId(IdUtil.fastSimpleUUID());
 			businessMapper.insertSelective(business);
 		}

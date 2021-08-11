@@ -28,7 +28,7 @@ import work.metanet.api.family.protocol.ReqSaveFamilyMember.RespSaveFamilyMember
 import work.metanet.base.page.MyPageRequest;
 import work.metanet.base.page.MyPageResult;
 import work.metanet.constant.ConstCacheKey;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.server.usercenter.domain.UcFamilyMembers;
 import work.metanet.server.usercenter.domain.UcUsers;
 import work.metanet.utils.CosUtil;
@@ -141,7 +141,7 @@ public class MemberServiceImpl implements MemberService{
 		}else {
 			//新增
 			if(familyMemberRepository.existRelationName(req.getJoinUserId(), req.getRelationName()))
-				throw LxException.of().setMsg("家庭角色已存在");
+				throw MetanetException.of().setMsg("家庭角色已存在");
 			
 			familyMemberRepository.save(familyMember);
 		}

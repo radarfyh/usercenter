@@ -12,6 +12,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import work.metanet.aop.ApiPermission;
 import work.metanet.aop.ApiPermission.AUTH;
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.utils.HttpServletRequestUtil;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -41,7 +43,12 @@ public class HttpErrorController implements ErrorController{
     public ModelAndView error(HttpServletRequest request,HttpServletResponse response) {
 		HttpStatus httpStatus = HttpServletRequestUtil.getStatus(request);
 		ModelAndView mv = new ModelAndView();
-		Result<?> result = ResultMessage.FAILURE.result().setCode(httpStatus.value()).setMsg(httpStatus.getReasonPhrase()).setData(request.getRequestURI());
+		
+		ResultResponse<?> result = ResultResponseEnum.SERVER_FAILURE.resultResponse()
+				.setResponseCode(httpStatus.value())
+				.setMessage(httpStatus.getReasonPhrase())
+				.setData(request.getRequestURI());
+		
 		mv.addAllObjects(BeanUtil.beanToMap(result));
     	
 		String accept = ServletUtil.getHeader(request, "Accept", "utf-8");

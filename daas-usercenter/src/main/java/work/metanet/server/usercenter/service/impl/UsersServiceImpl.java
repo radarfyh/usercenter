@@ -40,7 +40,7 @@ import work.metanet.constant.ConstCacheKey;
 import work.metanet.constant.ConstSmsRequestType;
 import work.metanet.constant.Constant;
 import work.metanet.constant.SysConstants;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.util.sms.SmsUtil;
 import work.metanet.utils.CosUtil;
 import work.metanet.utils.token.TokenUtil;
@@ -498,18 +498,18 @@ public class UsersServiceImpl implements UsersService {
 		if(constSmsRequestType==ConstSmsRequestType.CHANGE_PASSWORD) {
 			Optional<UcUsers> user = usersRepo.findById(userId);
 			if(!user.isPresent()) {
-				throw LxException.of().setMsg("用户不存在");		
+				throw MetanetException.of().setMsg("用户不存在");		
 			}
 			if(!user.get().getPhone().equals(phone)) {
-				throw LxException.of().setMsg("手机号码与注册时的手机号码不一致");
+				throw MetanetException.of().setMsg("手机号码与注册时的手机号码不一致");
 			}
 		}
 		String cachekey = ConstCacheKey.SMS.cacheKey(constSmsRequestType.name(),phone);
 		String cacheCode = stringRedisTemplate.opsForValue().get(cachekey);
 		if(StringUtils.isEmpty(cacheCode)) 
-			throw LxException.of().setMsg("验证码已失效");
+			throw MetanetException.of().setMsg("验证码已失效");
 		if(!cacheCode.equals(code)) 
-			throw LxException.of().setMsg("验证码错误");
+			throw MetanetException.of().setMsg("验证码错误");
 		stringRedisTemplate.delete(cachekey);
 	}
 	
@@ -519,7 +519,7 @@ public class UsersServiceImpl implements UsersService {
 		try {
 			appVo = appService.getAppByPackageName(packageName);
 		} catch (Exception e) {
-			throw LxException.of().setMsg("获取包名出错");
+			throw MetanetException.of().setMsg("获取包名出错");
 		}
 		UcUsers user = new UcUsers();
 		user.setAppId(appVo.getAppId());
@@ -535,9 +535,9 @@ public class UsersServiceImpl implements UsersService {
 	
 	private RespLogin login(UcUsers user,String deviceId,String packageName,String versionCode) throws Exception{
 		if(user==null)
-			throw LxException.of().setMsg("用户名或密码错误");
+			throw MetanetException.of().setMsg("用户名或密码错误");
 		if(!user.getEnableStatus())
-			throw LxException.of().setMsg("您已被锁定");
+			throw MetanetException.of().setMsg("您已被锁定");
 		
 		AppVersionVo appVersionVo = appVersionService.getAppVersion(packageName, versionCode);
 	 	String deviceAppId = deviceAppService.getDeviceAppId(deviceId, packageName);
@@ -571,7 +571,7 @@ public class UsersServiceImpl implements UsersService {
 		UcUsers user = usersRepo.getUser(appVo.getAppId(), null, requestParam.getPhone(), null, null);
 		
 		if(user == null) {
-			if(StringUtils.isEmpty(requestParam.getPassword())) throw LxException.of().setMsg("请输入密码");
+			if(StringUtils.isEmpty(requestParam.getPassword())) throw MetanetException.of().setMsg("请输入密码");
 			//注册
 			String phone = requestParam.getPhone();
 			user = new UcUsers();
@@ -596,7 +596,7 @@ public class UsersServiceImpl implements UsersService {
 	public void updUser(String userId, ReqUpdUser requestParam) throws Exception {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw LxException.of().setMsg("用户不存在");		
+			throw MetanetException.of().setMsg("用户不存在");		
 		}
 		
 		BeanUtil.copyProperties(requestParam, user, CopyOptions.create().ignoreNullValue());
@@ -608,7 +608,7 @@ public class UsersServiceImpl implements UsersService {
 	public RespUserInfo userInfo(String userId) throws Exception {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw LxException.of().setMsg("用户不存在");		
+			throw MetanetException.of().setMsg("用户不存在");		
 		}
 		
 		RespUserInfo respUserInfo = new RespUserInfo();
@@ -628,11 +628,11 @@ public class UsersServiceImpl implements UsersService {
 	public void updPassword(String userId, ReqUpdPassword requestParam) throws Exception {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw LxException.of().setMsg("用户不存在");		
+			throw MetanetException.of().setMsg("用户不存在");		
 		}
 		
 		if(!user.get().getPassword().equals(SecureUtil.md5(requestParam.getPassword())))
-			throw LxException.of().setMsg("原密码错误");
+			throw MetanetException.of().setMsg("原密码错误");
 		user.get().setPassword(SecureUtil.md5(requestParam.getNewPassword()));
 		usersRepo.save(user.get());
 	}
@@ -645,7 +645,7 @@ public class UsersServiceImpl implements UsersService {
 
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw LxException.of().setMsg("用户不存在");		
+			throw MetanetException.of().setMsg("用户不存在");		
 		}
 		
 		user.get().setPassword(SecureUtil.md5(requestParam.getNewPassword()));
@@ -698,7 +698,7 @@ public class UsersServiceImpl implements UsersService {
 	public void accountCancel(String userId, ReqAccountCancel req) throws Exception {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw LxException.of().setMsg("用户不存在");		
+			throw MetanetException.of().setMsg("用户不存在");		
 		}
 		
 		validationCode(null, user.get().getPhone(), req.getCode(), ConstSmsRequestType.ACCOUNT_CANCEL);
@@ -782,7 +782,7 @@ public class UsersServiceImpl implements UsersService {
 			}
 		}
 		catch(Exception e) {
-			throw LxException.of().setMsg("同步用户信息异常:" + e.getMessage());
+			throw MetanetException.of().setMsg("同步用户信息异常:" + e.getMessage());
 		}
 
 		return resp;

@@ -10,7 +10,8 @@ import work.metanet.aop.ApiModule.Module;
 import work.metanet.aop.ApiPermission;
 import work.metanet.aop.ApiPermission.AUTH;
 import work.metanet.api.region.IRegionService;
-
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
 import cn.hutool.json.JSONArray;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,8 +28,8 @@ public class RegionController {
 	@ApiPermission(AUTH.OPEN)
 	@ApiOperation(value="加载所有地区")
 	@PostMapping("loadAllRegion")
-	public Result<JSONArray> loadAllRegion() throws Exception{
-		return ResultMessage.SUCCESS.result(regionService.loadAllRegion());
+	public ResultResponse<JSONArray> loadAllRegion() throws Exception{
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(regionService.loadAllRegion());
 	}
 
 }

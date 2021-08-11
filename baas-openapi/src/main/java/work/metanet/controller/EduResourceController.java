@@ -21,9 +21,8 @@ import work.metanet.api.eduResource.protocol.ReqOpenSearchResource;
 import work.metanet.api.eduResource.vo.OpenEduResourceBaseVo;
 import work.metanet.api.eduResource.vo.OpenEduResourceInfoVo;
 import work.metanet.base.RespPaging;
-import work.metanet.base.Result;
-import work.metanet.base.ResultMessage;
-
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -39,32 +38,32 @@ public class EduResourceController extends BaseController{
 	
 	@ApiOperation(value="筛选条件")
 	@PostMapping("eduCondition")
-	public Result<List<RespEduCondition>> eduCondition(@Valid @RequestBody ReqEduCondition req) throws Exception {
-		return ResultMessage.SUCCESS.result(eduConditionService.eduConditionDynamicAll(req));
+	public ResultResponse<List<RespEduCondition>> eduCondition(@Valid @RequestBody ReqEduCondition req) throws Exception {
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(eduConditionService.eduConditionDynamicAll(req));
 	}
 	
 	@ApiOperation(value="推荐资源")
 	@PostMapping("recommendResource")
-	public Result<List<OpenEduResourceBaseVo>> recommendResource(@Valid @RequestBody ReqOpenRecommendResource req) throws Exception {
-		return ResultMessage.SUCCESS.result(openEduResourceService.recommendResource(req));
+	public ResultResponse<List<OpenEduResourceBaseVo>> recommendResource(@Valid @RequestBody ReqOpenRecommendResource req) throws Exception {
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(openEduResourceService.recommendResource(req));
 	}
 	
 	@ApiOperation(value="资源搜索")
 	@PostMapping("searchResource")
-	public Result<RespPaging<OpenEduResourceBaseVo>> searchResource(@Valid @RequestBody ReqOpenSearchResource req) throws Exception {
-		return ResultMessage.SUCCESS.result(openEduResourceService.searchResource(req));
+	public ResultResponse<RespPaging<OpenEduResourceBaseVo>> searchResource(@Valid @RequestBody ReqOpenSearchResource req) throws Exception {
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(openEduResourceService.searchResource(req));
 	}
 	
 	@ApiOperation(value="资源详情")
 	@PostMapping("eduResourceInfo")
-	public Result<OpenEduResourceInfoVo> eduResourceInfo(@Valid @RequestBody ReqOpenEduResourceInfo req) throws Exception {
-		return ResultMessage.SUCCESS.result(openEduResourceService.eduResourceInfo(req));
+	public ResultResponse<OpenEduResourceInfoVo> eduResourceInfo(@Valid @RequestBody ReqOpenEduResourceInfo req) throws Exception {
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(openEduResourceService.eduResourceInfo(req));
 	}
 	
 	@ApiOperation(value="资源明细列表")
 	@PostMapping("eduResourceDetail")
-	public Result<RespPaging<OpenEduResourceInfoVo>> eduResourceDetail(@Valid @RequestBody ReqOpenEduResourceDetail req) throws Exception {
-		return ResultMessage.SUCCESS.result(openEduResourceService.eduResourceDetail(req));
+	public ResultResponse<RespPaging<OpenEduResourceInfoVo>> eduResourceDetail(@Valid @RequestBody ReqOpenEduResourceDetail req) throws Exception {
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(openEduResourceService.eduResourceDetail(req));
 	}
 	
 	

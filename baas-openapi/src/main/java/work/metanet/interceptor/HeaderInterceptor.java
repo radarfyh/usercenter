@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.hutool.core.util.StrUtil;
 import work.metanet.api.deviceApp.IDeviceAppService;
-import work.metanet.base.ResultMessage;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetExceptionAssert;
+import work.metanet.exception.ResultResponseEnum;
 
 @Component
 public class HeaderInterceptor implements HandlerInterceptor {
@@ -26,10 +27,16 @@ public class HeaderInterceptor implements HandlerInterceptor {
     	String nonce = request.getHeader("nonce");
     	String sign = request.getHeader("sign");
     	
-    	if(StringUtils.isBlank(timestamp)) throw LxException.of().setResult(ResultMessage.FAILURE_REQUEST_HEADER.result().setMsg("timestamp is not empty"));
-    	if(StringUtils.isBlank(nonce)) throw LxException.of().setResult(ResultMessage.FAILURE_REQUEST_HEADER.result().setMsg("nonce is not empty"));
-    	if(StringUtils.isBlank(sign)) throw LxException.of().setResult(ResultMessage.FAILURE_REQUEST_HEADER.result().setMsg("sign is not empty"));
-        
+        MetanetExceptionAssert.assertTrue(StringUtils.isBlank(timestamp)
+        		, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+        		, "%s", "timestamp不能为空");
+        MetanetExceptionAssert.assertTrue(StringUtils.isBlank(nonce)
+        		, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+        		, "%s", "nonce不能为空");
+        MetanetExceptionAssert.assertTrue(StringUtils.isBlank(nonce)
+        		, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
+        		, "%s", "nonce不能为空");
+       
         return true;
     }
     

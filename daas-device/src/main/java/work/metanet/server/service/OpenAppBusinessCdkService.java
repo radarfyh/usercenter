@@ -20,7 +20,7 @@ import work.metanet.api.openAppBusinessCdk.protocol.ReqOpenAppBusinessCdkList.Re
 import work.metanet.api.openAppBusinessCdk.protocol.ReqOpenAppBusinessCdkRemove;
 import work.metanet.base.RespPaging;
 import work.metanet.constant.Constant;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.Channel;
 import work.metanet.model.OpenApp;
 import work.metanet.model.OpenAppBusiness;
@@ -85,10 +85,10 @@ public class OpenAppBusinessCdkService implements IOpenAppBusinessCdkService{
 				}
 			}else {
 				log.info("---我等待了{}秒还未拿到锁---:{}",constant.getRedis_lock_timeout_seconds(),lock.toString());
-	    		throw LxException.of().setMsg("服务器繁忙！");
+	    		throw MetanetException.of().setMsg("服务器繁忙！");
 			}
 		}
-		if(StrUtil.isBlank(cdk)) throw LxException.of().setMsg("此业务代码没有可用的CDK:"+businessCode);
+		if(StrUtil.isBlank(cdk)) throw MetanetException.of().setMsg("此业务代码没有可用的CDK:"+businessCode);
 		return cdk;
 	}
 	
@@ -117,11 +117,11 @@ public class OpenAppBusinessCdkService implements IOpenAppBusinessCdkService{
 	@Override
 	public void importAppBusinessCdk(ReqOpenAppBusinessCdkImport cdk) throws Exception {
 		Channel channel = channelMapper.selectOne(new Channel().setStatus(true).setChannelName(cdk.getChannelName()));
-		if(BeanUtil.isEmpty(channel)) throw LxException.of().setMsg("渠道不存在");
+		if(BeanUtil.isEmpty(channel)) throw MetanetException.of().setMsg("渠道不存在");
 		OpenApp openApp = openAppService.getOpenAppByName(channel.getChannelId(), cdk.getOpenAppName());
 		OpenAppBusiness openAppBusiness = openAppBusinessService.getOpenAppBusinessByName(openApp.getAppId(), cdk.getOpenAppBusinessName());
 		OpenAppBusinessCdk openAppBusinessCdk = openAppBusinessCdkMapper.selectOne(new OpenAppBusinessCdk().setStatus(true).setOpenAppBusinessId(openAppBusiness.getOpenAppBusinessId()).setCdk(cdk.getCdk()));
-		if(BeanUtil.isNotEmpty(openAppBusinessCdk)) throw LxException.of().setMsg("CDK已存在");
+		if(BeanUtil.isNotEmpty(openAppBusinessCdk)) throw MetanetException.of().setMsg("CDK已存在");
 		openAppBusinessCdk = new OpenAppBusinessCdk()
 				.setOpenAppBusinessCdkId(IdUtil.fastSimpleUUID())
 				.setCdk(cdk.getCdk())

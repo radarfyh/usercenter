@@ -16,7 +16,7 @@ import work.metanet.api.openApp.protocol.ReqOpenAppRemove;
 import work.metanet.api.openApp.protocol.ReqOpenAppSave;
 import work.metanet.base.RespPaging;
 import work.metanet.constant.ConstCacheKey;
-import work.metanet.exception.LxException;
+import work.metanet.exception.MetanetException;
 import work.metanet.model.OpenApp;
 import work.metanet.server.dao.OpenAppMapper;
 import work.metanet.utils.LxKeyUtil;
@@ -39,7 +39,7 @@ public class OpenAppService implements IOpenAppService{
 	@Override
 	public OpenApp getOpenAppByName(String channelId,String appName) throws Exception{
 		OpenApp openApp = openAppMapper.selectOne(new OpenApp().setStatus(true).setChannelId(channelId).setAppName(appName));
-		if(BeanUtil.isEmpty(openApp)) throw LxException.of().setMsg("应用不存在");
+		if(BeanUtil.isEmpty(openApp)) throw MetanetException.of().setMsg("应用不存在");
 		return openApp;
 	}
 	
@@ -52,7 +52,7 @@ public class OpenAppService implements IOpenAppService{
 			if(BeanUtil.isNotEmpty(openApp)) {
 				stringRedisTemplate.opsForHash().put(key, appId, JSONUtil.toJsonStr(openApp));
 			}else {
-				throw LxException.of().setMsg("应用不存在");
+				throw MetanetException.of().setMsg("应用不存在");
 			}
 		}
 		return openApp;
@@ -81,13 +81,13 @@ public class OpenAppService implements IOpenAppService{
 	public void saveApp(ReqOpenAppSave req) throws Exception {
 		OpenApp openApp = openAppMapper.selectOne(new OpenApp().setStatus(true).setChannelId(req.getChannelId()).setAppName(req.getAppName()));
 		if(StrUtil.isBlank(req.getAppId())) {
-			if(BeanUtil.isNotEmpty(openApp)) throw LxException.of().setMsg("应用已存在");
+			if(BeanUtil.isNotEmpty(openApp)) throw MetanetException.of().setMsg("应用已存在");
 			openApp = BeanUtil.copyProperties(req, OpenApp.class);
 			openApp.setAppId(IdUtil.objectId()).setAppKey(LxKeyUtil.appSecret());
 			openAppMapper.insertSelective(openApp);
 		}else {
 			OpenApp db = openAppMapper.selectByPrimaryKey(req.getAppId());
-			if(BeanUtil.isNotEmpty(openApp) && !StrUtil.equals(openApp.getAppId(), db.getAppId())) throw LxException.of().setMsg("应用已存在");
+			if(BeanUtil.isNotEmpty(openApp) && !StrUtil.equals(openApp.getAppId(), db.getAppId())) throw MetanetException.of().setMsg("应用已存在");
 			BeanUtil.copyProperties(req, db, CopyOptions.create().ignoreNullValue());
 			openAppMapper.updateByPrimaryKeySelective(db);
 			openApp = db;

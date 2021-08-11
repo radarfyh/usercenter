@@ -4,6 +4,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import work.metanet.api.openApp.IOpenAppService;
-import work.metanet.base.ResultMessage;
+
 import work.metanet.constant.Constant;
 import work.metanet.controller.BaseController;
-import work.metanet.exception.LxException;
+
+import work.metanet.exception.MetanetExceptionAssert;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.OpenApp;
 import work.metanet.utils.LxSignUtil;
 
@@ -45,11 +48,14 @@ public class SignInterceptor extends BaseController implements HandlerIntercepto
     	String nonce = request.getHeader("nonce");
     	String sign = request.getHeader("sign");
     	
-    	if(DateUtil.currentSeconds()-Convert.toLong(timestamp)>60)
-        	throw LxException.of().setResult(ResultMessage.FAILURE_AUTH_TIMESTAMP.result());
+        MetanetExceptionAssert.assertTrue(DateUtil.currentSeconds() - Convert.toLong(timestamp) > 60
+        		, ResultResponseEnum.FAILURE_AUTH_TIMESTAMP.getResponseCode()
+        		, "%s", ResultResponseEnum.FAILURE_AUTH_TIMESTAMP.getMessage());
         
         OpenApp openApp = openAppService.openApp(getAppId());
-        if(BeanUtil.isEmpty(openApp)) throw LxException.of().setResult(ResultMessage.FAILURE_AUTH_APPID.result());
+        MetanetExceptionAssert.assertTrue(BeanUtil.isEmpty(openApp)
+        		, ResultResponseEnum.FAILURE_AUTH_APPID.getResponseCode()
+        		, "%s", ResultResponseEnum.FAILURE_AUTH_APPID.getMessage());
         
         Map<String, Object> map = MapUtil.newHashMap();
         String body = ServletUtil.getBody(request);
@@ -62,9 +68,10 @@ public class SignInterceptor extends BaseController implements HandlerIntercepto
         map.put("Authorization", token);
         map.put("timestamp", timestamp);
         map.put("nonce", nonce);
-        if(!StrUtil.equals(LxSignUtil.getDigestStr_sha256(map), LxSignUtil.unSign_AES(openApp.getAppKey(),sign)))
-        	throw LxException.of().setResult(ResultMessage.FAILURE_AUTH_SIGN_SECRET.result());
         
+        MetanetExceptionAssert.assertTrue(!StrUtil.equals(LxSignUtil.getDigestStr_sha256(map), LxSignUtil.unSign_AES(openApp.getAppKey(),sign))
+        		, ResultResponseEnum.FAILURE_AUTH_SIGN_SECRET.getResponseCode()
+        		, "%s", ResultResponseEnum.FAILURE_AUTH_SIGN_SECRET.getMessage());        
         return true;
     }
     

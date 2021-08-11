@@ -11,6 +11,8 @@ import work.metanet.aop.ApiModule.Module;
 import work.metanet.aop.ApiOperLog;
 import work.metanet.aop.ApiOperLog.ACTION;
 import work.metanet.aop.ApiPermission.AUTH;
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.aop.ApiPermission;
 import work.metanet.utils.CosUtil;
 
@@ -45,13 +47,13 @@ public class FileController {
 	@ApiOperLog(action = ACTION.UPLOAD, desc = "获取详细信息")
 	@ApiOperation(value = "上传文件-获取详细信息")
 	@PostMapping(value = "upload", headers = "content-type=multipart/form-data")
-	public Result<RespUpload> upload(@RequestParam("file") MultipartFile file) throws Exception {
+	public ResultResponse<RespUpload> upload(@RequestParam("file") MultipartFile file) throws Exception {
 		log.info("--------接收到了文件---------"+file.getOriginalFilename());
 		RespUpload resp = new RespUpload()
 				.setMd5(SecureUtil.md5(file.getInputStream()))
 				.setUrl(cosUtil.upload(file))
 				.setFileSize(file.getSize());
-		return ResultMessage.SUCCESS.result(resp);
+		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(resp);
 	}
 	
 	/**
@@ -64,8 +66,8 @@ public class FileController {
 	@ApiOperLog(action = ACTION.UPLOAD)
 	@ApiOperation(value = "上传文件")
 	@PostMapping(value = "uploadFile", headers = "content-type=multipart/form-data")
-	public Result<String> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
-		return ResultMessage.SUCCESS.result(cosUtil.upload(file));
+	public ResultResponse<String> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(cosUtil.upload(file));
 	}
 
 	/**
@@ -76,13 +78,13 @@ public class FileController {
 	@ApiOperLog(action = ACTION.UPLOAD, desc = "上传爱眼课堂视频")
 	@ApiOperation(value = "上传文件-爱眼课堂视频")
 	@PostMapping(value = "uploadEyesVideo", headers = "content-type=multipart/form-data")
-	public Result<RespUpload> uploadEyesVideo(@RequestParam("file") MultipartFile file) throws Exception {
+	public ResultResponse<RespUpload> uploadEyesVideo(@RequestParam("file") MultipartFile file) throws Exception {
 		String key = StrUtil.concat(true, "eyesVideo/",IdUtil.fastSimpleUUID(),".",FileUtil.extName(file.getOriginalFilename()));
 		RespUpload resp = new RespUpload()
 				.setMd5(SecureUtil.md5(file.getInputStream()))
 				.setUrl(cosUtil.upload(key,file))
 				.setFileSize(file.getSize());
-		return ResultMessage.SUCCESS.result(resp);
+		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(resp);
 	}
 	
 	/**
@@ -93,13 +95,13 @@ public class FileController {
 	@ApiOperLog(action = ACTION.UPLOAD, desc = "上传产品获取详情")
 	@ApiOperation(value = "上传文件-上传产品获取详情")
 	@PostMapping(value = "uploadApp", headers = "content-type=multipart/form-data")
-	public Result<RespUpload> uploadApp(@RequestParam("file") MultipartFile file) throws Exception {
+	public ResultResponse<RespUpload> uploadApp(@RequestParam("file") MultipartFile file) throws Exception {
 		String key = StrUtil.concat(true, "apps/",file.getOriginalFilename());
 		RespUpload resp = new RespUpload()
 				.setMd5(SecureUtil.md5(file.getInputStream()))
 				.setUrl(cosUtil.upload(key,file))
 				.setFileSize(file.getSize());
-		return ResultMessage.SUCCESS.result(resp);
+		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(resp);
 	}
 	
 	
@@ -111,13 +113,13 @@ public class FileController {
 	@ApiOperLog(action = ACTION.UPLOAD, desc = "上传商店应用获取详情")
 	@ApiOperation(value = "上传文件-上传商店应用获取详情")
 	@PostMapping(value = "uploadStoreApp", headers = "content-type=multipart/form-data")
-	public Result<RespUpload> uploadStoreApp(@RequestParam("file") MultipartFile file) throws Exception {
+	public ResultResponse<RespUpload> uploadStoreApp(@RequestParam("file") MultipartFile file) throws Exception {
 		String key = StrUtil.concat(true, "storeApps/",IdUtil.fastSimpleUUID(),".",FileUtil.extName(file.getOriginalFilename()));
 		RespUpload resp = new RespUpload()
 				.setMd5(SecureUtil.md5(file.getInputStream()))
 				.setUrl(cosUtil.upload(key,file))
 				.setFileSize(file.getSize());
-		return ResultMessage.SUCCESS.result(resp);
+		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(resp);
 	}
 	
 	/**
@@ -129,9 +131,9 @@ public class FileController {
 	@ApiOperLog(action = ACTION.UPLOAD, desc = "内容商产品")
 	@ApiOperation(value = "文件上传-内容商产品")
 	@PostMapping(value = "uploadBusinessApp", headers = "content-type=multipart/form-data")
-	public Result<String> uploadBusinessApp(@RequestParam("file") MultipartFile file) throws Exception {
+	public ResultResponse<String> uploadBusinessApp(@RequestParam("file") MultipartFile file) throws Exception {
 		String key = StrUtil.concat(true, "businessApps/",file.getOriginalFilename());
-		return ResultMessage.SUCCESS.result(cosUtil.upload(key,file));
+		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(cosUtil.upload(key,file));
 	}
 	
 	@ApiModel("响应-文件信息")

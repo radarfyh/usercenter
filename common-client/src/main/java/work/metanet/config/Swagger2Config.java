@@ -13,8 +13,8 @@ import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrap
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
-import work.metanet.base.ResultMessage;
 
+import work.metanet.exception.ResultResponseEnum;
 import io.swagger.annotations.ApiOperation;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -58,26 +58,10 @@ public class Swagger2Config {
                 .build();
     }
     
-    /**swagger-bootstrap-ui可以动态全局参数,此处不再需要了
-    private List<Parameter> getParameterList() {
-		ParameterBuilder tokenPar = new ParameterBuilder();
-        List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar
-        	.name("Authorization")
-        	.description("token")
-        	.modelRef(new ModelRef("string"))
-        	.parameterType("header")
-        	.defaultValue("Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJ1c2VyTmFtZVwiOlwiYm9raTEwMTVcIixcInVzZXJJZFwiOlwiMTQ3NjI4NzRkZTAyNGM2ZWI5OTBmZWQyNTNhMmRiNGVcIixcImRldmljZUlkXCI6XCJEVjEwMDBcIn0iLCJqdGkiOiI0YTI4ZmY3Yi03MDBlLTQ4NzYtODNjZi1kMDZhN2I5ZGZkNTgiLCJpYXQiOjE1NzY2Mzc3NDUsImV4cCI6MTU3OTIyOTc0NX0.u6CRVur39C3D1eOy0mO2vitYyVsTx_PTmqFlihIbZO4")
-        	.required(false)
-        	.build();
-        pars.add(tokenPar.build());
-        return pars;
-	}*/
-	
 	private List<ResponseMessage> getResponseMessageList(){
 		List<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>();
-        for (ResultMessage resultMessage : ResultMessage.values()) {
-        	responseMessages.add(new ResponseMessageBuilder().code(resultMessage.getCode()).message(resultMessage.getMsg()).build());
+        for (ResultResponseEnum resultMessage : ResultResponseEnum.values()) {
+        	responseMessages.add(new ResponseMessageBuilder().code(resultMessage.getResponseCode()).message(resultMessage.getMessage()).build());
 		}
         return responseMessages;
 	}

@@ -18,8 +18,9 @@ import work.metanet.api.versionModule.protocol.ReqRemoveAppVersionModule;
 import work.metanet.api.versionModule.protocol.ReqSaveAppVersionModule;
 import work.metanet.api.versionModule.protocol.ReqUpdAppVersionModuleParent;
 import work.metanet.api.versionModule.protocol.ReqViewAppVersionModule.RespViewAppVersionModule;
-import work.metanet.base.ResultMessage;
-import work.metanet.exception.LxException;
+
+import work.metanet.exception.MetanetException;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.AppVersionModule;
 import work.metanet.server.dao.AppVersionModuleMapper;
 import work.metanet.utils.CosUtil;
@@ -105,16 +106,16 @@ public class AppVersionModuleService implements IAppVersionModuleService{
 		if(StringUtils.isNotBlank(versionModule.getVersionModuleId())) {
 			//修改操作
 			if(dbAppVersionModule!=null && !dbAppVersionModule.getVersionModuleId().equals(versionModule.getVersionModuleId()))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			if(dbAppVersionModule==null || dbAppVersionModule.getVersionModuleId().equals(versionModule.getVersionModuleId())) {
 				appVersionModuleMapper.updateByPrimaryKeySelective(versionModule);
 			}else {
-				throw LxException.of().setResult(ResultMessage.FAILURE.result());				
+				throw MetanetException.of().setResult(ResultResponseEnum.INVALID_REQUEST.resultResponse());				
 			}
 		}else {
 			//新增操作
 			if(!BeanUtil.isEmpty(dbAppVersionModule))
-				throw LxException.of().setMsg("名称已存在");
+				throw MetanetException.of().setMsg("名称已存在");
 			versionModule.setVersionModuleId(IdUtil.fastSimpleUUID());
 			appVersionModuleMapper.insertSelective(versionModule);
 		}
