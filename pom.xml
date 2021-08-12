@@ -38,8 +38,9 @@
 		<spring.boot.version>2.3.12.RELEASE</spring.boot.version>
 		<spring.cloud.version>2.2.8.RELEASE</spring.cloud.version>
 		<spring.version>5.2.15.RELEASE</spring.version>
-		<slf4j.version>1.7.1</slf4j.version>
-		<logback.version>1.0.6</logback.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<!-- logback 1.0.6导致gateway报错：Exception in thread "main" java.lang.NoSuchMethodError: ch.qos.logback.classic.LoggerContext.removeObject(Ljava/lang/String;)V -->
+		<logback.version>1.1.11</logback.version>
 		<querydsl.version>2.9.0</querydsl.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<hibernate.version>5.5.3.Final</hibernate.version>
@@ -192,7 +193,7 @@
 <!-- 			    <artifactId>classic</artifactId> -->
 <!-- 			    <version>1.0.0</version> -->
 <!-- 			</dependency> -->
-
+			<!-- logback扩展包，监听,用于解决与spring的结合 -->
 			<dependency>
 				<groupId>org.logback-extensions</groupId>
 				<artifactId>logback-ext-spring</artifactId>

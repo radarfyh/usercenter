@@ -31,8 +31,8 @@ dubbo:
     address: nacos://localhost:8848
 logging: 
   level:
-    root: info
-    '[org.springframework.web.servlet]': info
+    root: warn
+    '[work.metanet.client.user.config]': debug
 #腾讯配置
 tencent:
   cloud:
