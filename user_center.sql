@@ -378,8 +378,8 @@ CREATE TABLE uc_users (
 -- Records of uc_users
 -- ----------------------------
 INSERT INTO uc_users VALUES ('1' , '', null, 'admin', 'bd1718f058d8a02468134432b8656a86', 'YzcmCZNvbXocrsz9dm8e', '管理', null, 1, '13612345678', 'admin@hotmail.com', '9', '跑步', null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin',  1, '0');
-INSERT INTO uc_users VALUES ('22', '', null, '张三',  'fd80ebd493a655608dc893a9f897d845', 'YzcmCZNvbXocrsz9dm8e', '三', null, 1, '13889700023', 'zhangsan@hotmail.com', '9', '跑步', null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1, '0');
-INSERT INTO uc_users VALUES ('23', '', null, '李四',  'fd80ebd493a655608dc893a9f897d845', 'YzcmCZNvbXocrsz9dm8e', '4', null, 1, '13889700023', '', '9.5', '跑步', null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1, '0');
+INSERT INTO uc_users VALUES ('22', '', null, 'tom',  'fd80ebd493a655608dc893a9f897d845', 'YzcmCZNvbXocrsz9dm8e', '三', null, 1, '13889700023', 'zhangsan@hotmail.com', '9', '跑步', null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1, '0');
+INSERT INTO uc_users VALUES ('23', '', null, 'edison',  'fd80ebd493a655608dc893a9f897d845', 'YzcmCZNvbXocrsz9dm8e', '4', null, 1, '13889700023', '', '9.5', '跑步', null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1, '0');
 INSERT INTO uc_users VALUES ('24', '', null, '王五',  'fd80ebd493a655608dc893a9f897d845', 'YzcmCZNvbXocrsz9dm8e', '5', null, 1, '13889700023', null, '10', '跑步', null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1, '0');
 INSERT INTO uc_users VALUES ('25', '', null, '周六',  'fd80ebd493a655608dc893a9f897d845', 'YzcmCZNvbXocrsz9dm8e', '6', null, 1, '13889700023', null, '10', '跑步', null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1, '0');
 INSERT INTO uc_users VALUES ('26', '', null, '孙七',  'fd80ebd493a655608dc893a9f897d845', 'YzcmCZNvbXocrsz9dm8e', '7', null, 1, '13889700023', null, '10','跑步',  null, 1, null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin',1,  '0');
