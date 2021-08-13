@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 @Data
 public class UserTargetPrize implements Serializable {
     /**
-     * 用户目标奖品id
+     * 用户订购id
      */
 	@Id
     private String userTargetPrizeId;
@@ -29,7 +29,7 @@ public class UserTargetPrize implements Serializable {
     private String userId;
 
     /**
-     * 奖品id
+     * 商品id
      */
     private String prizeId;
 

@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * @Description 奖品信息
+ * @Description 奖励信息
  * @author EdisonFeng
  * @DateTime 2021年6月8日 Copyright(c) 2021. All Rights Reserved
  */

@@ -41,6 +41,7 @@ import work.metanet.constant.ConstSmsRequestType;
 import work.metanet.constant.Constant;
 import work.metanet.constant.SysConstants;
 import work.metanet.exception.MetanetException;
+import work.metanet.exception.ResultResponseEnum;
 import work.metanet.util.sms.SmsUtil;
 import work.metanet.utils.CosUtil;
 import work.metanet.utils.token.TokenUtil;
@@ -65,6 +66,7 @@ import work.metanet.api.app.vo.AppVo;
 import work.metanet.api.deviceApp.IDeviceAppService;
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
+import work.metanet.api.user.protocol.ReqLogin;
 import work.metanet.api.user.protocol.ReqLogin.RespLogin;
 import work.metanet.api.user.protocol.ReqLoginSuper;
 import work.metanet.api.user.protocol.ReqRegister;
@@ -128,26 +130,26 @@ public class UsersServiceImpl implements UsersService {
 	private Constant constant;
 
 	@Override
-	public int delete(String id) {
+	public int delete(String id) throws MetanetException {
 		usersRepo.deleteById(id);
 		return 0;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Iterable<UcUsers> findAllSort(Sort sort) {
+	public Iterable<UcUsers> findAllSort(Sort sort) throws MetanetException {
 		List<UcUsers> list = usersRepo.findAll(sort);
 		Iterator<UcUsers> iterator = list.iterator();
 		return (Iterable<UcUsers>) iterator;
 	}
 
 	@Override
-	public Page<UcUsers> findAll(Pageable page) {
+	public Page<UcUsers> findAll(Pageable page) throws MetanetException {
 		return usersRepo.findAll(page);
 	}
 
 	@Override
-	public int add(UcUsers record) {
+	public int add(UcUsers record) throws MetanetException {
 		if (usersRepo.save(record) == null) {
 			return -1;
 		}
@@ -155,7 +157,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int update(String id, UcUsers record) {
+	public int update(String id, UcUsers record) throws MetanetException {
 		if (!usersRepo.findById(id).isPresent()) {
 			return -1;
 		}
@@ -170,7 +172,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int update(UcUsers record) {
+	public int update(UcUsers record) throws MetanetException {
 		if (usersRepo.save(record) == null) {
 			return -1;
 		}
@@ -179,7 +181,7 @@ public class UsersServiceImpl implements UsersService {
 
 
 	@Override
-	public List<UcDepartments> findDepts(String userId) {
+	public List<UcDepartments> findDepts(String userId) throws MetanetException {
 		
 		List<UcDepartments> departments = new ArrayList<>();
 		
@@ -198,7 +200,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public List<UcRoles> findRoles(String userId) {
+	public List<UcRoles> findRoles(String userId) throws MetanetException {
 		List<UcRoles> roles = new ArrayList<>();
 		
 		List<UcUserRole> userRoles = findUserRoles(userId);
@@ -215,19 +217,19 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public List<UcUserDept> findUserDepts(String userId) {
+	public List<UcUserDept> findUserDepts(String userId) throws MetanetException {
 		
 		return userDeptRepo.findByUserId(userId);
 	}
 	
 	@Override
-	public List<UcUserRole> findUserRoles(String userId) {
+	public List<UcUserRole> findUserRoles(String userId) throws MetanetException {
 		return userRoleRepo.findByUserId(userId);
 	}
 	
 	@Transactional
 	@Override
-	public int save(UcUsers record) {
+	public int save(UcUsers record) throws MetanetException {
 		String id = null;
 		if(record.getId() == null || record.getId().isEmpty()) {
 			// 新增用户
@@ -255,8 +257,6 @@ public class UsersServiceImpl implements UsersService {
 			userRoleRepo.save(userRole);
 		}
 		
-		
-		
 		// 更新用户部门关系
 		if(id != null) {
 			for(UcUserDept userDept:record.getUserDepts()) {
@@ -273,13 +273,13 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int delete(UcUsers record) {
+	public int delete(UcUsers record) throws MetanetException {
 		usersRepo.deleteById(record.getId());
 		return SysConstants.SUCCUSS;
 	}
 
 	@Override
-	public int delete(List<UcUsers> records) {
+	public int delete(List<UcUsers> records) throws MetanetException {
 		for(UcUsers record:records) {
 			delete(record);
 		}
@@ -287,7 +287,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public UcUsers findById(String id) {
+	public UcUsers findById(String id) throws MetanetException {
 		Optional<UcUsers> user = usersRepo.findById(id);
 		if (user.isPresent()) {
 			return user.get();
@@ -297,7 +297,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public UcUsers findByName(String name) {
+	public UcUsers findByName(String name) throws MetanetException {
 		List<UcUsers> users = usersRepo.findByUsername(name);
 		if (users.size() > 0) {
 			//调试信息
@@ -322,7 +322,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public MyPageResult findPage(MyPageRequest pageRequest) {
+	public MyPageResult findPage(MyPageRequest pageRequest) throws MetanetException {
 		//调试信息
 		log.log(Level.forName("NOTICE", 450), pageRequest.toJSON());
 		
@@ -368,7 +368,7 @@ public class UsersServiceImpl implements UsersService {
 	 * 加载用户角色
 	 * @param pageResult
 	 */
-	private void findUserRoles(MyPageResult pageResult) {
+	private void findUserRoles(MyPageResult pageResult) throws MetanetException {
 		List<?> content = pageResult.getContent();
 		for(Object object:content) {
 			UcUsers user = (UcUsers) object;
@@ -382,7 +382,7 @@ public class UsersServiceImpl implements UsersService {
 		}
 	}
 
-	private String getRoleNames(List<UcUserRole> userRoles) {
+	private String getRoleNames(List<UcUserRole> userRoles) throws MetanetException {
 		StringBuilder sb = new StringBuilder();
 		for(Iterator<UcUserRole> iter=userRoles.iterator(); iter.hasNext();) {
 			UcUserRole userRole = iter.next();
@@ -402,7 +402,7 @@ public class UsersServiceImpl implements UsersService {
 	 * 加载用户部门
 	 * @param pageResult
 	 */
-	private void findUserDepts(MyPageResult pageResult) {
+	private void findUserDepts(MyPageResult pageResult) throws MetanetException {
 		List<?> content = pageResult.getContent();
 		for(Object object:content) {
 			UcUsers user = (UcUsers) object;
@@ -434,7 +434,7 @@ public class UsersServiceImpl implements UsersService {
 
 	
 	@Override
-	public Set<String> findPermissions(String userName) {	
+	public Set<String> findPermissions(String userName) throws MetanetException {	
 		Set<String> perms = new HashSet<>();
 		List<UcResources> menus = resourcesService.findByUser(userName);
 		for(UcResources menu:menus) {
@@ -449,9 +449,14 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public Integer userTotal(String channelId) throws Exception {
+	public Integer userTotal(String channelId) throws MetanetException {
 		// 因为渠道放在其他微服务进程中，需要调用appService服务获取渠道ID下面所有appid，再根据appid查询用户数量
-		List<AppVo> avs = appService.appVoList(channelId);
+		List<AppVo> avs;
+		try {
+			avs = appService.appVoList(channelId);
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("获取合作伙伴的应用列表异常。" + e.getMessage());
+		}
 		
 		int total = 0;
 		for(AppVo av : avs) {
@@ -461,23 +466,23 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public String cacheUserToken(String userId) throws Exception {
+	public String cacheUserToken(String userId) throws MetanetException {
 		return stringRedisTemplate.opsForValue().get(ConstCacheKey.USER_TOKEN.cacheKey(userId));
 	}
 	
 	@Override
-	public void cacheUserToken(String userId, String token) throws Exception {
+	public void cacheUserToken(String userId, String token) throws MetanetException {
 		stringRedisTemplate.opsForValue().set(ConstCacheKey.USER_TOKEN.cacheKey(userId), token, Duration.ofSeconds(ConstCacheKey.USER_TOKEN.getExpire()));
 	}
 	
 	@Override
-	public Boolean hashUserTokenKey(String userId) throws Exception {
+	public Boolean hashUserTokenKey(String userId) throws MetanetException {
 		String cacheKey = ConstCacheKey.USER_TOKEN.cacheKey(userId);
         return stringRedisTemplate.hasKey(cacheKey);
 	}
 	
 	@Override
-	public void sendCode(String packageName, ReqSendCode req) throws Exception {
+	public void sendCode(String packageName, ReqSendCode req) throws MetanetException {
 		String validateCode = RandomUtil.randomString(constant.getRandom_base_number(), 4);
 		ConstSmsRequestType smsRequestType = ConstSmsRequestType.setSmsType(req.getSmsType());
 		String sign = Convert.toStr(stringRedisTemplate.opsForHash().get(ConstCacheKey.APP_SMS_SIGN.cacheKey(), packageName));
@@ -489,8 +494,12 @@ public class UsersServiceImpl implements UsersService {
 	
 	
 	@Override
-	public void checkCode(String userId, ReqCheckCode requestParam) throws Exception {
-		validationCode(userId,requestParam.getPhone(),requestParam.getCode(),ConstSmsRequestType.setSmsType(requestParam.getSmsType()));
+	public void checkCode(String userId, ReqCheckCode requestParam) throws MetanetException {
+		try {
+			validationCode(userId,requestParam.getPhone(),requestParam.getCode(),ConstSmsRequestType.setSmsType(requestParam.getSmsType()));
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("验证校验码异常。" + e.getMessage());
+		}
 	}
 	
 	
@@ -514,12 +523,18 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public void register(String packageName, ReqRegister requestParam) throws Exception {
+	public void register(ReqRegister requestParam) throws MetanetException {
+		String packageName = "work.metanet.intrest_group";
+		register(packageName, requestParam);
+	}
+	
+	@Override
+	public void register(String packageName, ReqRegister requestParam) throws MetanetException {
 		AppVo appVo;
 		try {
 			appVo = appService.getAppByPackageName(packageName);
 		} catch (Exception e) {
-			throw MetanetException.of().setMsg("获取包名出错");
+			throw MetanetException.of(ResultResponseEnum.FAILURE_GET_PACKAGE_NAME.resultResponse());
 		}
 		UcUsers user = new UcUsers();
 		user.setAppId(appVo.getAppId());
@@ -533,14 +548,24 @@ public class UsersServiceImpl implements UsersService {
 		usersRepo.save(user);
 	}
 	
-	private RespLogin login(UcUsers user,String deviceId,String packageName,String versionCode) throws Exception{
+	private RespLogin login(UcUsers user,String deviceId,String packageName,String versionCode) throws MetanetException{
 		if(user==null)
-			throw MetanetException.of().setMsg("用户名或密码错误");
+			throw MetanetException.of(ResultResponseEnum.ERROR_USER_OR_PWD.resultResponse());
 		if(!user.getEnableStatus())
-			throw MetanetException.of().setMsg("您已被锁定");
+			throw MetanetException.of(ResultResponseEnum.ERROR_USER_LOCKED.resultResponse());
 		
-		AppVersionVo appVersionVo = appVersionService.getAppVersion(packageName, versionCode);
-	 	String deviceAppId = deviceAppService.getDeviceAppId(deviceId, packageName);
+		AppVersionVo appVersionVo;
+		try {
+			appVersionVo = appVersionService.getAppVersion(packageName, versionCode);
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("获取应用版本异常。" + e.getMessage());
+		}
+	 	String deviceAppId;
+		try {
+			deviceAppId = deviceAppService.getDeviceAppId(deviceId, packageName);
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("获取终端的应用ID异常。" + e.getMessage());
+		}
 	 	
 	 	//登录记录
 	 	userLoginService.loginRecord(user.getId(), deviceId, appVersionVo.getVersionId());
@@ -561,12 +586,21 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public RespLogin loginSuper(String deviceId, String packageName, String versionCode, ReqLoginSuper requestParam) throws Exception {
+	public RespLogin loginSuper(String deviceId, String packageName, String versionCode, ReqLoginSuper requestParam) throws MetanetException {
 
 		//短信验证码
-		validationCode(null,requestParam.getPhone(),requestParam.getCode(),ConstSmsRequestType.LOGIN);
+		try {
+			validationCode(null,requestParam.getPhone(),requestParam.getCode(),ConstSmsRequestType.LOGIN);
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("验证校验码异常。" + e.getMessage());
+		}
 		
-		AppVo appVo = appService.getAppByPackageName(packageName);
+		AppVo appVo;
+		try {
+			appVo = appService.getAppByPackageName(packageName);
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("获取包名对应的应用异常。" + e.getMessage());
+		}
 
 		UcUsers user = usersRepo.getUser(appVo.getAppId(), null, requestParam.getPhone(), null, null);
 		
@@ -583,7 +617,11 @@ public class UsersServiceImpl implements UsersService {
 			user.setEnableStatus(true);
 			usersRepo.save(user);
 			//初始化用户积分
-			userScoreService.initUserScore(user.getId());
+			try {
+				userScoreService.initUserScore(user.getId());
+			} catch (Exception e) {
+				throw MetanetException.of().setMsg("初始化用户积分异常。" + e.getMessage());
+			}
 		}
 
 		//登录
@@ -593,10 +631,10 @@ public class UsersServiceImpl implements UsersService {
 	
 	
 	@Override 
-	public void updUser(String userId, ReqUpdUser requestParam) throws Exception {
+	public void updUser(String userId, ReqUpdUser requestParam) throws MetanetException {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw MetanetException.of().setMsg("用户不存在");		
+			throw MetanetException.of(ResultResponseEnum.FAILURE_USER_NO_EXISTS.resultResponse());
 		}
 		
 		BeanUtil.copyProperties(requestParam, user, CopyOptions.create().ignoreNullValue());
@@ -605,10 +643,10 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public RespUserInfo userInfo(String userId) throws Exception {
+	public RespUserInfo userInfo(String userId) throws MetanetException {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw MetanetException.of().setMsg("用户不存在");		
+			throw MetanetException.of(ResultResponseEnum.FAILURE_USER_NO_EXISTS.resultResponse());
 		}
 		
 		RespUserInfo respUserInfo = new RespUserInfo();
@@ -618,34 +656,38 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public RespUserInfo userInfoFromThird(UserFromThird utf) throws Exception {
+	public RespUserInfo userInfoFromThird(UserFromThird utf) throws MetanetException {
 		RespUserInfo userInfo = usersRepo.userInfoFromThird(utf);
 		return userInfo;
 	}
 
 
 	@Override
-	public void updPassword(String userId, ReqUpdPassword requestParam) throws Exception {
+	public void updPassword(String userId, ReqUpdPassword requestParam) throws MetanetException {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw MetanetException.of().setMsg("用户不存在");		
+			throw MetanetException.of(ResultResponseEnum.FAILURE_USER_NO_EXISTS.resultResponse());	
 		}
 		
 		if(!user.get().getPassword().equals(SecureUtil.md5(requestParam.getPassword())))
-			throw MetanetException.of().setMsg("原密码错误");
+			throw MetanetException.of(ResultResponseEnum.ERROR_OLD_PASSWORD.resultResponse());
 		user.get().setPassword(SecureUtil.md5(requestParam.getNewPassword()));
 		usersRepo.save(user.get());
 	}
 	
 	
 	@Override
-	public void resetPassword(String userId, ReqResetPassword requestParam) throws Exception {
-		validationCode(userId, requestParam.getPhone(), requestParam.getCode(),
-				ConstSmsRequestType.CHANGE_PASSWORD);
+	public void resetPassword(String userId, ReqResetPassword requestParam) throws MetanetException {
+		try {
+			validationCode(userId, requestParam.getPhone(), requestParam.getCode(),
+					ConstSmsRequestType.CHANGE_PASSWORD);
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("校验验证码异常。" + e.getMessage());
+		}
 
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw MetanetException.of().setMsg("用户不存在");		
+			throw MetanetException.of(ResultResponseEnum.FAILURE_USER_NO_EXISTS.resultResponse());	
 		}
 		
 		user.get().setPassword(SecureUtil.md5(requestParam.getNewPassword()));
@@ -654,7 +696,7 @@ public class UsersServiceImpl implements UsersService {
 	
 	
 	@Override 
-	public RespPaging<RespUserList> userList(ReqUserList requestParam) throws Exception {
+	public RespPaging<RespUserList> userList(ReqUserList requestParam) throws MetanetException {
 		RespPaging<RespUserList> respPaging = new RespPaging<RespUserList>();
 		PageHelper.startPage(requestParam.getPageNum(), requestParam.getPageSize());
 		
@@ -674,7 +716,7 @@ public class UsersServiceImpl implements UsersService {
 	 * @DateTime 2019/11/20
 	 */
 	@Override
-	public void removeUser(List<ReqRemoveUser> req) throws Exception {
+	public void removeUser(List<ReqRemoveUser> req) throws MetanetException {
 		usersRepo.removeUser(req);
 	}
 	
@@ -685,7 +727,7 @@ public class UsersServiceImpl implements UsersService {
 	 */
 	@Async
 	@Override
-	public void logout(String userId) throws Exception {
+	public void logout(String userId) throws MetanetException {
 		stringRedisTemplate.delete(ConstCacheKey.USER_TOKEN.cacheKey(userId));
 	}
 	
@@ -695,20 +737,29 @@ public class UsersServiceImpl implements UsersService {
 	 * @DateTime 2020/03/09
 	 */
 	@Override
-	public void accountCancel(String userId, ReqAccountCancel req) throws Exception {
+	public void accountCancel(String userId, ReqAccountCancel req) throws MetanetException {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
-			throw MetanetException.of().setMsg("用户不存在");		
+			throw MetanetException.of(ResultResponseEnum.FAILURE_USER_NO_EXISTS.resultResponse());		
 		}
 		
-		validationCode(null, user.get().getPhone(), req.getCode(), ConstSmsRequestType.ACCOUNT_CANCEL);
+		try {
+			validationCode(null, user.get().getPhone(), req.getCode(), ConstSmsRequestType.ACCOUNT_CANCEL);
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("验证校验码异常。" + e.getMessage());
+		}
 		
 		usersRepo.removeUser(CollUtil.newArrayList(new ReqRemoveUser().setUserId(userId)));
 	}
 	
 	@Override
-	public String syncUser(String phone) throws Exception {
-		AppVo appVo = appService.getAppByPackageName(constant.getYmsjPackage());
+	public String syncUser(String phone) throws MetanetException {
+		AppVo appVo;
+		try {
+			appVo = appService.getAppByPackageName(constant.getYmsjPackage());
+		} catch (Exception e) {
+			throw MetanetException.of().setMsg("获取包名对应的应用异常。" + e.getMessage());
+		}
 		
 		UcUsers user = new UcUsers().setAppId(appVo.getAppId()).setPhone(phone);
 		user.setStatus(true);
@@ -730,7 +781,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws Exception {
+	public RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws MetanetException {
 		String name = "第三方同步用户"; //设置默认昵称
 		String tel = "13800000000"; //设置默认电话号码
 		String appId = "f1e247a486ef4c6ebc34cba4f775e924"; //设置一个默认的appid
@@ -787,5 +838,12 @@ public class UsersServiceImpl implements UsersService {
 
 		return resp;
 
+	}
+
+	@Override
+	public RespLogin login(String deviceId, String packageName, String versionCode, ReqLogin requestParam)
+			throws MetanetException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

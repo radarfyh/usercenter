@@ -24,7 +24,7 @@ dubbo:
 #    base-packages: work.metanet.client.vision
   registry:
     id: ${spring.application.name}-registry
-    address: nacos://192.168.17.125:8848
+    address: nacos://localhost:8848
 
 #专用配置
 metanet: 
@@ -39,13 +39,13 @@ metanet:
 #腾讯配置
 tencent:
   cloud:
-    accessKey: AKID2OZcTBcLxUze5Kf4OUKwTqjRtJUPfTcV
+    accessKey: XXX
     cos:
-      bucketName: devpb-12345678
+      bucketName: bn12345678
       region: ap-guangzhou
-    secretKey: nYSChvue8MJB3g28B7sS1KNBpDLCnIad
+    secretKey: YYY
     sms:
-      appid: 1400384061
+      appid: 123456
       region: ap-guangzhou
       
       

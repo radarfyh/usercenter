@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import work.metanet.server.usercenter.service.LogsService;
 import work.metanet.base.page.MyPageRequest;
+import work.metanet.client.user.base.BaseController;
 import work.metanet.utils.HttpResult;
 
 import io.swagger.annotations.Api;
@@ -22,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "日志")
 @RestController
 @RequestMapping("log")
-public class LogsController {
+public class LogsController extends BaseController {
 
 //	@Resource
 	@DubboReference

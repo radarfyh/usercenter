@@ -179,11 +179,11 @@ logging:
 #腾讯配置
 tencent:
   cloud:
-    accessKey: AKID2OZcTBcLxUze5Kf4OUKwTqjRtJUPfTcV
+    accessKey: XXX
     cos:
-      bucketName: devpb-12345678
+      bucketName: bn12345678
       region: ap-guangzhou
-    secretKey: nYSChvue8MJB3g28B7sS1KNBpDLCnIad
+    secretKey: YYY
     sms:
-      appid: 1400384061
+      appid: 123456
       region: ap-guangzhou

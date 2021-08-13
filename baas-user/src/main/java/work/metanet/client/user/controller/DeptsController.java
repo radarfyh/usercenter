@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import work.metanet.base.page.MyPageRequest;
 import work.metanet.base.page.MyPageResult;
+import work.metanet.client.user.base.BaseController;
 import work.metanet.server.usercenter.domain.UcDepartments;
 import work.metanet.server.usercenter.service.DeptsService;
 import work.metanet.utils.HttpResult;
@@ -31,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "部门")
 @RestController
 @RequestMapping("departments")
-public class DeptsController {
+public class DeptsController extends BaseController {
 
 //	@Resource
 	@DubboReference

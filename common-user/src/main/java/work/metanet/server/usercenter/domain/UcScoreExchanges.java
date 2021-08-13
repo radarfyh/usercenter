@@ -31,17 +31,17 @@ public class UcScoreExchanges extends AbstractEntity implements Serializable {
     private String userId;
 
     /**
-     * 奖品id
+     * 商品id
      */
     private String prizeId;
 
     /**
-     * 奖品名称
+     * 商品名称
      */
     private String prizeName;
 
     /**
-     * 奖品图片
+     * 商品图片
      */
     private String prizeImg;
 

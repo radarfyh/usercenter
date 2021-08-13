@@ -12,7 +12,7 @@ public class PrizeVo implements Serializable{
 	private static final long serialVersionUID = -3560715155570541004L;
 
 	/**
-     * 奖品id
+     * 商品id
      */
     private String prizeId;
 
@@ -22,12 +22,12 @@ public class PrizeVo implements Serializable{
     private String channelId;
 
     /**
-     * 奖品名称
+     * 商品名称
      */
     private String prizeName;
 
     /**
-     * 奖品图片
+     * 商品图片
      */
     private String prizeImg;
 
@@ -42,7 +42,7 @@ public class PrizeVo implements Serializable{
     private Integer inventory;
 
     /**
-     * 奖品状态-ON:上架/OFF:下架
+     * 商品状态-ON:上架/OFF:下架
      */
     private String prizeStatus;
 

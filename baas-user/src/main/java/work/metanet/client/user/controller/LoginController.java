@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import work.metanet.client.user.base.BaseController;
 import work.metanet.client.user.security.JwtAuthenticatioToken;
 import work.metanet.client.user.security.SecurityUtils;
 import com.google.code.kaptcha.Constants;
@@ -38,7 +39,7 @@ import work.metanet.utils.HttpResult;
  */
 @Api(tags = "登录")
 @RestController
-public class LoginController {
+public class LoginController extends BaseController {
 
 //	@Resource
 	@DubboReference

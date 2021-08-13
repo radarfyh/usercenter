@@ -1,7 +1,9 @@
 package work.metanet.utils;
 
+import work.metanet.base.HttpStatus;
+
 /**
- * HTTP结果封装
+ * HTTP结果封装，废弃
  * @author Louis & Edison
  * @date Oct 29, 2018
  */

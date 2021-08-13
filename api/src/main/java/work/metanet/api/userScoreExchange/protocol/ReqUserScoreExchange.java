@@ -15,8 +15,8 @@ import lombok.experimental.Accessors;
 public class ReqUserScoreExchange implements Serializable{
 	
 	private static final long serialVersionUID = 8861838759440264965L;
-	@ApiModelProperty(value = "奖品id",required = true)
-	@NotBlank(message = "奖品id不能为空")
+	@ApiModelProperty(value = "商品id",required = true)
+	@NotBlank(message = "商品id不能为空")
 	private String prizeId;
 	@ApiModelProperty(value = "收货人",required = true)
 	@NotBlank(message = "收货人不能为空")

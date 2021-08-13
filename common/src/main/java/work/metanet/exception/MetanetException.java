@@ -17,10 +17,17 @@ public class MetanetException extends BaseException implements Serializable {
 		return new MetanetException();
 	}
 	
-	public MetanetException() {
-		super();
+	public static MetanetException of(ResultResponse<?> resultResponse) {
+		return new MetanetException(resultResponse);
 	}
 	
+	public MetanetException(ResultResponse<?> resultResponse) {
+		super(resultResponse);
+	}
+	
+	public MetanetException() {
+		super();
+	}	
 	public MetanetException(String message) {
 		super(message);
 	}

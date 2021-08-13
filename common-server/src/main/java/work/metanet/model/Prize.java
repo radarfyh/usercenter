@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Data
 public class Prize implements Serializable {
     /**
-     * 奖品id
+     * 商品id
      */
 	@Id
     private String prizeId;
@@ -30,12 +30,12 @@ public class Prize implements Serializable {
     private String channelId;
 
     /**
-     * 奖品名称
+     * 商品名称
      */
     private String prizeName;
 
     /**
-     * 奖品图片
+     * 商品图片
      */
     private String prizeImg;
 
@@ -50,7 +50,7 @@ public class Prize implements Serializable {
     private Integer inventory;
 
     /**
-     * 奖品状态-UP:上架/DOWN:下架
+     * 商品状态-UP:上架/DOWN:下架
      */
     private String prizeStatus;
 

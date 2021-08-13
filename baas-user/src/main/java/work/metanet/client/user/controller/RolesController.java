@@ -15,6 +15,7 @@ import work.metanet.constant.SysConstants;
 import work.metanet.server.usercenter.domain.UcAcls;
 import work.metanet.server.usercenter.domain.UcRoles;
 import work.metanet.base.page.MyPageRequest;
+import work.metanet.client.user.base.BaseController;
 import work.metanet.server.usercenter.service.RolesService;
 import work.metanet.utils.HttpResult;
 
@@ -30,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "角色")
 @RestController
 @RequestMapping("role")
-public class RolesController {
+public class RolesController extends BaseController {
 
 //	@Resource
 	@DubboReference

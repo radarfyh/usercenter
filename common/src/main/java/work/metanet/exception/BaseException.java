@@ -18,7 +18,7 @@ public class BaseException extends RuntimeException implements Serializable {
 		resultResponse.setMessage(ResultResponseEnum.SERVER_FAILURE.getMessage());
 	}
 	
-	public BaseException(ResultResponse<Object> resultResponse) {
+	public BaseException(ResultResponse<?> resultResponse) {
 		super(resultResponse.getMessage());
 		this.resultResponse = resultResponse;
 	}

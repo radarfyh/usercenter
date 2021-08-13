@@ -11,6 +11,7 @@ import work.metanet.server.usercenter.domain.UcUsers;
 import work.metanet.server.usercenter.domain.UserFromThird;
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
+import work.metanet.api.user.protocol.ReqLogin;
 import work.metanet.api.user.protocol.ReqLoginSuper;
 import work.metanet.api.user.protocol.ReqRegister;
 import work.metanet.api.user.protocol.ReqRemoveUser;
@@ -26,6 +27,7 @@ import work.metanet.api.user.protocol.ReqUserInfo.RespUserInfo;
 import work.metanet.api.user.protocol.ReqUserList.RespUserList;
 import work.metanet.base.RespPaging;
 import work.metanet.base.service.CurdService;
+import work.metanet.exception.MetanetException;
 
 
 /**
@@ -35,58 +37,58 @@ import work.metanet.base.service.CurdService;
  */
 public interface UsersService extends CurdService<UcUsers> {
 
-	UcUsers findByName(String username);
+	UcUsers findByName(String username) throws MetanetException;
 
 	/**
 	 * 查找用户的菜单权限标识集合
 	 * @param userName
 	 * @return
 	 */
-	Set<String> findPermissions(String userName);
+	Set<String> findPermissions(String userName) throws MetanetException;
 
 	/**
 	 * 查找用户角色关系集合
 	 * @param userId
 	 * @return
 	 */
-	List<UcUserRole> findUserRoles(String userId);
+	List<UcUserRole> findUserRoles(String userId) throws MetanetException;
 	
 	/**
 	 * 查找角色集合
 	 * @param userId
 	 * @return
 	 */
-	List<UcRoles> findRoles(String userId);
+	List<UcRoles> findRoles(String userId) throws MetanetException;
 	
 	/**
 	 * 查找用户部门关系集合
 	 * @param userId
 	 * @return
 	 */
-	List<UcUserDept> findUserDepts(String userId);
+	List<UcUserDept> findUserDepts(String userId) throws MetanetException;
 	
 	/**
 	 * 查找部门集合
 	 * @param userId
 	 * @return
 	 */
-	List<UcDepartments> findDepts(String userId);
+	List<UcDepartments> findDepts(String userId) throws MetanetException;
 	
 	
-	Integer userTotal(String channelId) throws Exception;
+	Integer userTotal(String channelId) throws MetanetException;
 	
-	String cacheUserToken(String userId) throws Exception;
+	String cacheUserToken(String userId) throws MetanetException;
 	
-	void cacheUserToken(String userId,String token)throws Exception;
+	void cacheUserToken(String userId,String token)throws MetanetException;
 	
-	Boolean hashUserTokenKey(String userId) throws Exception;
+	Boolean hashUserTokenKey(String userId) throws MetanetException;
 
 	/**
 	 * @Description: 发送手机验证码
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	void sendCode(String packageName,ReqSendCode requestParam) throws Exception;
+	void sendCode(String packageName,ReqSendCode requestParam) throws MetanetException;
 	
 	
 	/**
@@ -94,91 +96,92 @@ public interface UsersService extends CurdService<UcUsers> {
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/12/03
 	 */
-	void checkCode(String userId,ReqCheckCode requestParam) throws Exception;
+	void checkCode(String userId,ReqCheckCode requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 注册
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	//void register(String packageName,ReqRegister requestParam) throws Exception;
+	void register(String packageName,ReqRegister requestParam) throws MetanetException;
+	void register(ReqRegister requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 登录
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	//RespLogin login(String deviceId,String packageName,String versionCode, ReqLogin requestParam) throws Exception;
+	RespLogin login(String deviceId,String packageName,String versionCode, ReqLogin requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 登录与注册
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	RespLogin loginSuper(String deviceId,String packageName,String versionCode,ReqLoginSuper requestParam) throws Exception;
+	RespLogin loginSuper(String deviceId,String packageName,String versionCode,ReqLoginSuper requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 修改用户信息
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	void updUser(String userId,ReqUpdUser requestParam) throws Exception;
+	void updUser(String userId,ReqUpdUser requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 获取用户信息
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	RespUserInfo userInfo(String userId) throws Exception;
+	RespUserInfo userInfo(String userId) throws MetanetException;
 
 	/**
 	 * @Description: 获取用户信息
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	RespUserInfo userInfoFromThird(UserFromThird uft) throws Exception;
+	RespUserInfo userInfoFromThird(UserFromThird uft) throws MetanetException;
 	
 	/**
 	 * @Description: 修改密码
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	void updPassword(String userId,ReqUpdPassword requestParam) throws Exception;
+	void updPassword(String userId,ReqUpdPassword requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 重置密码
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/17
 	 */
-	void resetPassword(String userId,ReqResetPassword requestParam) throws Exception;
+	void resetPassword(String userId,ReqResetPassword requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 用户列表
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/14
 	 */
-	RespPaging<RespUserList> userList(ReqUserList requestParam) throws Exception;
+	RespPaging<RespUserList> userList(ReqUserList requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 删除用户
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/20
 	 */
-	void removeUser(List<ReqRemoveUser> req) throws Exception;
+	void removeUser(List<ReqRemoveUser> req) throws MetanetException;
 	
 	/**
 	 * @Description: 退出登录
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2020/05/05
 	 */
-	void logout(String userId) throws Exception;
+	void logout(String userId) throws MetanetException;
 	
 	/**
 	 * @Description: 销户
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2020/03/09
 	 */
-	void accountCancel(String userId,ReqAccountCancel req) throws Exception;
+	void accountCancel(String userId,ReqAccountCancel req) throws MetanetException;
 	
 	
 	/**
@@ -186,15 +189,13 @@ public interface UsersService extends CurdService<UcUsers> {
 	 * @Author Edison F.
 	 * @DateTime 2021/04/26
 	 */
-	String syncUser(String phone) throws Exception;
+	String syncUser(String phone) throws MetanetException;
 	
 	/**
 	 * @Description: 使用第三方用户信息创建新用户
 	 * @Author Edison F.
 	 * @DateTime 2021/04/26
 	 */
-	RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws Exception;
+	RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws MetanetException;
 	
-	void register(String packageName, ReqRegister requestParam) throws Exception;
-
 }

@@ -8,14 +8,14 @@ import work.metanet.base.RespPaging;
 public interface IPrizeService {
 	
 	/**
-	 * @Description: 奖品商城
+	 * @Description: 商城
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2020/06/28
 	 */
 	RespPaging<RespPrizeStore> prizeStore(ReqPrizeStore req) throws Exception;
 	
 	/**
-	 * @Description: 获取奖品对象-加入排他锁
+	 * @Description: 获取商品对象-加入排他锁
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2020/06/30
 	 */

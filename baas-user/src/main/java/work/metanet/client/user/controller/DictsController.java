@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import work.metanet.base.page.MyPageRequest;
+import work.metanet.client.user.base.BaseController;
 import work.metanet.server.usercenter.domain.UcDictionaries;
 import work.metanet.server.usercenter.service.DictsService;
 import work.metanet.utils.HttpResult;
@@ -29,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "字典")
 @RestController
 @RequestMapping("dict")
-public class DictsController {
+public class DictsController extends BaseController {
 
 //	@Resource
 	@DubboReference

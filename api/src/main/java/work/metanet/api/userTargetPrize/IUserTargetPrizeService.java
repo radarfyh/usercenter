@@ -8,14 +8,14 @@ import work.metanet.api.userTargetPrize.protocol.ReqUserTargetPrizeInfo.RespUser
 public interface IUserTargetPrizeService {
 
 	/**
-	 * @Description: 用户目标奖品信息
+	 * @Description: 用户订购信息
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2020/06/29
 	 */
 	RespUserTargetPrizeInfo userTargetPrizeInfo(String userId) throws Exception;
 	
 	/**
-	 * @Description: 保存用户目标奖品信息
+	 * @Description: 保存用户订购信息
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2020/06/29
 	 */
@@ -23,7 +23,7 @@ public interface IUserTargetPrizeService {
 	
 	
 	/**
-	 * @Description: 用户目标奖品完成率
+	 * @Description: 用户订购完成率
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2020/08/31
 	 */

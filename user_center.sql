@@ -209,17 +209,6 @@ INSERT INTO uc_resources VALUES ('32', '新增字典', '7', null, 'sys:dict:add'
 INSERT INTO uc_resources VALUES ('33', '修改字典', '7', null, 'sys:dict:edit', '2', null, '0', 	null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
 INSERT INTO uc_resources VALUES ('34', '删除字典', '7', null, 'sys:dict:delete', '2', null, '0', 	null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
 
-INSERT INTO uc_resources VALUES ('430', '视力检测', '0', '', '', '0', 'el-icon-info', '1', 		null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-INSERT INTO uc_resources VALUES ('431', '视力表', '430', '/visiontest/visiontable', null, '1', 'el-icon-warning', '1', null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-INSERT INTO uc_resources VALUES ('4310', '查看视力表', '431', null, 'vision:table:view', '2', null, '0', 	null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-INSERT INTO uc_resources VALUES ('4311', '新增视力表', '431', null, 'vision:table:add', '2', null, '0', 	null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-INSERT INTO uc_resources VALUES ('4312', '修改视力表', '431', null, 'vision:table:edit', '2', null, '0', null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-INSERT INTO uc_resources VALUES ('4313', '删除视力表', '431', null, 'vision:table:delete', '2', null, '0', 	null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-
-INSERT INTO uc_resources VALUES ('440', '视力防护', '0', '', '', '0', 'el-icon-service', '2', 	null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-INSERT INTO uc_resources VALUES ('441', '视力锻炼', '440', '/sys/exercise', null, '1', 'el-icon-picture-outline', '1', null, '2018-08-14 11:11:11', '2018-08-14 11:11:11','admin', 'admin', 1);
-
-
 -- ----------------------------
 -- Table structure for uc_roles
 -- ----------------------------
@@ -359,7 +348,7 @@ INSERT INTO uc_acls VALUES ('444', '8', '35',null, '2018-08-14 11:11:11', '2018-
 DROP TABLE IF EXISTS uc_users;
 CREATE TABLE uc_users (
   `id`            varchar(64) NOT NULL COMMENT 'id',
-  `app_id`        varchar(64) NOT NULL DEFAULT '' COMMENT '产品id',
+  `app_id`        varchar(64) NOT NULL DEFAULT '' COMMENT '应用id',
   `user_type`     varchar(20) DEFAULT NULL COMMENT '岗位/类型',
   `username`      varchar(20) DEFAULT NULL COMMENT '账号,可以不是姓名，唯一',
   `password`      varchar(64) DEFAULT NULL COMMENT '密码',
@@ -691,9 +680,9 @@ CREATE TABLE `uc_score_exchanges` (
   `order_number`  varchar(64) NOT NULL COMMENT '订单号',
   `channel_id`    varchar(64) NOT NULL COMMENT '渠道id',
   `user_id`       varchar(64) NOT NULL COMMENT '用户id',
-  `prize_id`      varchar(64) NOT NULL COMMENT '奖品id',
-  `prize_name`    varchar(255) NOT NULL COMMENT '奖品名称',
-  `prize_img`     varchar(1000) NOT NULL COMMENT '奖品图片',
+  `prize_id`      varchar(64) NOT NULL COMMENT '商品id',
+  `prize_name`    varchar(255) NOT NULL COMMENT '商品名称',
+  `prize_img`     varchar(1000) NOT NULL COMMENT '商品图片',
   `score`         decimal(9,2) unsigned NOT NULL COMMENT '积分',
   `logistics_id`  varchar(64) NOT NULL COMMENT '物流id',  
   `remark`        varchar(255) DEFAULT NULL COMMENT '备注-内部使用',
@@ -712,9 +701,9 @@ CREATE TABLE `uc_score_exchanges` (
 
 DROP TABLE IF EXISTS `uc_target_prizes`;
 CREATE TABLE `uc_target_prizes` (
-  `id`            varchar(64) NOT NULL COMMENT '用户目标奖品id',
+  `id`            varchar(64) NOT NULL COMMENT '用户订购id',
   `user_id`       varchar(64) NOT NULL COMMENT '用户id',
-  `prize_id`      varchar(64) NOT NULL COMMENT '奖品id',
+  `prize_id`      varchar(64) NOT NULL COMMENT '商品id',
   `remark`        varchar(255) DEFAULT NULL COMMENT '备注-内部使用',
   `create_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间,默认系统时间,不需要手动插入',
   `update_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '修改时间,默认系统时间,不需要手动插入',
@@ -723,7 +712,7 @@ CREATE TABLE `uc_target_prizes` (
   `status`        bit(1) NOT NULL DEFAULT b'1' COMMENT '数据有效性-0无效/1有效(实体类为boolean)',
   PRIMARY KEY pk_id(`id`) USING BTREE,
   UNIQUE KEY `uk_user_prize_id` (`user_id`,`prize_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='用户目标奖品';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='用户订购信息';
 
 --
 -- Table structure for table `uc_reward`
@@ -875,17 +864,17 @@ CREATE TABLE `uc_standard` (
 
 DROP TABLE IF EXISTS `uc_prizes`;
 CREATE TABLE `uc_prizes` (
-  `id` varchar(64) NOT NULL COMMENT '奖品id',
+  `id` varchar(64) NOT NULL COMMENT '商品id',
   `channel_id` varchar(64) NOT NULL COMMENT '渠道id',
-  `prize_name` varchar(255) NOT NULL COMMENT '奖品名称',
-  `prize_img` varchar(1000) NOT NULL COMMENT '奖品图片',
+  `prize_name` varchar(255) NOT NULL COMMENT '商品名称',
+  `prize_img` varchar(1000) NOT NULL COMMENT '商品图片',
   `score` decimal(9,2) unsigned NOT NULL COMMENT '积分',
   `inventory` double(9,0) unsigned NOT NULL DEFAULT '1' COMMENT '库存',
-  `prize_status` enum('UP','DOWN') NOT NULL DEFAULT 'DOWN' COMMENT '奖品状态-UP:上架/DOWN:下架',
+  `prize_status` enum('UP','DOWN') NOT NULL DEFAULT 'DOWN' COMMENT '商品状态-UP:上架/DOWN:下架',
   `create_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间,默认系统时间,不需要手动插入',
   `update_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '修改时间,默认系统时间,不需要手动插入',
   `create_user`   varchar(64) DEFAULT NULL COMMENT '创建者id',
   `update_user`   varchar(64) DEFAULT NULL COMMENT '修改者id',
   `status`        bit(1) NOT NULL DEFAULT b'1' COMMENT '数据有效性-0无效/1有效(实体类为boolean)',  
   PRIMARY KEY pk_id(`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='奖品';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='商品';

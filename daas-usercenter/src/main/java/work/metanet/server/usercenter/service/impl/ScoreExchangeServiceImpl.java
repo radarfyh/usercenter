@@ -87,9 +87,11 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 	@Override
 	public void userScoreExchange(String userId, ReqUserScoreExchange req) throws Exception {
 		PrizeVo prizeVo = prizeService.getPrizeVoByIdLock(req.getPrizeId());
-		if(BeanUtil.isEmpty(prizeVo) || !prizeVo.getStatus()) throw MetanetException.of().setMsg("奖品不存在，请重新选择您要兑换的奖品哦！");
+		if(BeanUtil.isEmpty(prizeVo) || !prizeVo.getStatus()) 
+			throw MetanetException.of().setMsg("商品不存在，请重新选择您要兑换的商品哦！");
 		if(ConstPrizeStatus.DOWN.name().equals(prizeVo.getPrizeStatus())) throw MetanetException.of().setMsg("奖品已下架，请重新选择您要兑换的奖品哦！");
-		if(prizeVo.getInventory()<1) throw MetanetException.of().setMsg("库存不足，请重新选择您要兑换的奖品哦！");
+		if(prizeVo.getInventory() < 1) 
+			throw MetanetException.of().setMsg("库存不足，请重新选择您要兑换的商品哦！");
 		
 		UserScoreVo userScore = userScoreService.initUserScore(userId);
 		if(NumberUtil.isLess(userScore.getValue(), prizeVo.getScore())) throw MetanetException.of().setMsg("您的积分不足哦！赶紧加油学习吧^^");
@@ -111,9 +113,13 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 		userScoreExchangeRepository.save(userScoreExchange);
 		
 		//触发用户积分
-		userScoreService.changeUserScore(userId, NumberUtil.mul(prizeVo.getScore(),-1), ConstUserScoreChangeType.EXCHANGE.name(), userScoreExchange.getId(), StrUtil.concat(true, "兑换奖品-",prizeVo.getPrizeName()),new Date());
+		userScoreService.changeUserScore(userId
+				, NumberUtil.mul(prizeVo.getScore(),-1)
+				, ConstUserScoreChangeType.EXCHANGE.name()
+				, userScoreExchange.getId()
+				, StrUtil.concat(true, "兑换商品-",prizeVo.getPrizeName()),new Date());
 		
-		//删除用户目标奖品
+		//删除用户订购
 		userTargetPrizeRepository.delete(new UcTargetPrizes().setUserId(userId));
 		
 		UcUserLogistics logistics = BeanUtil.copyProperties(req, UcUserLogistics.class);

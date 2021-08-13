@@ -27,7 +27,7 @@ spring:
         - AddResponseHeader=X-Response-Client-Vision, Client-Vision
   redis:
     database: 0
-    host: 192.168.17.125
+    host: localhost
     port: 6379
     password: radar
     lettuce:

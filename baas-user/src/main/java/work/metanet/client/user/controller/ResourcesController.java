@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import work.metanet.server.usercenter.service.ResourcesService;
+import work.metanet.client.user.base.BaseController;
 import work.metanet.server.usercenter.domain.UcResources;
 import work.metanet.utils.HttpResult;
 
@@ -20,7 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * 菜单控制器
+ * 资源控制器：菜单、按钮......
  * @author Edison F.
  * @DateTime 2021年6月30日
  * Copyright(c) 2021. All Rights Reserved
@@ -28,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "资源")
 @RestController
 @RequestMapping("menu")
-public class ResourcesController {
+public class ResourcesController extends BaseController {
 
 //	@Resource
 	@DubboReference

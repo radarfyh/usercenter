@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * @Description 用户选中的奖品信息
+ * @Description 用户订购信息
  * @author EdisonFeng
  * @DateTime 2021年6月8日 Copyright(c) 2021. All Rights Reserved
  */
@@ -22,7 +22,7 @@ public class UcTargetPrizes extends AbstractEntity implements Serializable {
     private String userId;
 
     /**
-     * 奖品id
+     * 商品id
      */
     private String prizeId;
 

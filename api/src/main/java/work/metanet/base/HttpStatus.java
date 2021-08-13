@@ -1,4 +1,4 @@
-package work.metanet.utils;
+package work.metanet.base;
 
 /**
  * Constants enumerating the HTTP status codes.
