@@ -1,0 +1,16 @@
+{
+	"bgm": {
+		"list": [{
+				"name": "测试音乐1",
+				"url": "http://localhost:8889/demomusic/testmusic1.mp3"
+			}, {
+				"name": "测试音乐2",
+				"url": "http://localhost:8889/demomusic/testmusic2.mp3"
+			}, {
+				"name": "测试音乐3",
+				"url": "http://localhost:8889/demomusic/testmusic3.mp3"
+			}
+
+		]
+	}
+}
