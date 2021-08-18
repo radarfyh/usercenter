@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import work.metanet.api.userTargetPrize.IUserTargetPrizeService;
 import work.metanet.api.userTargetPrize.protocol.ReqSaveUserTargetPrize;
 import work.metanet.api.userTargetPrize.protocol.ReqUserTargetPrizeInfo.RespUserTargetPrizeInfo;
 import work.metanet.client.user.base.BaseController;
 import work.metanet.exception.ResultResponse;
 import work.metanet.exception.ResultResponseEnum;
+import work.metanet.server.usercenter.service.TargetPrizeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 public class UserOderController extends BaseController{
 	
 	@DubboReference
-	private IUserTargetPrizeService userTargetPrizeService;
+	private TargetPrizeService userTargetPrizeService;
 	
 	@ApiOperation(value="用户订购信息")
 	@PostMapping("userOrderInfo")

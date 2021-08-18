@@ -25,12 +25,10 @@ public class ReqSearchStoreApp extends Paging implements Serializable{
 	@ApiModelProperty(value = "搜索关键字")
 	private String searchKey;
 	
-	@ApiModelProperty(value = "阶段标签-0:幼儿/1:小学/2:中学/3:高中/100:综合/101:推荐", required = true)
-	@Pattern(regexp = "^(0|1|2|3|100|101)$", message = "阶段标签格式错误")
+	@ApiModelProperty(value = "阶段标签", required = true)
 	private String phaseTag;
 	
-	@ApiModelProperty(value = "内容类型-EDU:学习/AMUSEMENT:娱乐")
-	@Pattern(regexp = "^(|EDU|AMUSEMENT)$", message = "内容类型格式错误")
+	@ApiModelProperty(value = "内容类型")
 	private String contentType;
 	
 	@JsonIgnore

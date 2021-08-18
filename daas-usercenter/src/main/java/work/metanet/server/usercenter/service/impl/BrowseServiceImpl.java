@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DubboService
-public class BrowseServiceImpl implements BrowseService{
+public class BrowseServiceImpl implements BrowseService {
 	
 	@Autowired 
 	private FmBrowseRepository fmBrowseRepository;

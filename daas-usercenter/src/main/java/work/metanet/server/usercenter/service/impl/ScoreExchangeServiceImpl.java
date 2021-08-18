@@ -19,6 +19,7 @@ import work.metanet.server.usercenter.repository.LogisticsRepository;
 import work.metanet.server.usercenter.repository.UserScoreExchangeRepository;
 import work.metanet.server.usercenter.repository.UserTargetPrizeRepository;
 import work.metanet.server.usercenter.repository.UsersRepository;
+import work.metanet.server.usercenter.service.PrizesService;
 import work.metanet.server.usercenter.service.ScoreExchangeService;
 import work.metanet.server.usercenter.service.ScoreService;
 import com.github.pagehelper.PageHelper;
@@ -42,6 +43,7 @@ import work.metanet.constant.ConstUserLogisticsStatus;
 import work.metanet.constant.ConstUserScoreChangeType;
 import work.metanet.constant.Constant;
 import work.metanet.exception.MetanetException;
+import work.metanet.server.usercenter.domain.UcPrizes;
 import work.metanet.server.usercenter.domain.UcScoreExchanges;
 import work.metanet.server.usercenter.domain.UcTargetPrizes;
 import work.metanet.server.usercenter.domain.UcUserLogistics;
@@ -69,7 +71,7 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 	@Autowired
 	private UserScoreExchangeRepository userScoreExchangeRepository;
 	@DubboReference
-	private IPrizeService prizeService;
+	private PrizesService prizesService;
 	@Autowired
 	private ScoreService userScoreService;
 	@Autowired
@@ -86,15 +88,15 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 	@GlobalTransactional
 	@Override
 	public void userScoreExchange(String userId, ReqUserScoreExchange req) throws Exception {
-		PrizeVo prizeVo = prizeService.getPrizeVoByIdLock(req.getPrizeId());
-		if(BeanUtil.isEmpty(prizeVo) || !prizeVo.getStatus()) 
+		UcPrizes prize = prizesService.getPrizeByIdLock(req.getPrizeId());
+		if(BeanUtil.isEmpty(prize) || !prize.getStatus()) 
 			throw MetanetException.of().setMsg("商品不存在，请重新选择您要兑换的商品哦！");
-		if(ConstPrizeStatus.DOWN.name().equals(prizeVo.getPrizeStatus())) throw MetanetException.of().setMsg("奖品已下架，请重新选择您要兑换的奖品哦！");
-		if(prizeVo.getInventory() < 1) 
+		if(ConstPrizeStatus.DOWN.name().equals(prize.getPrizeStatus())) throw MetanetException.of().setMsg("奖品已下架，请重新选择您要兑换的奖品哦！");
+		if(prize.getInventory() < 1) 
 			throw MetanetException.of().setMsg("库存不足，请重新选择您要兑换的商品哦！");
 		
 		UserScoreVo userScore = userScoreService.initUserScore(userId);
-		if(NumberUtil.isLess(userScore.getValue(), prizeVo.getScore())) throw MetanetException.of().setMsg("您的积分不足哦！赶紧加油学习吧^^");
+		if(NumberUtil.isLess(userScore.getValue(), prize.getScore())) throw MetanetException.of().setMsg("您的积分不足哦！赶紧加油学习吧^^");
 		
 		Optional<UcUsers> user = userRepository.findById(userId);
 		if(!user.isPresent())
@@ -104,9 +106,9 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 		UcScoreExchanges userScoreExchange = BeanUtil.copyProperties(req, UcScoreExchanges.class)
 				.setChannelId(appVo.getChannelId())
 				.setUserId(userId)
-				.setPrizeName(prizeVo.getPrizeName())
-				.setPrizeImg(prizeVo.getPrizeImg())
-				.setScore(prizeVo.getScore())
+				.setPrizeName(prize.getPrizeName())
+				.setPrizeImg(prize.getPrizeImg())
+				.setScore(prize.getScore())
 				;
 		
 		//积分兑换
@@ -114,10 +116,10 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 		
 		//触发用户积分
 		userScoreService.changeUserScore(userId
-				, NumberUtil.mul(prizeVo.getScore(),-1)
+				, NumberUtil.mul(prize.getScore(),-1)
 				, ConstUserScoreChangeType.EXCHANGE.name()
 				, userScoreExchange.getId()
-				, StrUtil.concat(true, "兑换商品-",prizeVo.getPrizeName()),new Date());
+				, StrUtil.concat(true, "兑换商品-",prize.getPrizeName()),new Date());
 		
 		//删除用户订购
 		userTargetPrizeRepository.delete(new UcTargetPrizes().setUserId(userId));
@@ -126,12 +128,12 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 		logistics.setLogisticsStatus(ConstUserLogisticsStatus.PICKING.getVal());
 		logisticsRepository.save(logistics);
 		
-		Lock lock = redisLockRegistry.obtain(prizeVo.getPrizeId());
+		Lock lock = redisLockRegistry.obtain(prize.getId());
 		if(lock.tryLock(constant.getRedis_lock_timeout_seconds(),TimeUnit.SECONDS)) {
 			try {
 				//log.info("---我拿到了锁---:"+lock.toString());
 				//扣减库存(并发处理)
-				prizeService.updatePrizeInventory(prizeVo.getPrizeId(), -1);
+				prizesService.updateInventory(prize.getId(), -1);
 			}finally {
 				//log.info("---我释放锁了---:"+lock.toString());
 				lock.unlock();

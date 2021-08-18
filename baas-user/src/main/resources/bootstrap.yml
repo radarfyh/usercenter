@@ -15,6 +15,7 @@ spring:
       server-addr: localhost:8848
       discovery:
         namespace: f7c685e5-24eb-4be5-af83-6366b9595bd4
+#        namespace: metanet
         group: DEFAULT_GROUP
 #        server-addr: localhost:8848
       config:
@@ -26,6 +27,7 @@ spring:
         # dataID  ${prefix}-${spring.profiles.active}.${file-extension}
         # 命名空间 默认 public
         namespace: f7c685e5-24eb-4be5-af83-6366b9595bd4
+#        namespace: metanet
         # 配置组  默认 DEFAULT_GROUP
         group: DEFAULT_GROUP
         # 共享配置(公共配置)

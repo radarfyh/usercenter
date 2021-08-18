@@ -854,6 +854,7 @@ CREATE TABLE `uc_standard` (
   `sd1`           double(10,2) unsigned NOT NULL,
   `sd2`           double(10,2) unsigned NOT NULL,
   `sd3`           double(10,2) unsigned NOT NULL,
+  `remark`        varchar(255) DEFAULT NULL COMMENT '备注-内部使用',
   `create_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间,默认系统时间,不需要手动插入',
   `update_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '修改时间,默认系统时间,不需要手动插入',
   `create_user`   varchar(64) DEFAULT NULL COMMENT '创建者id',
@@ -871,6 +872,7 @@ CREATE TABLE `uc_prizes` (
   `score` decimal(9,2) unsigned NOT NULL COMMENT '积分',
   `inventory` double(9,0) unsigned NOT NULL DEFAULT '1' COMMENT '库存',
   `prize_status` enum('UP','DOWN') NOT NULL DEFAULT 'DOWN' COMMENT '商品状态-UP:上架/DOWN:下架',
+  `remark`        varchar(255) DEFAULT NULL COMMENT '备注-内部使用',
   `create_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间,默认系统时间,不需要手动插入',
   `update_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '修改时间,默认系统时间,不需要手动插入',
   `create_user`   varchar(64) DEFAULT NULL COMMENT '创建者id',
@@ -878,3 +880,34 @@ CREATE TABLE `uc_prizes` (
   `status`        bit(1) NOT NULL DEFAULT b'1' COMMENT '数据有效性-0无效/1有效(实体类为boolean)',  
   PRIMARY KEY pk_id(`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='商品';
+
+DROP TABLE IF EXISTS `uc_appstore`;
+CREATE TABLE `uc_appstore` (
+  `id` varchar(64) COLLATE utf8_bin NOT NULL COMMENT '应用商店id',
+  `channel_id` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '渠道id',
+  `app_name` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '应用名称',
+  `package_name` varchar(500) COLLATE utf8_bin NOT NULL COMMENT '包名',
+  `call_class` varchar(500) COLLATE utf8_bin DEFAULT NULL COMMENT '调用类名',
+  `file_size` decimal(19,2) NOT NULL DEFAULT '0.00' COMMENT '文件大小(b)字节',
+  `version_name` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '版本名',
+  `version_code` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '版本号',
+  `url` varchar(1000) COLLATE utf8_bin NOT NULL COMMENT '文件地址',
+  `md5` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT 'md5值',
+  `icon` varchar(1000) COLLATE utf8_bin NOT NULL COMMENT '图标',
+  `instruction` text COLLATE utf8_bin COMMENT '应用说明',
+  `app_scope` enum('0','1') COLLATE utf8_bin DEFAULT NULL COMMENT '应用范围-0所有/1指定',
+  `download_number` int(11) DEFAULT NULL COMMENT '下载次数',
+  `phase_tag` varchar(500) COLLATE utf8_bin DEFAULT NULL COMMENT '阶段标签(0幼儿,1小学,2中学,3高中,100综合)',
+  `release_time` date DEFAULT NULL COMMENT '发布时间',
+  `content_type` enum('EDU','AMUSEMENT') COLLATE utf8_bin DEFAULT NULL COMMENT '内容类型',
+  `developer` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '开发商',
+  `images` text COLLATE utf8_bin COMMENT '应用截图',
+  `enable` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否启用',
+  `remark`        varchar(255) DEFAULT NULL COMMENT '备注-内部使用',
+  `create_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间,默认系统时间,不需要手动插入',
+  `update_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '修改时间,默认系统时间,不需要手动插入',
+  `create_user`   varchar(64) DEFAULT NULL COMMENT '创建者id',
+  `update_user`   varchar(64) DEFAULT NULL COMMENT '修改者id',
+  `status`        bit(1) NOT NULL DEFAULT b'1' COMMENT '数据有效性-0无效/1有效(实体类为boolean)',  
+  PRIMARY KEY pk_id(`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='应用商店';

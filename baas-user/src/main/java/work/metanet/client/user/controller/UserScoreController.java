@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import work.metanet.api.userScore.IUserScoreService;
 import work.metanet.api.userScore.protocol.ReqLearningChangeUserScore;
-import work.metanet.api.userScoreDetail.IUserScoreDetailService;
 import work.metanet.api.userScoreDetail.protocol.ReqAppUserScoreDetail;
 import work.metanet.api.userScoreDetail.protocol.ReqAppUserScoreDetail.RespAppUserScoreDetail;
-import work.metanet.api.userScoreExchange.IUserScoreExchangeService;
 import work.metanet.api.userScoreExchange.protocol.ReqUserScoreExchange;
 import work.metanet.client.user.base.BaseController;
 import work.metanet.exception.ResultResponse;
 import work.metanet.exception.ResultResponseEnum;
+import work.metanet.server.usercenter.service.ScoreDetailService;
+import work.metanet.server.usercenter.service.ScoreExchangeService;
+import work.metanet.server.usercenter.service.ScoreService;
 import work.metanet.base.RespPaging;
 
 import io.swagger.annotations.Api;
@@ -29,11 +29,11 @@ import io.swagger.annotations.ApiOperation;
 public class UserScoreController extends BaseController{
 	
 	@DubboReference
-	private IUserScoreService userScoreService;
+	private ScoreService userScoreService;
 	@DubboReference
-	private IUserScoreExchangeService userScoreExchangeService;
+	private ScoreExchangeService userScoreExchangeService;
 	@DubboReference
-	private IUserScoreDetailService userScoreDetailService;
+	private ScoreDetailService userScoreDetailService;
 	
 	@ApiOperation(value="积分累积")
 	@PostMapping("changeUserScore")

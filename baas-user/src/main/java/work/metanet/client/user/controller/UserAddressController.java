@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import work.metanet.api.userAddress.IUserAddressService;
 import work.metanet.api.userAddress.protocol.ReqSaveUserAddress;
 import work.metanet.client.user.base.BaseController;
 import work.metanet.exception.ResultResponse;
 import work.metanet.exception.ResultResponseEnum;
+import work.metanet.server.usercenter.service.AddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 public class UserAddressController extends BaseController{
 	
 	@DubboReference
-	private IUserAddressService userAddressService;
+	private AddressService userAddressService;
 	
 	@ApiOperation(value="收货地址信息")
 	@PostMapping("userAddressInfo")

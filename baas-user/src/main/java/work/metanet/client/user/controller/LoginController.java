@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import work.metanet.client.user.base.BaseController;
 import work.metanet.client.user.security.JwtAuthenticatioToken;
 import work.metanet.client.user.security.SecurityUtils;
+import work.metanet.exception.ResultResponse;
+import work.metanet.exception.ResultResponseEnum;
+
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import work.metanet.server.usercenter.service.UsersService;
@@ -28,6 +32,8 @@ import work.metanet.utils.PasswordUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import work.metanet.api.user.protocol.LoginBean;
+import work.metanet.api.user.protocol.ReqLogin;
+import work.metanet.api.user.protocol.ReqLogin.RespLogin;
 import work.metanet.server.usercenter.domain.UcUsers;
 import work.metanet.utils.IOUtils;
 import work.metanet.utils.HttpResult;
@@ -70,7 +76,7 @@ public class LoginController extends BaseController {
 	/**
 	 * 登录接口
 	 */
-	@ApiOperation(value="登录")
+	@ApiOperation(value="带图片验证码登录")
 	@PostMapping(value = "/login")
 	public HttpResult login(@RequestBody LoginBean loginBean, HttpServletRequest request) throws IOException {
 		String username = loginBean.getAccount();
@@ -108,5 +114,10 @@ public class LoginController extends BaseController {
 				
 		return HttpResult.ok(token);
 	}
-
+	
+	@ApiOperation(value="APP登录")
+	@PostMapping("loginApp")
+	public ResultResponse<RespLogin> loginApp(@Valid @RequestBody ReqLogin requestParam) throws Exception {
+		return ResultResponseEnum.AUTH_SUCCESS.resultResponse(usersService.login(getDeviceId(),getPackageName(),getVersionCode(),requestParam));
+	}
 }

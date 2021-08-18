@@ -149,14 +149,8 @@ public class UsersController extends BaseController {
 		return ResultResponseEnum.CREATE_SUCCESS.resultResponse();
 	}
 	
-	@ApiOperation(value="登录")
-	@PostMapping("loginApp")
-	public ResultResponse<RespLogin> login(@Valid @RequestBody ReqLogin requestParam) throws Exception {
-		return ResultResponseEnum.AUTH_SUCCESS.resultResponse(usersService.login(getDeviceId(),getPackageName(),getVersionCode(),requestParam));
-	}
-	
 	@ApiOperation(value="登录与注册")
-	@PostMapping("loginSuperApp")
+	@PostMapping("registerAndLogin")
 	public ResultResponse<RespLogin> loginSuper(HttpServletRequest request,@Valid @RequestBody ReqLoginSuper requestParam) throws Exception {
 		//获取deviceId兼容最初的版本
 		String deviceId = requestParam.getDeviceId();
