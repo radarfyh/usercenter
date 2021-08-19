@@ -556,6 +556,12 @@
 			    <artifactId>guava</artifactId>
 			    <version>30.1.1-jre</version>
 			</dependency>
+			
+			<dependency>
+			    <groupId>io.github.openfeign</groupId>
+			    <artifactId>feign-jaxrs2</artifactId>
+			    <version>10.1.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

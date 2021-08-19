@@ -3,6 +3,7 @@ package work.metanet.server.usercenter.service.impl;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import work.metanet.server.usercenter.repository.PrizesRepository;
 import work.metanet.server.usercenter.service.PrizesService;
 import work.metanet.utils.CosUtil;
 
+@DubboService
 public class PrizesServiceImpl implements PrizesService {
 	@Autowired
 	private PrizesRepository prizesRepository;

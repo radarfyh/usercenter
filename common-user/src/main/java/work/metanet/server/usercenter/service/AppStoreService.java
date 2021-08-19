@@ -9,7 +9,7 @@ import work.metanet.api.storeApp.protocol.ReqStoreAppList;
 import work.metanet.base.RespPaging;
 import work.metanet.base.service.CurdService;
 import work.metanet.server.usercenter.domain.UcAppStore;
-
+// 暂不用
 public interface AppStoreService extends CurdService<UcAppStore> {
 	
 	/**

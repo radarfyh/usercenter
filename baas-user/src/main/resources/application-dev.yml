@@ -10,7 +10,7 @@ dubbo:
     name: ${spring.application.name}
     qosEnable: false
   cloud:
-    subscribed-services: daas-usercenter
+    subscribed-services: daas-usercenter, daas-device
   consumer:
     check: false
     timeout: 10000
@@ -25,7 +25,7 @@ dubbo:
     timeout: 60000
     version: 1.0.0
 #  scan:
-#    base-packages: work.metanet.client.vision
+#    base-packages: work.metanet.server.usercenter.service.impl, work.metanet.server.service
   registry:
     id: ${spring.application.name}-registry
     address: nacos://localhost:8848

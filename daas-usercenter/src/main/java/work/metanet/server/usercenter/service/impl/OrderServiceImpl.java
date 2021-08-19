@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import work.metanet.server.usercenter.repository.UserTargetPrizeRepository;
-import work.metanet.server.usercenter.service.TargetPrizeService;
+import work.metanet.server.usercenter.service.OrderService;
 import work.metanet.api.userTargetPrize.protocol.ReqSaveUserTargetPrize;
 import work.metanet.api.userTargetPrize.protocol.ReqUserTargetPrizeInfo.RespUserTargetPrizeInfo;
 import work.metanet.base.page.MyPageRequest;
@@ -24,7 +24,7 @@ import work.metanet.utils.CosUtil;
 import cn.hutool.core.bean.BeanUtil;
 
 @DubboService
-public class TargetPrizeServiceImpl implements TargetPrizeService {
+public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private UserTargetPrizeRepository userTargetPrizeRepository;

@@ -22,6 +22,7 @@ import work.metanet.api.family.protocol.ReqSaveFamilyMember.RespSaveFamilyMember
 import work.metanet.client.user.base.BaseController;
 import work.metanet.exception.ResultResponse;
 import work.metanet.exception.ResultResponseEnum;
+import work.metanet.server.usercenter.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -31,26 +32,26 @@ import io.swagger.annotations.ApiOperation;
 public class FamilyController extends BaseController{
 	
 	@DubboReference
-	private IFamilyMemberService familyMemberSerivce;
+	private MemberService memberSerivce;
 	
 	@ApiOperation(value="成长记录")
 	@PostMapping("growthRecord")
 	public ResultResponse<RespGrowthRecord> growthRecord(@Valid @RequestBody ReqGrowthRecord req) throws Exception {
-		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(familyMemberSerivce.growthRecord(req.setUserId(getUserId())));
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(memberSerivce.growthRecord(req.setUserId(getUserId())));
 	}
 	
 	
 	@ApiOperation(value="家庭成员列表")
 	@PostMapping("familyMemberList")
 	public ResultResponse<List<RespFamilyMemberList>> familyMemberList() throws Exception {
-		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(familyMemberSerivce.familyMemberList(getUserId()));
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(memberSerivce.familyMemberList(getUserId()));
 	}
 	
 	
 	@ApiOperation(value="家庭成员信息")
 	@PostMapping("familyMemberInfo")
 	public ResultResponse<RespFamilyMemberInfo> familyMemberInfo(@Valid @RequestBody ReqFamilyMemberInfo requestParam) throws Exception {
-		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(familyMemberSerivce.familyMemberInfo(requestParam));
+		return ResultResponseEnum.QUERY_SUCCESS.resultResponse(memberSerivce.familyMemberInfo(requestParam));
 	}
 	
 	
@@ -59,14 +60,14 @@ public class FamilyController extends BaseController{
 	public ResultResponse<RespSaveFamilyMember> saveFamilyMember(@Valid @RequestBody ReqSaveFamilyMember requestParam) throws Exception {
 		String userId = getUserId();
 		requestParam.setCreateUser(userId).setUpdateUser(userId).setJoinUserId(userId);
-		return ResultResponseEnum.CREATE_SUCCESS.resultResponse(familyMemberSerivce.saveFamilyMember(requestParam));
+		return ResultResponseEnum.CREATE_SUCCESS.resultResponse(memberSerivce.saveFamilyMember(requestParam));
 	}
 	
 	@ApiOperation(value="删除家庭成员")
 	@PostMapping("removeFamilyMember")
 	public ResultResponse<?> removeFamilyMember(@Valid @RequestBody ReqRemoveFamilyMember requestParam) throws Exception {
 		requestParam.setUserId(getUserId());
-		familyMemberSerivce.removeFamilyMember(requestParam);
+		memberSerivce.removeFamilyMember(requestParam);
 		return ResultResponseEnum.MODIFY_SUCCESS.resultResponse();
 	}
 	

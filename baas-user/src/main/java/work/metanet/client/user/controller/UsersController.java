@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
-import work.metanet.api.user.protocol.ReqLogin;
 import work.metanet.api.user.protocol.ReqLoginSuper;
 import work.metanet.api.user.protocol.ReqRegister;
 import work.metanet.api.user.protocol.ReqResetPassword;
@@ -39,7 +38,6 @@ import work.metanet.utils.PasswordUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import work.metanet.utils.HttpResult;
 
 /**
  * 用户控制器

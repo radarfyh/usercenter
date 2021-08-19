@@ -4,7 +4,7 @@ import work.metanet.api.prize.protocol.ReqPrizeStore;
 import work.metanet.base.RespPaging;
 import work.metanet.base.service.CurdService;
 import work.metanet.server.usercenter.domain.UcPrizes;
-
+//暂不用
 public interface PrizesService extends CurdService<UcPrizes> {
 	
 	/**

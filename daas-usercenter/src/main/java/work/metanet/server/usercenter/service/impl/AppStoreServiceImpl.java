@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +45,7 @@ import work.metanet.server.usercenter.service.AppStoreService;
 import work.metanet.util.redis.RedisHelper;
 import work.metanet.utils.CosUtil;
 
+@DubboService
 public class AppStoreServiceImpl implements AppStoreService {
 
 	@Autowired

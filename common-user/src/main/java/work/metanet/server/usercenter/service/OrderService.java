@@ -7,7 +7,7 @@ import work.metanet.api.userTargetPrize.protocol.ReqSaveUserTargetPrize;
 import work.metanet.api.userTargetPrize.protocol.ReqUserTargetPrizeInfo.RespUserTargetPrizeInfo;
 import work.metanet.base.service.CurdService;
 
-public interface TargetPrizeService extends CurdService<UcTargetPrizes> {
+public interface OrderService extends CurdService<UcTargetPrizes> {
 
 	/**
 	 * @Description: 用户订购信息

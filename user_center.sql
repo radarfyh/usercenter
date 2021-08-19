@@ -5,16 +5,55 @@ set character set utf8;
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- DATABASE hunting
+-- DATABASE user_center
 -- ----------------------------
-drop database IF EXISTS user_center;
-create database user_center;
+
+--drop database IF EXISTS user_center;
+--create database user_center;
+
 use user_center;
+
+DROP TABLE IF EXISTS `uc_apps`;
+DROP TABLE IF EXISTS `uc_appstore`;
+DROP TABLE IF EXISTS `uc_prizes`;
+DROP TABLE IF EXISTS `uc_standard`;
+DROP TABLE IF EXISTS `uc_diaries`;
+DROP TABLE IF EXISTS `uc_collections`;
+DROP TABLE IF EXISTS `uc_browses`;
+DROP TABLE IF EXISTS `uc_vaccines`;
+
+DROP TABLE IF EXISTS `uc_family_members`;
+DROP TABLE IF EXISTS `uc_rewards`;
+
+DROP TABLE IF EXISTS `uc_target_prizes`;
+DROP TABLE IF EXISTS `uc_score_exchanges`;
+DROP TABLE IF EXISTS `uc_score_detail`;
+DROP TABLE IF EXISTS `uc_user_scores`;
+DROP TABLE IF EXISTS `uc_user_logins`;
+DROP TABLE IF EXISTS `uc_user_logistics`;
+
+DROP TABLE IF EXISTS `uc_user_addresses`;
+DROP TABLE IF EXISTS uc_user_tokens;
+DROP TABLE IF EXISTS uc_user_role;
+DROP TABLE IF EXISTS uc_user_area;
+DROP TABLE IF EXISTS uc_user_dept;
+DROP TABLE IF EXISTS uc_certifications;
+DROP TABLE IF EXISTS uc_users;
+DROP TABLE IF EXISTS uc_acls;
+DROP TABLE IF EXISTS uc_role_dept;
+DROP TABLE IF EXISTS uc_roles;
+DROP TABLE IF EXISTS uc_resources;
+DROP TABLE IF EXISTS uc_logs;
+DROP TABLE IF EXISTS uc_dictionaries;
+DROP TABLE IF EXISTS uc_area_dept;
+
+DROP TABLE IF EXISTS uc_departments;
+DROP TABLE IF EXISTS uc_areas;
 
 -- ----------------------------
 -- Table structure for areas
 -- ----------------------------
-DROP TABLE IF EXISTS uc_areas;
+
 CREATE TABLE uc_areas (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   code            varchar(20) DEFAULT NULL COMMENT '代号',
@@ -44,7 +83,7 @@ INSERT INTO uc_areas VALUES ('3', 'zz', '紫竹科技园', 2,null,null,null, 0, 
 -- ----------------------------
 -- Table structure for uc_departments
 -- ----------------------------
-DROP TABLE IF EXISTS uc_departments;
+
 CREATE TABLE uc_departments (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   code            varchar(20) DEFAULT NULL COMMENT '代号',
@@ -90,7 +129,7 @@ INSERT INTO uc_departments VALUES ('35', 'cs', '测试组', '19',null,null,null,
 -- ----------------------------
 -- Table structure for uc_area_dept
 -- ----------------------------
-DROP TABLE IF EXISTS uc_area_dept;
+
 CREATE TABLE uc_area_dept (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   area_id         bigint(20) DEFAULT NULL COMMENT '区域ID',
@@ -107,7 +146,7 @@ CREATE TABLE uc_area_dept (
 -- ----------------------------
 -- Table structure for uc_dictionaries
 -- ----------------------------
-DROP TABLE IF EXISTS uc_dictionaries;
+
 CREATE TABLE uc_dictionaries (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   value           varchar(100) NOT NULL COMMENT '数据值',
@@ -134,7 +173,7 @@ INSERT INTO uc_dictionaries VALUES ('4', 'female', '女', 'sex', '性别', 0, nu
 -- ----------------------------
 -- Table structure for uc_logs
 -- ----------------------------
-DROP TABLE IF EXISTS uc_logs;
+
 CREATE TABLE uc_logs (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   user_name       varchar(50) DEFAULT NULL COMMENT '用户名',
@@ -157,7 +196,7 @@ CREATE TABLE uc_logs (
 -- ----------------------------
 -- Table structure for uc_resources
 -- ----------------------------
-DROP TABLE IF EXISTS uc_resources;
+
 CREATE TABLE uc_resources (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   name            varchar(50) DEFAULT NULL COMMENT '资源名称',
@@ -212,7 +251,7 @@ INSERT INTO uc_resources VALUES ('34', '删除字典', '7', null, 'sys:dict:dele
 -- ----------------------------
 -- Table structure for uc_roles
 -- ----------------------------
-DROP TABLE IF EXISTS uc_roles;
+
 CREATE TABLE uc_roles (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   code            varchar(20) DEFAULT NULL COMMENT '角色代号',
@@ -243,7 +282,7 @@ INSERT INTO uc_roles VALUES ('8', 'mng', '部门经理',0, null,       0,null, '
 -- ----------------------------
 -- Table structure for uc_role_dept
 -- ----------------------------
-DROP TABLE IF EXISTS uc_role_dept;
+
 CREATE TABLE uc_role_dept (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   role_id         varchar(64) NOT NULL COMMENT '角色ID',
@@ -264,7 +303,7 @@ CREATE TABLE uc_role_dept (
 -- ----------------------------
 -- Table structure for uc_acls
 -- ----------------------------
-DROP TABLE IF EXISTS uc_acls;
+
 CREATE TABLE uc_acls (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   role_id         varchar(64) NOT NULL COMMENT '角色ID',
@@ -345,7 +384,7 @@ INSERT INTO uc_acls VALUES ('444', '8', '35',null, '2018-08-14 11:11:11', '2018-
 -- ----------------------------
 -- Table structure for uc_users
 -- ----------------------------
-DROP TABLE IF EXISTS uc_users;
+
 CREATE TABLE uc_users (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   `app_id`        varchar(64) NOT NULL DEFAULT '' COMMENT '应用id',
@@ -394,7 +433,7 @@ INSERT INTO uc_users VALUES ('32', '', null, '十三太保',  'fd80ebd493a655608
 -- ----------------------------
 -- Table structure for uc_certifications
 -- ----------------------------
-DROP TABLE IF EXISTS uc_certifications;
+
 CREATE TABLE uc_certifications (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   user_id         varchar(64) NOT NULL COMMENT '用户ID',
@@ -421,7 +460,7 @@ CREATE TABLE uc_certifications (
 -- ----------------------------
 -- Table structure for uc_user_dept
 -- ----------------------------
-DROP TABLE IF EXISTS uc_user_dept;
+
 CREATE TABLE uc_user_dept (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   user_id         varchar(64) NOT NULL COMMENT '用户ID',
@@ -454,7 +493,7 @@ insert into uc_user_dept values('1012', '32', '35', null, '2018-08-14 11:11:11',
 -- ----------------------------
 -- Table structure for uc_user_area
 -- ----------------------------
-DROP TABLE IF EXISTS uc_user_area;
+
 CREATE TABLE uc_user_area (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   area_id         varchar(64) NOT NULL COMMENT '区域ID',
@@ -475,7 +514,7 @@ CREATE TABLE uc_user_area (
 -- ----------------------------
 -- Table structure for uc_user_role
 -- ----------------------------
-DROP TABLE IF EXISTS uc_user_role;
+
 CREATE TABLE uc_user_role (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   user_id         varchar(64) NOT NULL COMMENT '用户ID',
@@ -527,7 +566,7 @@ INSERT INTO uc_user_role VALUES ('71', '28', '2',null, '2018-08-14 11:11:11', '2
 -- ----------------------------
 -- Table structure for uc_user_tokens
 -- ----------------------------
-DROP TABLE IF EXISTS uc_user_tokens;
+
 CREATE TABLE uc_user_tokens (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   user_id         varchar(64) NOT NULL COMMENT '用户ID',
@@ -555,7 +594,7 @@ INSERT INTO uc_user_tokens VALUES ('4', '33', '605dbcfa2277cbca3b2a124974816080'
 -- Table structure for table `uc_user_address`
 --
 
-DROP TABLE IF EXISTS `uc_user_addresses`;
+
 
 CREATE TABLE `uc_user_addresses` (
   `id`             varchar(64) NOT NULL COMMENT 'id',
@@ -586,7 +625,7 @@ CREATE TABLE `uc_user_addresses` (
 -- Table structure for table `uc_user_logistics`
 --
 
-DROP TABLE IF EXISTS `uc_user_logistics`;
+
 
 CREATE TABLE `uc_user_logistics` (
   `id`             varchar(64) NOT NULL COMMENT 'id',
@@ -612,7 +651,7 @@ CREATE TABLE `uc_user_logistics` (
 -- Table structure for table `uc_user_logins`
 --
 
-DROP TABLE IF EXISTS `uc_user_logins`;
+
 CREATE TABLE `uc_user_logins` (
   `id`            varchar(64) NOT NULL COMMENT '登录日志标号',
   `user_id`       varchar(64) NOT NULL COMMENT '用户ID',
@@ -635,7 +674,7 @@ CREATE TABLE `uc_user_logins` (
 -- Table structure for table `uc_user_scores`
 --
 
-DROP TABLE IF EXISTS `uc_user_scores`;
+
 CREATE TABLE `uc_user_scores` (
   `id`            varchar(64) NOT NULL COMMENT '用户积分id',
   `user_id`       varchar(64) NOT NULL COMMENT '用户id',
@@ -653,7 +692,7 @@ CREATE TABLE `uc_user_scores` (
 -- Table structure for table `uc_score_detail`
 --
 
-DROP TABLE IF EXISTS `uc_score_detail`;
+
 CREATE TABLE `uc_score_detail` (
   `id`            varchar(64) NOT NULL COMMENT '用户积分明细id',
   `user_score_id` varchar(64) NOT NULL COMMENT '用户积分id',
@@ -674,7 +713,7 @@ CREATE TABLE `uc_score_detail` (
 -- Table structure for table `uc_score_exchanges`
 --
 
-DROP TABLE IF EXISTS `uc_score_exchanges`;
+
 CREATE TABLE `uc_score_exchanges` (
   `id`            varchar(64) NOT NULL COMMENT '用户积分兑换id',
   `order_number`  varchar(64) NOT NULL COMMENT '订单号',
@@ -699,7 +738,7 @@ CREATE TABLE `uc_score_exchanges` (
 -- Table structure for table `uc_target_prizes`
 --
 
-DROP TABLE IF EXISTS `uc_target_prizes`;
+
 CREATE TABLE `uc_target_prizes` (
   `id`            varchar(64) NOT NULL COMMENT '用户订购id',
   `user_id`       varchar(64) NOT NULL COMMENT '用户id',
@@ -718,7 +757,7 @@ CREATE TABLE `uc_target_prizes` (
 -- Table structure for table `uc_reward`
 --
 
-DROP TABLE IF EXISTS `uc_rewards`;
+
 
 CREATE TABLE `uc_rewards` (
   `id`            varchar(64) NOT NULL COMMENT '奖励id',
@@ -740,7 +779,7 @@ CREATE TABLE `uc_rewards` (
 -- Table structure for table `uc_family_members`
 --
 
-DROP TABLE IF EXISTS `uc_family_members`;
+
 
 CREATE TABLE `uc_family_members` (
   `id`            varchar(64) NOT NULL COMMENT '标识',
@@ -763,7 +802,7 @@ CREATE TABLE `uc_family_members` (
 -- Table structure for table `uc_vaccines`
 --
 
-DROP TABLE IF EXISTS `uc_vaccines`;
+
 
 CREATE TABLE `uc_vaccines` (
   `id`            varchar(64) NOT NULL COMMENT '疫苗id',
@@ -784,7 +823,7 @@ CREATE TABLE `uc_vaccines` (
 -- Table structure for table `uc_browses`
 --
 
-DROP TABLE IF EXISTS `uc_browses`;
+
 CREATE TABLE `uc_browses` (
   `id`            varchar(64) NOT NULL COMMENT '浏览id',
   `user_id`       varchar(64) NOT NULL COMMENT '用户id',
@@ -805,7 +844,7 @@ CREATE TABLE `uc_browses` (
 -- Table structure for table `uc_collections`
 --
 
-DROP TABLE IF EXISTS `uc_collections`;
+
 CREATE TABLE `uc_collections` (
   `id`            varchar(64) NOT NULL COMMENT '收藏id',
   `user_id`       varchar(64) NOT NULL COMMENT '用户id',
@@ -826,7 +865,7 @@ CREATE TABLE `uc_collections` (
 -- Table structure for table `uc_diaries`
 --
 
-DROP TABLE IF EXISTS `uc_diaries`;
+
 
 CREATE TABLE `uc_diaries` (
   `id`            varchar(64) NOT NULL COMMENT '日记id',
@@ -841,7 +880,7 @@ CREATE TABLE `uc_diaries` (
   PRIMARY KEY pk_id(`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='日记';
 
-DROP TABLE IF EXISTS `uc_standard`;
+
 CREATE TABLE `uc_standard` (
   `id`            varchar(64) NOT NULL COMMENT 'id',
   `standard_type` enum('HEIGHT','WEIGHT') NOT NULL,
@@ -863,7 +902,7 @@ CREATE TABLE `uc_standard` (
   PRIMARY KEY pk_id(`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='身高体重';
 
-DROP TABLE IF EXISTS `uc_prizes`;
+
 CREATE TABLE `uc_prizes` (
   `id` varchar(64) NOT NULL COMMENT '商品id',
   `channel_id` varchar(64) NOT NULL COMMENT '渠道id',
@@ -881,27 +920,27 @@ CREATE TABLE `uc_prizes` (
   PRIMARY KEY pk_id(`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='商品';
 
-DROP TABLE IF EXISTS `uc_appstore`;
+
 CREATE TABLE `uc_appstore` (
-  `id` varchar(64) COLLATE utf8_bin NOT NULL COMMENT '应用商店id',
-  `channel_id` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '渠道id',
-  `app_name` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '应用名称',
-  `package_name` varchar(500) COLLATE utf8_bin NOT NULL COMMENT '包名',
-  `call_class` varchar(500) COLLATE utf8_bin DEFAULT NULL COMMENT '调用类名',
+  `id` varchar(64) NOT NULL COMMENT '应用商店id',
+  `channel_id` varchar(64) DEFAULT NULL COMMENT '渠道id',
+  `app_name` varchar(255) NOT NULL COMMENT '应用名称',
+  `package_name` varchar(500) NOT NULL COMMENT '包名',
+  `call_class` varchar(500) DEFAULT NULL COMMENT '调用类名',
   `file_size` decimal(19,2) NOT NULL DEFAULT '0.00' COMMENT '文件大小(b)字节',
-  `version_name` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '版本名',
-  `version_code` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '版本号',
-  `url` varchar(1000) COLLATE utf8_bin NOT NULL COMMENT '文件地址',
-  `md5` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT 'md5值',
-  `icon` varchar(1000) COLLATE utf8_bin NOT NULL COMMENT '图标',
-  `instruction` text COLLATE utf8_bin COMMENT '应用说明',
-  `app_scope` enum('0','1') COLLATE utf8_bin DEFAULT NULL COMMENT '应用范围-0所有/1指定',
+  `version_name` varchar(255) NOT NULL COMMENT '版本名',
+  `version_code` varchar(255) NOT NULL COMMENT '版本号',
+  `url` varchar(1000) NOT NULL COMMENT '文件地址',
+  `md5` varchar(255) DEFAULT NULL COMMENT 'md5值',
+  `icon` varchar(1000) NOT NULL COMMENT '图标',
+  `instruction` text COMMENT '应用说明',
+  `app_scope` enum('0','1') DEFAULT NULL COMMENT '应用范围-0所有/1指定',
   `download_number` int(11) DEFAULT NULL COMMENT '下载次数',
-  `phase_tag` varchar(500) COLLATE utf8_bin DEFAULT NULL COMMENT '阶段标签(0幼儿,1小学,2中学,3高中,100综合)',
+  `phase_tag` varchar(500) DEFAULT NULL COMMENT '阶段标签(0幼儿,1小学,2中学,3高中,100综合)',
   `release_time` date DEFAULT NULL COMMENT '发布时间',
-  `content_type` enum('EDU','AMUSEMENT') COLLATE utf8_bin DEFAULT NULL COMMENT '内容类型',
-  `developer` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '开发商',
-  `images` text COLLATE utf8_bin COMMENT '应用截图',
+  `content_type` enum('EDU','AMUSEMENT') DEFAULT NULL COMMENT '内容类型',
+  `developer` varchar(255) DEFAULT NULL COMMENT '开发商',
+  `images` text COMMENT '应用截图',
   `enable` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否启用',
   `remark`        varchar(255) DEFAULT NULL COMMENT '备注-内部使用',
   `create_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间,默认系统时间,不需要手动插入',
@@ -911,3 +950,24 @@ CREATE TABLE `uc_appstore` (
   `status`        bit(1) NOT NULL DEFAULT b'1' COMMENT '数据有效性-0无效/1有效(实体类为boolean)',  
   PRIMARY KEY pk_id(`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='应用商店';
+
+
+CREATE TABLE `uc_apps` (
+  `id` varchar(64) NOT NULL COMMENT '应用id',
+  `channel_id` varchar(64) NOT NULL DEFAULT '' COMMENT '渠道id',
+  `app_name` varchar(50) NOT NULL COMMENT '应用名称',
+  `package_name` varchar(255) NOT NULL COMMENT '包名',
+  `auth_type` enum('MAC','SN','MACSN') NOT NULL DEFAULT 'MACSN' COMMENT '认证方式',
+  `app_type` enum('0','1') NOT NULL DEFAULT '0' COMMENT '应用类型-0 APP，1 固件',
+  `instruction` text NOT NULL COMMENT '应用说明',
+  `enable_sn` bit(1) NOT NULL DEFAULT b'1' COMMENT '启动激活码激活',
+  `app_key` varchar(32) NOT NULL,
+  `app_secret` varchar(32) NOT NULL,
+  `remark`        varchar(255) DEFAULT NULL COMMENT '备注-内部使用',
+  `create_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间,默认系统时间,不需要手动插入',
+  `update_time`   timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '修改时间,默认系统时间,不需要手动插入',
+  `create_user`   varchar(64) DEFAULT NULL COMMENT '创建者id',
+  `update_user`   varchar(64) DEFAULT NULL COMMENT '修改者id',
+  `status`        bit(1) NOT NULL DEFAULT b'1' COMMENT '数据有效性-0无效/1有效(实体类为boolean)',    
+  PRIMARY KEY pk_id(`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='应用';

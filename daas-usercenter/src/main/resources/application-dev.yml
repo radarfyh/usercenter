@@ -130,7 +130,7 @@ dubbo:
     name: ${spring.application.name}
     qosEnable: false
   cloud:
-    subscribed-services: daas-device
+    subscribed-services: daas-device, ${spring.application.name}
   consumer:
     check: false
   protocol:
@@ -141,8 +141,8 @@ dubbo:
     loadbalance: roundrobin
     retries: 0
     timeout: 60000
-  scan:
-    base-packages: work.metanet.server.usercenter.service
+#  scan:
+#    base-packages: work.metanet.server.usercenter.service.impl, work.metanet.server.service
   registry:
     id: ${spring.application.name}-registry
     address: nacos://127.0.0.1:8848
