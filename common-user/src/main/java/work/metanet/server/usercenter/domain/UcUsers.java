@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import work.metanet.base.domain.AbstractEntity;
 import work.metanet.server.usercenter.vo.EmailAddress;
 
 import lombok.Data;

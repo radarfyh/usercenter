@@ -14,6 +14,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.12.RELEASE</version>
+		<!-- <version>2.3.12.RELEASE</version> -->
 		<!-- <version>2.2.13.RELEASE</version> -->
 		<!-- <version>2.1.15.RELEASE</version> -->
 	</parent>
@@ -29,15 +30,18 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<revision>${project.version}</revision>
-		<spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
-		<!-- <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version> -->
-		<swagger.version>2.9.2</swagger.version>
-		<kaptcha.version>0.0.9</kaptcha.version>
-		<lombok.version>1.18.20</lombok.version>
+		
+		<spring.version>5.2.15.RELEASE</spring.version>
 		<spring.data.version>2.3.9.RELEASE</spring.data.version>
 		<spring.boot.version>2.3.12.RELEASE</spring.boot.version>
 		<spring.cloud.version>2.2.8.RELEASE</spring.cloud.version>
-		<spring.version>5.2.15.RELEASE</spring.version>
+		<spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
+		<!-- <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version> -->
+		
+		<swagger.version>2.9.2</swagger.version>
+		<kaptcha.version>0.0.9</kaptcha.version>
+		<lombok.version>1.18.20</lombok.version>
+
 		<slf4j.version>1.7.25</slf4j.version>
 		<!-- logback 1.0.6导致gateway报错：Exception in thread "main" java.lang.NoSuchMethodError: ch.qos.logback.classic.LoggerContext.removeObject(Ljava/lang/String;)V -->
 		<logback.version>1.1.11</logback.version>
@@ -562,6 +566,13 @@
 			    <artifactId>feign-jaxrs2</artifactId>
 			    <version>10.1.0</version>
 			</dependency>
+			
+			<!-- 腾讯COS对象存储 -->
+			<dependency>
+				<groupId>com.qcloud</groupId>
+				<artifactId>cos_api</artifactId>
+				<version>5.6.27</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -577,13 +588,17 @@
 	</build>
 
 	<modules>
-		<module>api</module>
 		<module>common</module>
 		<module>common-user</module>
+		
+		<module>common-payment</module>
+		
+		<module>common-device</module>
 
 		<module>common-server</module>
 
 		<module>daas-device</module>
+		<module>daas-payment</module>
 		<module>daas-usercenter</module>
 
 		<module>common-client</module>

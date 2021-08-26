@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -25,9 +26,7 @@ import work.metanet.api.channel.protocol.ReqChannelLogin.RespChannelLogin;
 import work.metanet.api.channel.protocol.ReqRemoveChannel;
 import work.metanet.api.channel.protocol.ReqSaveChannel;
 import work.metanet.api.channel.protocol.ReqUpdChannelPassword;
-import work.metanet.api.permission.IPermissionService;
 import work.metanet.api.permission.vo.MenuVo;
-import work.metanet.api.role.IRoleService;
 import work.metanet.base.RespPaging;
 
 import work.metanet.constant.ConstCacheKey;
@@ -47,6 +46,7 @@ import cn.hutool.extra.pinyin.PinyinUtil;
 
 @DubboService
 @Component
+@RefreshScope
 public class ChannelService implements IChannelService{
 
 	@Autowired
@@ -57,10 +57,6 @@ public class ChannelService implements IChannelService{
 	private StringRedisTemplate stringRedisTemplate;
 	@Autowired
 	private Constant constant;
-	@DubboReference
-	private IRoleService roleService;
-	@DubboReference
-	private IPermissionService permissionService;
 	
 	/**
 	 * @Description: 重置渠道密码
@@ -98,19 +94,9 @@ public class ChannelService implements IChannelService{
 		if(channel==null)
 			throw MetanetException.of().setMsg("用户名或密码错误");
 		
-		//菜单权限
-		List<MenuVo> menuList = permissionService.adminMenuList(channel.getChannelId());
-		String jsonMenus = MenuUtil.jsonMenus(menuList, constant.getChannel_menu_path());
-		
-		//功能权限
-		String adminPermissionApis = permissionService.adminPermissionApis(channel.getChannelId());
-		String adminPermissionTags = permissionService.adminPermissionTags(channel.getChannelId());
-		
 		RespChannelLogin resp = new RespChannelLogin();
 		BeanUtil.copyProperties(channel, resp);
-		resp.setJsonMenus(jsonMenus);
-		resp.setAdminPermissionApis(adminPermissionApis);
-		resp.setAdminPermissionTags(adminPermissionTags);
+
 		return resp;
 	}
 	
@@ -145,9 +131,6 @@ public class ChannelService implements IChannelService{
 	@Override
 	public RespChannelInfo channelInfo(ReqChannelInfo req) throws Exception {
 		RespChannelInfo resp = channelMapper.channelInfo(BeanUtil.beanToMap(req));
-		if(resp!=null) {
-			resp.setRoleIdList(roleService.getRoleIdListByAdminId(req.getChannelId()));
-		}
 		return resp;
 	}
 
@@ -186,12 +169,6 @@ public class ChannelService implements IChannelService{
 			channel.setPassword(constant.getDefault_password());
 			channelMapper.insertSelective(channel);
 		}
-		
-		//管理员角色关联
-		roleService.removeAdminRole(channel.getChannelId());
-		if(CollUtil.isNotEmpty(req.getRoleIdList())) {
-			roleService.addAdminRole(channel.getChannelId(), req.getRoleIdList());
-		}
 	}
 
 	/**
@@ -203,12 +180,4 @@ public class ChannelService implements IChannelService{
 	public void removeChannel(List<ReqRemoveChannel> req) throws Exception {
 		channelMapper.removeChannel(req);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }

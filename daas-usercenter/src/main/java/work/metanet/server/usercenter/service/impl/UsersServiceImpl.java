@@ -9,12 +9,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
@@ -61,12 +61,8 @@ import work.metanet.server.usercenter.domain.UcUserDept;
 import work.metanet.server.usercenter.domain.UcUserRole;
 import work.metanet.server.usercenter.domain.UcUsers;
 import work.metanet.server.usercenter.domain.UserFromThird;
-import work.metanet.api.app.IAppService;
-import work.metanet.api.app.vo.AppVo;
-import work.metanet.api.deviceApp.IDeviceAppService;
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
-import work.metanet.api.user.protocol.ReqLogin;
 import work.metanet.api.user.protocol.ReqLogin.RespLogin;
 import work.metanet.api.user.protocol.ReqLoginSuper;
 import work.metanet.api.user.protocol.ReqRegister;
@@ -80,8 +76,6 @@ import work.metanet.api.user.protocol.ReqUpdUser;
 import work.metanet.api.user.protocol.ReqUserInfo.RespUserInfo;
 import work.metanet.api.user.protocol.ReqUserList;
 import work.metanet.api.user.protocol.ReqUserList.RespUserList;
-import work.metanet.api.version.IAppVersionService;
-import work.metanet.api.version.vo.AppVersionVo;
 import work.metanet.base.UserToken;
 import work.metanet.base.page.MyPageRequest;
 import work.metanet.base.page.MyPageResult;
@@ -93,6 +87,7 @@ import work.metanet.base.RespPaging;
  * @date 2020/1/9
  */
 @DubboService
+@RefreshScope
 public class UsersServiceImpl implements UsersService {
 	//protected final Log logger = LogFactory.getLog(getClass());
 	private static Logger log = LogManager.getLogger(UsersServiceImpl.class);
@@ -114,14 +109,10 @@ public class UsersServiceImpl implements UsersService {
 	private StringRedisTemplate stringRedisTemplate;
 	@Autowired
 	private SmsUtil smsUtil;
-	@DubboReference
-	private IDeviceAppService deviceAppService;
+
 	@Autowired
 	private CosUtil cosUtil;
-	@DubboReference
-	private IAppService appService;
-	@DubboReference
-	private IAppVersionService appVersionService;
+
 	@Autowired
 	private LoginService userLoginService;
 	@Autowired
@@ -448,23 +439,7 @@ public class UsersServiceImpl implements UsersService {
 		return perms;
 	}
 	
-	@Override
-	public Integer userTotal(String channelId) throws MetanetException {
-		// 因为渠道放在其他微服务进程中，需要调用appService服务获取渠道ID下面所有appid，再根据appid查询用户数量
-		List<AppVo> avs;
-		try {
-			avs = appService.appVoList(channelId);
-		} catch (Exception e) {
-			throw MetanetException.of().setMsg("获取合作伙伴的应用列表异常。" + e.getMessage());
-		}
-		
-		int total = 0;
-		for(AppVo av : avs) {
-			total += usersRepo.userTotal(av.getAppId());
-		}
-		return total; 
-	}
-	
+
 	@Override
 	public String cacheUserToken(String userId) throws MetanetException {
 		return stringRedisTemplate.opsForValue().get(ConstCacheKey.USER_TOKEN.cacheKey(userId));
@@ -529,15 +504,9 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public void register(String packageName, ReqRegister requestParam) throws MetanetException {
-		AppVo appVo;
-		try {
-			appVo = appService.getAppByPackageName(packageName);
-		} catch (Exception e) {
-			throw MetanetException.of(ResultResponseEnum.FAILURE_GET_PACKAGE_NAME.resultResponse());
-		}
+	public void register(String appId, ReqRegister requestParam) throws MetanetException {
 		UcUsers user = new UcUsers();
-		user.setAppId(appVo.getAppId());
+		user.setAppId(appId);
 		user.setUsername(requestParam.getUsername());
 		user.setPassword(SecureUtil.md5(requestParam.getPassword()));
 		user.setPhone(requestParam.getPhone());
@@ -548,30 +517,15 @@ public class UsersServiceImpl implements UsersService {
 		usersRepo.save(user);
 	}
 	
-	private RespLogin login(UcUsers user,String deviceId,String packageName,String versionCode) throws MetanetException{
-		if(user==null)
-			throw MetanetException.of(ResultResponseEnum.ERROR_USER_OR_PWD.resultResponse());
-		if(!user.getEnableStatus())
-			throw MetanetException.of(ResultResponseEnum.ERROR_USER_LOCKED.resultResponse());
-		
-		AppVersionVo appVersionVo;
-		try {
-			appVersionVo = appVersionService.getAppVersion(packageName, versionCode);
-		} catch (Exception e) {
-			throw MetanetException.of().setMsg("获取应用版本异常。" + e.getMessage());
-		}
-	 	String deviceAppId;
-		try {
-			deviceAppId = deviceAppService.getDeviceAppId(deviceId, packageName);
-		} catch (Exception e) {
-			throw MetanetException.of().setMsg("获取终端的应用ID异常。" + e.getMessage());
-		}
+	@Override
+	public RespLogin procLoginReq(UcUsers user, String deviceId, String appId, String versionId
+			, String deviceAppId) throws MetanetException {
 	 	
 	 	//登录记录
-	 	userLoginService.loginRecord(user.getId(), deviceId, appVersionVo.getVersionId());
+	 	userLoginService.loginRecord(user.getId(), deviceId, versionId);
 	 	
 	 	//生成token(阶段一过期时间限制拉长,实际是需要采用短期刷新token方案)
-	 	UserToken userToken = new UserToken(deviceAppId, deviceId, appVersionVo.getAppId() ,user.getId(), user.getUsername(),false);
+	 	UserToken userToken = new UserToken(deviceAppId, deviceId, appId, user.getId(), user.getUsername(),false);
 	 	String token = TokenUtil.generateToken(JSONUtil.toJsonStr(userToken), 60*60*24*365L);
 		
 		//更新用户token
@@ -586,30 +540,17 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public RespLogin loginSuper(String deviceId, String packageName, String versionCode, ReqLoginSuper requestParam) throws MetanetException {
+	public UcUsers getUser(String appId, String packageName, String deviceId
+			, String versionCode, ReqLoginSuper requestParam) throws MetanetException {
 
-		//短信验证码
-		try {
-			validationCode(null,requestParam.getPhone(),requestParam.getCode(),ConstSmsRequestType.LOGIN);
-		} catch (Exception e) {
-			throw MetanetException.of().setMsg("验证校验码异常。" + e.getMessage());
-		}
-		
-		AppVo appVo;
-		try {
-			appVo = appService.getAppByPackageName(packageName);
-		} catch (Exception e) {
-			throw MetanetException.of().setMsg("获取包名对应的应用异常。" + e.getMessage());
-		}
-
-		UcUsers user = usersRepo.getUser(appVo.getAppId(), null, requestParam.getPhone(), null, null);
+		UcUsers user = usersRepo.getUser(appId, null, requestParam.getPhone(), null, null);
 		
 		if(user == null) {
 			if(StringUtils.isEmpty(requestParam.getPassword())) throw MetanetException.of().setMsg("请输入密码");
 			//注册
 			String phone = requestParam.getPhone();
 			user = new UcUsers();
-			user.setAppId(appVo.getAppId());
+			user.setAppId(appId);
 			user.setUsername(phone);
 			user.setPassword(SecureUtil.md5(requestParam.getPassword()));
 			user.setPhone(phone);
@@ -624,11 +565,8 @@ public class UsersServiceImpl implements UsersService {
 			}
 		}
 
-		//登录
-		return login(user,deviceId,packageName,versionCode);
+		return user;
 	}
-	
-	
 	
 	@Override 
 	public void updUser(String userId, ReqUpdUser requestParam) throws MetanetException {
@@ -753,21 +691,15 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public String syncUser(String phone) throws MetanetException {
-		AppVo appVo;
-		try {
-			appVo = appService.getAppByPackageName(constant.getYmsjPackage());
-		} catch (Exception e) {
-			throw MetanetException.of().setMsg("获取包名对应的应用异常。" + e.getMessage());
-		}
+	public String syncUser(String appId, String phone) throws MetanetException {
 		
-		UcUsers user = new UcUsers().setAppId(appVo.getAppId()).setPhone(phone);
+		UcUsers user = new UcUsers().setAppId(appId).setPhone(phone);
 		user.setStatus(true);
 		
-		Optional<UcUsers> dbUser = usersRepo.findFirstByAppIdAndPhone(appVo.getAppId(), phone);
+		Optional<UcUsers> dbUser = usersRepo.findFirstByAppIdAndPhone(appId, phone);
 		if(!dbUser.isPresent()) {
 			UcUsers newUser = new UcUsers()
-					.setAppId(appVo.getAppId())
+					.setAppId(appId)
 					.setPhone(phone)
 					.setUsername(phone)
 					.setPassword(SecureUtil.md5("0000"))
@@ -839,11 +771,61 @@ public class UsersServiceImpl implements UsersService {
 		return resp;
 
 	}
-
-	@Override
-	public RespLogin login(String deviceId, String packageName, String versionCode, ReqLogin requestParam)
-			throws MetanetException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+//	private RespLogin login(UcUsers user,String deviceId,String packageName,String versionCode) throws Exception{
+//		if(user==null)
+//			throw MetanetException.of().setMsg("用户名或密码错误");
+//		if(!user.getEnableStatus())
+//			throw MetanetException.of().setMsg("您已被锁定");
+//		
+//		AppVersionVo appVersionVo = appVersionService.getAppVersion(packageName, versionCode);
+//	 	String deviceAppId = deviceAppService.getDeviceAppId(deviceId, packageName);
+//	 	
+//	 	//登录记录
+//	 	userLoginService.loginRecord(user.getId(), deviceId, appVersionVo.getVersionId());
+//	 	
+//	 	//生成token(阶段一过期时间限制拉长,实际是需要采用短期刷新token方案)
+//	 	UserToken userToken = new UserToken(deviceAppId, deviceId, appVersionVo.getAppId() ,user.getId(), user.getUsername(),false);
+//	 	String token = TokenUtil.generateToken(JSONUtil.toJsonStr(userToken), 60*60*24*365L);
+//		
+//		//更新用户token
+//		cacheUserToken(user.getId(), token);
+//		
+//		RespLogin resp = new RespLogin();
+//		BeanUtil.copyProperties(user, resp);
+//		resp.setToken(token);
+//		resp.setHeadUrl(cosUtil.getAccessUrl(resp.getHeadUrl()));
+//		
+//		return resp;
+//	}
+//	
+//	@Override
+//	public RespLogin loginSuper(String deviceId, String packageName, String versionCode, ReqLoginSuper requestParam) throws Exception {
+//
+//		//短信验证码
+//		validationCode(null,requestParam.getPhone(),requestParam.getCode(),ConstSmsRequestType.LOGIN);
+//		
+//		AppVo appVo = appService.getAppByPackageName(packageName);
+//
+//		UcUsers user = usersRepo.getUser(appVo.getAppId(), null, requestParam.getPhone(), null, null);
+//		
+//		if(user == null) {
+//			if(StringUtils.isEmpty(requestParam.getPassword())) throw MetanetException.of().setMsg("请输入密码");
+//			//注册
+//			String phone = requestParam.getPhone();
+//			user = new UcUsers();
+//			user.setAppId(appVo.getAppId());
+//			user.setUsername(phone);
+//			user.setPassword(SecureUtil.md5(requestParam.getPassword()));
+//			user.setPhone(phone);
+//			user.setNickName(phone.substring(phone.length()-6, phone.length()));
+//			user.setEnableStatus(true);
+//			usersRepo.save(user);
+//			//初始化用户积分
+//			userScoreService.initUserScore(user.getId());
+//		}
+//
+//		//登录
+//		return login(user,deviceId,packageName,versionCode);
+//	}
 }

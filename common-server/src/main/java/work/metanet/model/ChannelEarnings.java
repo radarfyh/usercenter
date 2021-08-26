@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +16,7 @@ import lombok.experimental.Accessors;
  * @author 
  */
 @Accessors(chain = true)
+@Entity
 @Table(name = "t_channel_earnings")
 @Data
 public class ChannelEarnings implements Serializable {

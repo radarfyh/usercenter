@@ -15,21 +15,21 @@ public interface BusinessSerialNumberMapper extends Mapper<BusinessSerialNumber>
 	
 	/**
 	 * @Description: 获取SN码信息
-	 * @Author Louis & Edison & W.B.
+	 * @Author wanbo
 	 * @DateTime 2020/01/09
 	 */
 	BusinessSerialNumber getBusinessSerialNumber(Map<String, Object> map);
 
 	/**
 	 * @Description: SN码列表
-	 * @Author Louis & Edison & W.B.
+	 * @Author wanbo
 	 * @DateTime 2019/11/20
 	 */
 	List<RespBusinessSerialNumberList> businessSerialNumberList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除SN码
-	 * @Author Louis & Edison & W.B.
+	 * @Author wanbo
 	 * @DateTime 2019/11/20
 	 */
 	int removeBusinessSerialNumber(@Param("list")List<ReqRemoveBusinessSerialNumber> list);

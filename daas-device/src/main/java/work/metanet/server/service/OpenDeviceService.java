@@ -7,6 +7,7 @@ import java.util.concurrent.locks.Lock;
 
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.integration.redis.util.RedisLockRegistry;
 
@@ -43,6 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DubboService
+@RefreshScope
 public class OpenDeviceService implements IOpenDeviceService{
 
 	@Autowired

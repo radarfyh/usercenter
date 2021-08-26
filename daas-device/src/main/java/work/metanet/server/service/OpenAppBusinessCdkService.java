@@ -7,6 +7,7 @@ import java.util.concurrent.locks.Lock;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.integration.redis.util.RedisLockRegistry;
 
 import com.github.pagehelper.PageHelper;
@@ -36,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DubboService
+@RefreshScope
 public class OpenAppBusinessCdkService implements IOpenAppBusinessCdkService{
 	
 	@Autowired

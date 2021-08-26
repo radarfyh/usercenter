@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import work.metanet.base.domain.AbstractEntity;
 
 /**
  * user&role用户角色关系 模型

@@ -1,17 +1,9 @@
 package work.metanet.exception;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import work.metanet.api.log.ISystemLogService;
-import work.metanet.api.log.protocol.ReqSaveOperLog;
-import work.metanet.utils.HttpServletRequestUtil;
 
-import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**

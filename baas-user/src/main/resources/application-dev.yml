@@ -5,30 +5,32 @@ server:
     encoding:
       force: true  
 dubbo:
-  application:
-    id: ${spring.application.name}
-    name: ${spring.application.name}
-    qosEnable: false
+#  application:
+#    id: ${spring.application.name}
+#    name: ${spring.application.name}
+#    qosEnable: false
   cloud:
     subscribed-services: daas-usercenter, daas-device
-  consumer:
-    check: false
-    timeout: 10000
-    retries: 0
+#  consumer:
+#    check: false
+#    timeout: 10000
+#    retries: 0
   protocol:
-    id: dubbo
+#    id: dubbo
     name: dubbo
     port: -1
-  provider:
-    loadbalance: roundrobin
-    retries: 0
-    timeout: 60000
-    version: 1.0.0
+#  provider:
+#    loadbalance: roundrobin
+#    retries: 0
+#    timeout: 60000
+#    version: 1.0.0
 #  scan:
 #    base-packages: work.metanet.server.usercenter.service.impl, work.metanet.server.service
   registry:
-    id: ${spring.application.name}-registry
-    address: nacos://localhost:8848
+#    id: ${spring.application.name}-registry
+#    address: nacos://localhost:8848
+    address: spring-cloud://localhost
+    
 logging: 
   level:
     root: warn

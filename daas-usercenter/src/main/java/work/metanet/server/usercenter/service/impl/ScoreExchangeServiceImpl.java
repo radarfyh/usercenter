@@ -10,6 +10,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,8 +25,6 @@ import work.metanet.server.usercenter.service.ScoreExchangeService;
 import work.metanet.server.usercenter.service.ScoreService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import work.metanet.api.app.IAppService;
-import work.metanet.api.app.vo.AppVo;
 import work.metanet.api.prize.IPrizeService;
 import work.metanet.api.prize.vo.PrizeVo;
 import work.metanet.server.usercenter.domain.UcUsers;
@@ -62,12 +61,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @DubboService
+@RefreshScope
 public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 
 	@Autowired
 	private UsersRepository userRepository;
-	@DubboReference
-	private IAppService appService;
 	@Autowired
 	private UserScoreExchangeRepository userScoreExchangeRepository;
 	@DubboReference
@@ -101,10 +99,8 @@ public class ScoreExchangeServiceImpl implements ScoreExchangeService{
 		Optional<UcUsers> user = userRepository.findById(userId);
 		if(!user.isPresent())
 			throw MetanetException.of().setMsg("用户不存在");	
-		AppVo appVo = appService.getAppByAppId(user.get().getAppId());
 		
 		UcScoreExchanges userScoreExchange = BeanUtil.copyProperties(req, UcScoreExchanges.class)
-				.setChannelId(appVo.getChannelId())
 				.setUserId(userId)
 				.setPrizeName(prize.getPrizeName())
 				.setPrizeImg(prize.getPrizeImg())

@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Update;
 
 import work.metanet.api.device.protocol.ReqDeviceInfo.RespDeviceInfo;
 import work.metanet.api.device.protocol.ReqDeviceList.RespDeviceList;
-import work.metanet.api.statistical.vo.ChartVo;
+import work.metanet.api.device.vo.ChartVo;
 import work.metanet.api.device.protocol.ReqRemoveDevice;
 import work.metanet.model.Device;
 import work.metanet.server.vo.AuthDeviceParam;

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import work.metanet.base.domain.AbstractEntity;
 
 /**
  * @Description 积分详情信息

@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,6 +29,7 @@ import work.metanet.server.usercenter.service.PrizesService;
 import work.metanet.utils.CosUtil;
 
 @DubboService
+@RefreshScope
 public class PrizesServiceImpl implements PrizesService {
 	@Autowired
 	private PrizesRepository prizesRepository;

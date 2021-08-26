@@ -187,7 +187,7 @@ tencent:
     cos:
       bucketName: bn12345678
       region: ap-guangzhou
-    accessKey: YYY
+    secretKey: YYY
     sms:
       accessKey: 123456
       region: ap-guangzhou

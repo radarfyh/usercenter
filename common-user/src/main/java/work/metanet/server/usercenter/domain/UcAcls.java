@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import work.metanet.base.domain.AbstractEntity;
 
 /**
  * ACLs访问控制列表/权限 模型

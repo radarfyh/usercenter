@@ -3,6 +3,8 @@ package work.metanet;
 import java.math.BigDecimal;
 import java.security.KeyPair;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -33,6 +35,7 @@ import work.metanet.api.device.protocol.ReqDeviceInfo.RespDeviceInfo;
 import work.metanet.api.device.protocol.ReqDeviceList;
 import work.metanet.api.device.protocol.ReqDeviceList.RespDeviceList;
 import work.metanet.api.device.protocol.ReqSaveDevice;
+import work.metanet.api.device.vo.DeviceAppVo;
 import work.metanet.api.feedback.IFeedbackService;
 import work.metanet.api.model.IModelService;
 import work.metanet.api.model.protocol.ReqModelInfo;
@@ -45,8 +48,7 @@ import work.metanet.api.sn.protocol.ReqSaveSerialNumber;
 import work.metanet.api.sn.protocol.ReqSerialNumberInfo;
 import work.metanet.api.sn.protocol.ReqSerialNumberList;
 import work.metanet.api.upgradePlan.protocol.ReqUpgrade.RespUpgrade;
-import work.metanet.api.user.IUserService;
-import work.metanet.api.user.protocol.ReqUserList;
+
 import work.metanet.api.version.IAppVersionService;
 import work.metanet.api.version.protocol.ReqAppVersionInfo;
 import work.metanet.api.version.protocol.ReqAppVersionList;
@@ -57,8 +59,8 @@ import work.metanet.constant.ConstAppType;
 import work.metanet.constant.ConstSource;
 import work.metanet.server.dao.BusinessMapper;
 import work.metanet.server.service.BusinessAppService;
-
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.CharsetUtil;
@@ -69,6 +71,7 @@ import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import cn.hutool.crypto.asymmetric.Sign;
 import cn.hutool.crypto.asymmetric.SignAlgorithm;
+import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import cn.hutool.json.JSONUtil;
@@ -80,8 +83,7 @@ class ApplicationTest {
 	private StringRedisTemplate stringRedisTemplate;
 	@Resource
 	private RedisTemplate<String, Integer> redisTemplate;
-	//远程调用注入接口类
-	@DubboReference IUserService iUserSerivce;
+
 	//本地调用注入实现类
 	@Autowired IDeviceService deviceService;
 	@Autowired IChannelService channelService;
@@ -280,10 +282,7 @@ class ApplicationTest {
 		System.out.println(businessAppService.businessAppTree());
 	}
 	
-	@Test
-	void userList() throws Exception {
-		System.out.println(JSONUtil.toJsonStr(iUserSerivce.userList(new ReqUserList())));;
-	}
+
 	
 	@Test
 	void activate() throws Exception {
@@ -589,7 +588,40 @@ class ApplicationTest {
 		//serialNumberService.removeSerialNumber("79479b2d5de042318432cccbd52e72bc");
 	}
 	
+	@Test
+	private static void testSignUtil() {
+		Long timestamp = DateUtil.currentSeconds();
+		System.out.println(timestamp);
+		String a = SecureUtil.signParams(
+				DigestAlgorithm.SHA256, 
+				MapUtil.builder().put("timestamp",timestamp).put("appKey", "123").build(), 
+				"&", 
+				"=",
+				true); 
+		System.out.println(a);
+		System.out.println(SecureUtil.sha256("appKey=123&appSecret=456&timestamp="+timestamp));
+	}
 	
-	
+	@Test
+	private static void testSignUtil1() {
+		List<DeviceAppVo> list = new ArrayList<DeviceAppVo>();
+		list.add(new DeviceAppVo().setAppId("bbbbbbb"));
+		list.add(new DeviceAppVo().setAppId("aaaaaaa"));
+		list.add(new DeviceAppVo().setAppId("ccccccc"));
+		
+		List<DeviceAppVo> list2 = new ArrayList<DeviceAppVo>();
+		list2.add(new DeviceAppVo().setAppId("dddddd"));
+		list2.add(new DeviceAppVo().setAppId("eeeeee"));
+		list2.add(new DeviceAppVo().setAppId("ffffff"));
+		
+		Long timestamp = DateUtil.currentSeconds();
+		
+		Map<Object, Object> map = MapUtil.builder().put("timestamp",timestamp).put("list2", JSONUtil.toJsonStr(list2)).put("list", JSONUtil.toJsonStr(list)).build();
+		
+		String signStr = MapUtil.sortJoin(map, "&", "=", true);
+		System.out.println(signStr);
+		String a = SecureUtil.md5(signStr);
+		System.out.println(a);
+	}
 
 }

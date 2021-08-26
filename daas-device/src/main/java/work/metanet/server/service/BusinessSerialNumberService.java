@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +56,7 @@ import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.IdUtil;
 
 @DubboService
+@RefreshScope
 public class BusinessSerialNumberService implements IBusinessSerialNumberService{
 	
 	@Autowired private BusinessSerialNumberMapper businessSerialNumberMapper;

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,7 @@ import work.metanet.api.device.protocol.ReqImportDevice;
 import work.metanet.api.device.protocol.ReqRemoveDevice;
 import work.metanet.api.device.protocol.ReqSaveDevice;
 import work.metanet.api.device.vo.DeviceAppVo;
-import work.metanet.api.statistical.vo.ChartVo;
+import work.metanet.api.device.vo.ChartVo;
 import work.metanet.base.RespPaging;
 import work.metanet.exception.ResultResponseEnum;
 import work.metanet.constant.ConstSource;
@@ -59,6 +60,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 
 @DubboService
+@RefreshScope
 public class DeviceService implements IDeviceService{
 	
 	@Autowired

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import work.metanet.api.versionModule.IAppVersionModuleService;
 import work.metanet.api.versionModule.protocol.ReqAppVersionModuleInfo;
@@ -30,6 +31,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 
 @DubboService
+@RefreshScope
 public class AppVersionModuleService implements IAppVersionModuleService{
 
 	@Autowired

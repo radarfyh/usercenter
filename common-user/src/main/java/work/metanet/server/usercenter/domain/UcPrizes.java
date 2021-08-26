@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
+import work.metanet.base.domain.AbstractEntity;
 
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper=false)

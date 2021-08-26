@@ -3,6 +3,8 @@ package work.metanet.server.usercenter.domain;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import work.metanet.base.domain.AbstractEntity;
 import work.metanet.server.usercenter.vo.EmailAddress;
 
 import lombok.Data;

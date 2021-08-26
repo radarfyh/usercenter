@@ -9,6 +9,7 @@ import javax.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import work.metanet.base.domain.AbstractEntity;
 
 /**
  * resource资源 模型

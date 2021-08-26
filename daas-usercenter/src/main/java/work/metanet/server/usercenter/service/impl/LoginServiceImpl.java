@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,6 +17,7 @@ import work.metanet.base.page.MyPageResult;
 import work.metanet.server.usercenter.domain.UcUserLogins;
 
 @DubboService
+@RefreshScope
 public class LoginServiceImpl implements LoginService{
 	
 	@Autowired

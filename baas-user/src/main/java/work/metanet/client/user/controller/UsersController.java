@@ -2,7 +2,6 @@ package work.metanet.client.user.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -17,16 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
-import work.metanet.api.user.protocol.ReqLoginSuper;
 import work.metanet.api.user.protocol.ReqRegister;
 import work.metanet.api.user.protocol.ReqResetPassword;
 import work.metanet.api.user.protocol.ReqSendCode;
 import work.metanet.api.user.protocol.ReqUpdPassword;
 import work.metanet.api.user.protocol.ReqUpdUser;
-import work.metanet.api.user.protocol.ReqLogin.RespLogin;
 import work.metanet.api.user.protocol.ReqUserInfo.RespUserInfo;
 
-import cn.hutool.core.util.StrUtil;
 import work.metanet.constant.SysConstants;
 import work.metanet.exception.ResultResponse;
 import work.metanet.exception.ResultResponseEnum;
@@ -145,15 +141,6 @@ public class UsersController extends BaseController {
 	public ResultResponse<?> register(@Valid @RequestBody ReqRegister requestParam) throws Exception {
 		usersService.register(requestParam);
 		return ResultResponseEnum.CREATE_SUCCESS.resultResponse();
-	}
-	
-	@ApiOperation(value="登录与注册")
-	@PostMapping("registerAndLogin")
-	public ResultResponse<RespLogin> loginSuper(HttpServletRequest request,@Valid @RequestBody ReqLoginSuper requestParam) throws Exception {
-		//获取deviceId兼容最初的版本
-		String deviceId = requestParam.getDeviceId();
-		RespLogin resp = usersService.loginSuper(StrUtil.isNotBlank(deviceId)?deviceId:getDeviceId(),getPackageName(),getVersionCode(),requestParam);
-		return ResultResponseEnum.AUTH_SUCCESS.resultResponse(resp);
 	}
 	
 	@ApiOperation(value="修改用户信息")

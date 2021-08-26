@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,6 +27,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.EnumUtil;
 
 @DubboService
+@RefreshScope
 public class ScoreDetailServiceImpl implements ScoreDetailService{
 
 	@Autowired

@@ -32,12 +32,12 @@ public class Constant {
 	
 	@Value("${metanet.custom.sign.enable:}")
 	private Boolean signEnable;
-	@Value("${metanet.custom.ymsj.sign.secret:}")
-	private String ymsjSignSecret;
-	@Value("${metanet.custom.ymsj.domain:}")
-	private String ymsjDomain;
-	@Value("${metanet.custom.ymsj.package:}")
-	private String ymsjPackage;
+	@Value("${metanet.custom.sign.secret:}")
+	private String signSecret;
+	@Value("${metanet.custom.domain:}")
+	private String customDomain;
+	@Value("${metanet.custom.package:}")
+	private String customPackage;
 	
 	@Value("${metanet.custom.crm.menu.path:}")
 	private String crm_menu_path;

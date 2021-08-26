@@ -27,7 +27,11 @@
 			<artifactId>common-user</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>work.metanet</groupId>
+			<artifactId>common-device</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- commons-beanutils -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>

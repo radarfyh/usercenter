@@ -5,15 +5,24 @@
 		<artifactId>metanet</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-
+	
+	<groupId>work.metanet.device</groupId>
 	<artifactId>daas-device</artifactId>
-
+	<name>device for DaaS</name>
+	<description>device project for ai platform</description>
+	
 	<dependencies>
 		<dependency>
 			<groupId>work.metanet</groupId>
 			<artifactId>common-server</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>work.metanet</groupId>
+			<artifactId>common-device</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -23,6 +32,18 @@
 			<groupId>io.github.openfeign</groupId>
 			<artifactId>feign-jaxrs2</artifactId>
 		</dependency>
+		
+
+		<dependency>
+		    <groupId>org.hibernate.javax.persistence</groupId>
+		    <artifactId>hibernate-jpa-2.1-api</artifactId>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>javax.persistence</groupId> -->
+<!-- 			<artifactId>persistence-api</artifactId> -->
+<!-- 			<scope>test</scope> 使用test排除，否则会提示orphanRemoval找不到 -->
+<!-- 		</dependency>		 -->
+
 	</dependencies>
    
     <build>

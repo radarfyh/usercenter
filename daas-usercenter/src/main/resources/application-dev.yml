@@ -125,32 +125,37 @@ spring:
 #      password: 
       
 dubbo:
-  application:
-    id: ${spring.application.name}
-    name: ${spring.application.name}
-    qosEnable: false
+#  application:
+#    id: ${spring.application.name}
+#    name: ${spring.application.name}
+#    qosEnable: false
   cloud:
-    subscribed-services: daas-device, ${spring.application.name}
-  consumer:
-    check: false
+    subscribed-services: daas-device
+#  consumer:
+#    check: false
   protocol:
-    id: dubbo
+#    id: dubbo
     name: dubbo
     port: -1
-  provider:
-    loadbalance: roundrobin
-    retries: 0
-    timeout: 60000
-#  scan:
-#    base-packages: work.metanet.server.usercenter.service.impl, work.metanet.server.service
+#  provider:
+#    loadbalance: roundrobin
+#    retries: 0
+#    timeout: 60000
+  scan:
+    base-packages: work.metanet.server.usercenter.service.impl, work.metanet.server.service
   registry:
-    id: ${spring.application.name}-registry
+#    id: ${spring.application.name}-registry
     address: nacos://127.0.0.1:8848
-
+#    address: spring-cloud://localhost
 
 #专用配置
 metanet:
   custom:
+    sign:
+      enable: true
+      secret: 1111
+    domain: work.metanet.server.usercenter.domain
+    package: work.metanet.server.usercenter
     channel:
       menu:
         path: menu.json

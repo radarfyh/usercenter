@@ -4,6 +4,7 @@ package work.metanet.server.usercenter.service.impl;
 import java.util.List;
 
 import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import work.metanet.server.usercenter.domain.UcDiaries;
 import work.metanet.server.usercenter.service.DiaryService;
 
 @DubboService
+@RefreshScope
 public class DiaryServiceImpl implements DiaryService{
 
 	@Override

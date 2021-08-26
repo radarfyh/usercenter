@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
@@ -39,6 +40,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 
 @DubboService
+@RefreshScope
 public class UpgradePlanService implements IUpgradePlanService{
 
 	@Autowired

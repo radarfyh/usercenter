@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ import work.metanet.base.page.MyPageResult;
  * @date 2020/1/9
  */
 @DubboService
+@RefreshScope
 public class DeptsServiceImpl implements DeptsService {
 	private static Logger log = LogManager.getLogger(DeptsServiceImpl.class);
 

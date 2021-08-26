@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,6 +29,7 @@ import work.metanet.utils.LxKeyUtil;
 import cn.hutool.core.bean.BeanUtil;
 
 @DubboService
+@RefreshScope
 public class SerialNumberService implements ISerialNumberService{
 
 	@Autowired

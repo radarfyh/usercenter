@@ -11,7 +11,6 @@ import work.metanet.server.usercenter.domain.UcUsers;
 import work.metanet.server.usercenter.domain.UserFromThird;
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
-import work.metanet.api.user.protocol.ReqLogin;
 import work.metanet.api.user.protocol.ReqLoginSuper;
 import work.metanet.api.user.protocol.ReqRegister;
 import work.metanet.api.user.protocol.ReqRemoveUser;
@@ -75,7 +74,7 @@ public interface UsersService extends CurdService<UcUsers> {
 	List<UcDepartments> findDepts(String userId) throws MetanetException;
 	
 	
-	Integer userTotal(String channelId) throws MetanetException;
+//	Integer userTotal(String channelId) throws MetanetException;
 	
 	String cacheUserToken(String userId) throws MetanetException;
 	
@@ -111,14 +110,20 @@ public interface UsersService extends CurdService<UcUsers> {
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	RespLogin login(String deviceId,String packageName,String versionCode, ReqLogin requestParam) throws MetanetException;
+//	RespLogin login(UserVo userVo,String deviceId,String packageName,String versionCode) throws MetanetException;
+	
+	RespLogin procLoginReq(UcUsers user, String deviceId, String appId, String versionId
+			, String deviceAppId) throws MetanetException;
 	
 	/**
 	 * @Description: 登录与注册
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
 	 */
-	RespLogin loginSuper(String deviceId,String packageName,String versionCode,ReqLoginSuper requestParam) throws MetanetException;
+//	RespLogin loginSuper(String deviceId,String packageName,String versionCode,ReqLoginSuper requestParam) throws MetanetException;
+
+	UcUsers getUser(String appId, String packageName, String deviceId
+			, String versionCode, ReqLoginSuper requestParam) throws MetanetException;
 	
 	/**
 	 * @Description: 修改用户信息
@@ -189,7 +194,7 @@ public interface UsersService extends CurdService<UcUsers> {
 	 * @Author Edison F.
 	 * @DateTime 2021/04/26
 	 */
-	String syncUser(String phone) throws MetanetException;
+	String syncUser(String appId, String phone) throws MetanetException;
 	
 	/**
 	 * @Description: 使用第三方用户信息创建新用户

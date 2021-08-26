@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -43,6 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DubboService
+@RefreshScope
 public class ScoreServiceImpl implements ScoreService{
 
 	@Autowired

@@ -1,9 +1,12 @@
 package work.metanet.server.usercenter;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
+@EnableDiscoveryClient
 @SpringBootApplication
 @ComponentScan(value={"work.metanet.utils",
 		"work.metanet.constant",
@@ -14,7 +17,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class DaasUsercenterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DaasUsercenterApplication.class, args);
+//		SpringApplication.run(DaasUsercenterApplication.class, args);
+		new SpringApplicationBuilder().web(WebApplicationType.NONE).sources(DaasUsercenterApplication.class).run(args);
 	}
 
 }
