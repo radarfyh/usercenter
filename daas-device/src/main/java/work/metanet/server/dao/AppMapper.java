@@ -29,21 +29,21 @@ public interface AppMapper extends Mapper<App>{
 	/**
 	 * @Description: 产品详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/25
+	 * @DateTime 2021/8/27
 	 */
 	RespAppInfo appInfo(Map<String, Object> map);
 	
 	/**
 	 * @Description: 产品列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespAppList> appList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeApp(@Param("list")List<ReqRemoveApp> list);
 	

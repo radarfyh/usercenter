@@ -29,14 +29,14 @@ public interface BusinessMapper extends Mapper<Business>{
 	/**
 	 * @Description: 列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespBusinessList> businessList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除内容商
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeBusiness(@Param("list")List<ReqRemoveBusiness> list);
 	

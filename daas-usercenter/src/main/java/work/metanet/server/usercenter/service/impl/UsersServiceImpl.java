@@ -651,7 +651,7 @@ public class UsersServiceImpl implements UsersService {
 	/**
 	 * @Description: 删除用户
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeUser(List<ReqRemoveUser> req) throws MetanetException {
@@ -661,7 +661,7 @@ public class UsersServiceImpl implements UsersService {
 	/**
 	 * @Description: 退出登录
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/05
+	 * @DateTime 2021/07/05
 	 */
 	@Async
 	@Override
@@ -672,7 +672,7 @@ public class UsersServiceImpl implements UsersService {
 	/**
 	 * @Description: 销户
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/09
+	 * @DateTime 2021/07/09
 	 */
 	@Override
 	public void accountCancel(String userId, ReqAccountCancel req) throws MetanetException {

@@ -1,6 +1,5 @@
 package work.metanet.api.vision.protocol;
 
-import work.metanet.model.EyesArticleExerciseBase;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

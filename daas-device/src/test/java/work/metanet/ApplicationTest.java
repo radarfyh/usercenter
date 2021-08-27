@@ -149,9 +149,9 @@ class ApplicationTest {
 		//构建
 		SymmetricCrypto aes = new SymmetricCrypto(SymmetricAlgorithm.AES, key);
 		//加密
-		byte[] encrypt = aes.encrypt(content);
+//		byte[] encrypt = aes.encrypt(content);
 		//解密
-		byte[] decrypt = aes.decrypt(encrypt);
+//		byte[] decrypt = aes.decrypt(encrypt);
 		//加密为16进制表示
 		String encryptHex = aes.encryptHex(content);
 		//解密为字符串
@@ -161,7 +161,7 @@ class ApplicationTest {
 	
 	static void AES对称加密与解密() {
 		
-		byte[] secretKey = SecureUtil.aes().getSecretKey().getEncoded();
+//		byte[] secretKey = SecureUtil.aes().getSecretKey().getEncoded();
 		//String secretKeyStr = HexUtil.encodeHexStr(secretKey);
 		//Console.log(secretKeyStr);
 		String secretKeyStr = "04139649c07ddd389994011981d546ce";
@@ -334,7 +334,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 渠道列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void channelList() throws Exception{
@@ -345,7 +345,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 渠道详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void channelInfo() throws Exception{
@@ -357,7 +357,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 保存渠道
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void saveChannel() throws Exception{
@@ -371,7 +371,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 删除渠道
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void removeChannel() throws Exception{
@@ -440,7 +440,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 产品列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void appList() throws Exception{
@@ -451,7 +451,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 产品详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void appInfo() throws Exception{
@@ -463,7 +463,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 保存产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void saveApp() throws Exception{
@@ -479,7 +479,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 删除产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void removeApp() throws Exception{
@@ -490,7 +490,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 版本列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void appVersionList() throws Exception{
@@ -501,7 +501,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 版本详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void appVersionInfo() throws Exception{
@@ -513,7 +513,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 保存版本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void saveAppVersion() throws Exception{
@@ -533,7 +533,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 删除版本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void removeAppVersion() throws Exception{
@@ -544,7 +544,7 @@ class ApplicationTest {
 	/**
 	 * @Description: SN码列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void serialNumberList() throws Exception{
@@ -555,7 +555,7 @@ class ApplicationTest {
 	/**
 	 * @Description: SN码详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void serialNumberInfo() throws Exception{
@@ -567,7 +567,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 保存SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void saveSerialNumber() throws Exception{
@@ -581,7 +581,7 @@ class ApplicationTest {
 	/**
 	 * @Description: 删除SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Test
 	void removeSerialNumber() throws Exception{

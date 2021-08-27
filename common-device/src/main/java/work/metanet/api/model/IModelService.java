@@ -16,28 +16,28 @@ public interface IModelService {
 	/**
 	 * @Description: 型号列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespModelList> modelList(ReqModelList req) throws Exception;
 	
 	/**
 	 * @Description: 型号详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespModelInfo modelInfo(ReqModelInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存型号
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespSaveModel saveModel(ReqSaveModel req) throws Exception;
 	
 	/**
 	 * @Description: 删除型号
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeModel(List<ReqRemoveModel> req) throws Exception;
 

@@ -25,8 +25,6 @@ import work.metanet.server.usercenter.service.ScoreExchangeService;
 import work.metanet.server.usercenter.service.ScoreService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import work.metanet.api.prize.IPrizeService;
-import work.metanet.api.prize.vo.PrizeVo;
 import work.metanet.server.usercenter.domain.UcUsers;
 import work.metanet.api.userScore.vo.UserScoreVo;
 import work.metanet.api.userScoreExchange.protocol.ReqSaveUserScoreExchange;
@@ -57,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Description: 用户积分兑换
  * @Author Louis & Edison & W.B.
- * @DateTime 2020/06/29
+ * @DateTime 2021/07/29
  */
 @Slf4j
 @DubboService

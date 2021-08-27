@@ -15,28 +15,28 @@ public interface IRoleService {
 	/**
 	 * @Description: 角色列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespRoleList> roleList(ReqRoleList req) throws Exception;
 	
 	/**
 	 * @Description: 角色详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespRoleInfo roleInfo(ReqRoleInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存角色
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveRole(ReqSaveRole req) throws Exception;
 	
 	/**
 	 * @Description: 删除角色
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeRole(List<ReqRemoveRole> req) throws Exception;
 	
@@ -44,21 +44,21 @@ public interface IRoleService {
 	/**
 	 * @Description:配置管理员角色 
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/09/10
+	 * @DateTime 2021/07/10
 	 */
 	int addAdminRole(String adminId,List<String> roleIdList);
 	
 	/**
 	 * @Description: 获取管理员角色
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/07/03
+	 * @DateTime 2021/07/03
 	 */
 	List<String> getRoleIdListByAdminId(String adminId);
 	
 	/**
 	 * @Description: 删除管理员角色关联
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/06/18
+	 * @DateTime 2021/07/18
 	 */
 	int removeAdminRole(String adminId);
 	

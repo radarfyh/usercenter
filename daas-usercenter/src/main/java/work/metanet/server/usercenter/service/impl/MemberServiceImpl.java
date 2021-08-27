@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService{
 	/**
 	 * @Description: 成长记录
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/14
+	 * @DateTime 2021/08/27
 	 */
 	@Override
 	public RespGrowthRecord growthRecord(ReqGrowthRecord req) throws Exception {
@@ -166,7 +166,7 @@ public class MemberServiceImpl implements MemberService{
 	/**
 	 * @Description: 删除家庭成员
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeFamilyMember(ReqRemoveFamilyMember req) throws Exception {

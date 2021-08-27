@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * @Description: 设备认证方式
  * @Author Louis & Edison & W.B.
- * @DateTime 2020/07/10
+ * @DateTime 2021/07/10
  */
 @AllArgsConstructor
 @Getter

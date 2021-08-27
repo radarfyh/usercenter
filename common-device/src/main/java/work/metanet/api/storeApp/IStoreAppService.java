@@ -17,35 +17,35 @@ public interface IStoreAppService {
 	/**
 	 * @Description: 应用商店搜索
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/26
+	 * @DateTime 2021/07/26
 	 */
 	RespPaging<RespSearchStoreApp> searchStoreApp(ReqSearchStoreApp req) throws Exception;
 
 	/**
 	 * @Description: 应用商店列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespStoreAppList> storeAppList(ReqStoreAppList req) throws Exception;
 	
 	/**
 	 * @Description: 应用商店详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespStoreAppInfo storeAppInfo(ReqStoreAppInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存应用商店
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveStoreApp(ReqSaveStoreApp req) throws Exception;
 	
 	/**
 	 * @Description: 删除应用商店
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeStoreApp(List<ReqRemoveStoreApp> req) throws Exception;
 	

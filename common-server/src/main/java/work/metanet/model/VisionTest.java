@@ -7,7 +7,7 @@ import javax.persistence.Table;
 /**
  * @author Edison F.
  * @Description Model: 视力测试活动t_vision_test
- * @DateTime 2021/04/20
+ * @DateTime 2021/07/20
  */
 @Table(name = "t_vision_test")
 public class VisionTest extends VisionTestBase implements Serializable {

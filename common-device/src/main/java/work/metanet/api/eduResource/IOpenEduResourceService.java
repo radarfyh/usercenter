@@ -15,28 +15,28 @@ public interface IOpenEduResourceService {
 	/**
 	 * @Description: 搜索资源
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/09/24
+	 * @DateTime 2021/07/24
 	 */
 	RespPaging<OpenEduResourceBaseVo> searchResource(ReqOpenSearchResource req) throws Exception;
 	
 	/**
 	 * @Description: 推荐资源
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/09/24
+	 * @DateTime 2021/07/24
 	 */
 	List<OpenEduResourceBaseVo> recommendResource(ReqOpenRecommendResource req) throws Exception;
 
 	/**
 	 * @Description: 资源详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/09/24
+	 * @DateTime 2021/07/24
 	 */
 	OpenEduResourceInfoVo eduResourceInfo(ReqOpenEduResourceInfo req) throws Exception;
 	
 	/**
 	 * @Description: 资源明细列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/31
+	 * @DateTime 2021/07/31
 	 */
 	RespPaging<OpenEduResourceInfoVo> eduResourceDetail(ReqOpenEduResourceDetail req) throws Exception;
 }

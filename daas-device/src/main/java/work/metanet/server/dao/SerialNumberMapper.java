@@ -37,28 +37,28 @@ public interface SerialNumberMapper extends Mapper<SerialNumber>{
 	/**
 	 * @Description: 量产SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/21
+	 * @DateTime 2021/8/27
 	 */
 	int addSerialNumber(@Param("list")List<SerialNumber> list);
 	
 	/**
 	 * @Description: SN码详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/26
+	 * @DateTime 2021/8/27
 	 */
 	RespSerialNumberInfo serialNumberInfo(Map<String, Object> map);
 	
 	/**
 	 * @Description: SN码列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespSerialNumberList> serialNumberList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeSerialNumber(@Param("list")List<ReqRemoveSerialNumber> list);
 	

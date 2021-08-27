@@ -29,14 +29,14 @@ public interface UpgradePlanMapper extends Mapper<UpgradePlan>{
 	/**
 	 * @Description: 升级计划详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/25
+	 * @DateTime 2021/8/27
 	 */
 	RespUpgradePlanInfo upgradePlanInfo(Map<String, Object> map);
 	
 	/**
 	 * @Description: 升级计划列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespUpgradePlanList> upgradePlanList(Map<String, Object> map);
 	
@@ -50,7 +50,7 @@ public interface UpgradePlanMapper extends Mapper<UpgradePlan>{
 	/**
 	 * @Description: 删除升级计划
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeUpgradePlan(@Param("list")List<ReqRemoveUpgradePlan> list);
 	

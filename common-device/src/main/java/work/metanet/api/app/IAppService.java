@@ -20,7 +20,7 @@ public interface IAppService {
 	/**
 	 * @Description: 清除产品升级缓存
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/22
+	 * @DateTime 2021/07/22
 	 */
 	void clearAppUpgradeCache(String packageName) throws Exception;
 	
@@ -31,35 +31,35 @@ public interface IAppService {
 	/**
 	 * @Description: 产品列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespAppList> appList(ReqAppList req) throws Exception;
 	
 	/**
 	 * @Description: 产品详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespAppInfo appInfo(ReqAppInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveApp(ReqSaveApp req) throws Exception;
 	
 	/**
 	 * @Description: 删除产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeApp(List<ReqRemoveApp> req) throws Exception;
 	
 	/**
 	 * @Description: 启用激活码激活
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/09
+	 * @DateTime 2021/07/09
 	 */
 	void enableSn(ReqEnableSn req) throws Exception;
 	

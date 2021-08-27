@@ -94,8 +94,8 @@ public class StoreAppService implements IStoreAppService{
 	
 	/**
 	 * @Description: 应用商店列表
-	 * @Author wanbo
-	 * @DateTime 2019/11/20
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespStoreAppList> storeAppList(ReqStoreAppList req) throws Exception {
@@ -123,8 +123,8 @@ public class StoreAppService implements IStoreAppService{
 
 	/**
 	 * @Description: 应用商店信息
-	 * @Author wanbo
-	 * @DateTime 2019/11/20
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespStoreAppInfo storeAppInfo(ReqStoreAppInfo req) throws Exception {
@@ -148,8 +148,8 @@ public class StoreAppService implements IStoreAppService{
 
 	/**
 	 * @Description: 保存应用商店
-	 * @Author wanbo
-	 * @DateTime 2019/11/20
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	@Transactional
@@ -212,8 +212,8 @@ public class StoreAppService implements IStoreAppService{
 	
 	/**
 	 * @Description: 删除应用商店
-	 * @Author wanbo
-	 * @DateTime 2019/11/20
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeStoreApp(List<ReqRemoveStoreApp> req) throws Exception {

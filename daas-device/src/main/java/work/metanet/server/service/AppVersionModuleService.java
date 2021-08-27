@@ -42,7 +42,7 @@ public class AppVersionModuleService implements IAppVersionModuleService{
 	/**
 	 * @Description: 展示产品模块
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/06
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespViewAppVersionModule viewAppVersionModule(String packageName, String versionCode) throws Exception {
@@ -65,7 +65,7 @@ public class AppVersionModuleService implements IAppVersionModuleService{
 	/**
 	 * @Description: 版本模块列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public List<RespAppVersionModuleList> appVersionModuleList(ReqAppVersionModuleList req) throws Exception {
@@ -76,7 +76,7 @@ public class AppVersionModuleService implements IAppVersionModuleService{
 	/**
 	 * @Description: 版本模块信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespAppVersionModuleInfo appVersionModuleInfo(ReqAppVersionModuleInfo req) throws Exception {
@@ -90,7 +90,7 @@ public class AppVersionModuleService implements IAppVersionModuleService{
 	/**
 	 * @Description: 保存版本模块
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void saveAppVersionModule(ReqSaveAppVersionModule req) throws Exception {
@@ -127,7 +127,7 @@ public class AppVersionModuleService implements IAppVersionModuleService{
 	/**
 	 * @Description: 删除版本模块
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeAppVersionModule(List<ReqRemoveAppVersionModule> req) throws Exception {
@@ -138,7 +138,7 @@ public class AppVersionModuleService implements IAppVersionModuleService{
 	/**
 	 * @Description: 修改父级节点
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/02/27
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void updAppVersionModuleParent(List<ReqUpdAppVersionModuleParent> req) throws Exception {

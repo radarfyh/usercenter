@@ -42,20 +42,10 @@ public class LxKeyUtil {
 		}
 	}
 	
-	private static void aibinguoSN() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		while(map.size()<100000) {
-			map.put(deviceSn("ABGX"+DateUtil.format(DateUtil.date(), "yyMMdd"),4), "");
-		}
-		for (String key : map.keySet()) {
-			System.out.println(key);
-		}
-	}
-	
 	public static void main(String[] args) {
-		//System.out.println(appKey());
-		//System.out.println(appSecret());
-		//qingdanSN();
+		System.out.println(appKey());
+		System.out.println(appSecret());
+		qingdanSN();
 		for (int i = 0; i < 16; i++) {
 			System.out.println(appSecret());;
 		}

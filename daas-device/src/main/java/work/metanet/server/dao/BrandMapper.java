@@ -25,21 +25,21 @@ public interface BrandMapper extends Mapper<Brand>{
 	/**
 	 * @Description: 品牌详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/25
+	 * @DateTime 2021/8/27
 	 */
 	RespBrandInfo brandInfo(Map<String, Object> map);
 	
 	/**
 	 * @Description: 品牌列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespBrandList> brandList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除品牌
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeBrand(@Param("list")List<ReqRemoveBrand> list);
 	

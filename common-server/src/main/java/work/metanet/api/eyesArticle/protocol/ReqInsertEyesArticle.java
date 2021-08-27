@@ -3,12 +3,14 @@ package work.metanet.api.eyesArticle.protocol;
 import work.metanet.model.EyesArticle;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Accessors(chain = true)
 public class ReqInsertEyesArticle extends EyesArticle implements Serializable {
 

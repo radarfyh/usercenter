@@ -1,12 +1,9 @@
 package work.metanet.model;
 
-import java.util.Date;
-
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,6 +14,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class VisionTableBase extends Base {
     /**
      * 序列号（修改时必需）

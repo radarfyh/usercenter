@@ -2,12 +2,9 @@ package work.metanet.api.vision.protocol;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import work.metanet.model.VisionTableBase;
-import work.metanet.model.VisionTestBase;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

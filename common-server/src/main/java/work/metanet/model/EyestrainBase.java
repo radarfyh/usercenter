@@ -23,7 +23,11 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
+//@EqualsAndHashCode(callSuper=false)
 public class EyestrainBase extends Base implements Serializable {
+
+	private static final long serialVersionUID = -3471035338783384514L;
+
 	/**
      * 用户序列号，关联用户信息
      */	

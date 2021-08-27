@@ -12,21 +12,21 @@ public interface IEduTimetableService {
 	/**
 	 * @Description: 指定资源是否存在与本周资源
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/16
+	 * @DateTime 2021/07/16
 	 */
 	boolean existsThisWeekResource(String userId,String resourceId)throws Exception;
 	
 	/**
 	 * @Description: 课程表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/13
+	 * @DateTime 2021/07/13
 	 */
 	List<EduTimetableVo> timetableList(ReqEduTimetable req) throws Exception;
 
 	/**
 	 * @Description: 课程表资源
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/13
+	 * @DateTime 2021/07/13
 	 */
 	List<EduResourceVo> timetableResource(ReqEduTimetableResource req) throws Exception;
 	

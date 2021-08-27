@@ -16,7 +16,7 @@ public interface IOpenAppBusinessCdkService {
 	/**
 	 * @Description: 获取应用业务cdk
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/10/12
+	 * @DateTime 2021/07/12
 	 */
 	String getOpenAppBusinessCdk(String openDeviceId, String appId, String businessCode) throws Exception;
 	

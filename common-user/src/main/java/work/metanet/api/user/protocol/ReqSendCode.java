@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Range;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import java.lang.annotation.*;
 
 @ApiModel("请求-验证码")
 @Data

@@ -24,8 +24,9 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @ApiModel(value = "请求-锻炼活动信息")
 public class ReqVisionExerciseInfo implements Serializable{
+	private static final long serialVersionUID = 2617112924229109249L;
 
-    @ApiModelProperty(value = "锻炼活动id,UUID(必须)",required = true ,example = "9ebe30dbb77611eb8b765254006d7470")
+	@ApiModelProperty(value = "锻炼活动id,UUID(必须)",required = true ,example = "9ebe30dbb77611eb8b765254006d7470")
     @NotBlank(message = "锻炼活动Id不能为空")
     private String exerciseId;
 

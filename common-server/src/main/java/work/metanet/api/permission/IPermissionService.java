@@ -17,35 +17,35 @@ public interface IPermissionService {
 	/**
 	 * @Description: 权限列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespPermissionList> permissionList(ReqPermissionList req) throws Exception;
 	
 	/**
 	 * @Description: 权限详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPermissionInfo permissionInfo(ReqPermissionInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存权限
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void savePermission(ReqSavePermission req) throws Exception;
 	
 	/**
 	 * @Description: 删除权限
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removePermission(List<ReqRemovePermission> req) throws Exception;
 	
 	/**
 	 * @Description: 修改父级节点
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void updPermissionParent(List<ReqUpdPermissionParent> req) throws Exception;
 	

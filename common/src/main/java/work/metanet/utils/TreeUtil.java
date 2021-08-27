@@ -22,7 +22,7 @@ public class TreeUtil {
 		// 将数组转为Object的形式，key为数组中的id
 		for (int i = 0; i < arr.size(); i++) {
 			JSONObject json = (JSONObject) arr.get(i);
-			hash.put(json.getStr(id), json);
+			hash.append(json.getStr(id), json);
 		}
 		// 遍历结果集
 		for (int j = 0; j < arr.size(); j++) {
@@ -36,11 +36,11 @@ public class TreeUtil {
 				if (hashVP.get(child) != null) {
 					JSONArray ch = (JSONArray) hashVP.get(child);
 					ch.add(aVal);
-					hashVP.put(child, ch);
+					hashVP.append(child, ch);
 				} else {
 					JSONArray ch = new JSONArray();
 					ch.add(aVal);
-					hashVP.put(child, ch);
+					hashVP.append(child, ch);
 				}
 			} else {
 				r.add(aVal);

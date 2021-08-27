@@ -110,21 +110,21 @@ public interface IUserService {
 	/**
 	 * @Description: 删除用户
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeUser(List<ReqRemoveUser> req) throws Exception;
 	
 	/**
 	 * @Description: 退出登录
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/05
+	 * @DateTime 2021/07/05
 	 */
 	void logout(String userId) throws Exception;
 	
 	/**
 	 * @Description: 销户
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/09
+	 * @DateTime 2021/07/09
 	 */
 	void accountCancel(String userId,ReqAccountCancel req) throws Exception;
 	
@@ -132,14 +132,14 @@ public interface IUserService {
 	/**
 	 * @Description: 使用第三方的电话号码创建新用户
 	 * @Author Edison F.
-	 * @DateTime 2021/04/26
+	 * @DateTime 2021/07/26
 	 */
 	String syncUser(String phone) throws Exception;
 	
 	/**
 	 * @Description: 使用第三方用户信息创建新用户
 	 * @Author Edison F.
-	 * @DateTime 2021/04/26
+	 * @DateTime 2021/07/26
 	 */
 	RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws Exception;
 	

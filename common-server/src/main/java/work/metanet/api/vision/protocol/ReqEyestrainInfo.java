@@ -3,7 +3,6 @@ package work.metanet.api.vision.protocol;
 
 import java.io.Serializable;
 
-import work.metanet.model.EyeBase;
 import work.metanet.model.EyestrainBase;
 
 import io.swagger.annotations.ApiModel;

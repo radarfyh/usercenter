@@ -19,7 +19,7 @@ public interface UserScoreDetailRepository extends JpaRepository<UcScoreDetail, 
 	/**
 	 * @Description: 用户积分明细
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/07/02
+	 * @DateTime 2021/07/02
 	 */
 	@Query(value = "SELECT"
 			+ "			DATE_FORMAT(usd.create_time,'%Y-%m-%d %H:%i:%s') create_time,"
@@ -41,7 +41,7 @@ public interface UserScoreDetailRepository extends JpaRepository<UcScoreDetail, 
 	/**
 	 * @Description: 用户积分明细列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/07/08
+	 * @DateTime 2021/07/08
 	 */
 	@Query(value = "select"
 			+ "			usd.id,"

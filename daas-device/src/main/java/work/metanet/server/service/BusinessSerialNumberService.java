@@ -74,7 +74,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 	/**
 	 * @Description: 内容商激活码列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespBusinessSerialNumberList> businessSerialNumberList(ReqBusinessSerialNumberList req) throws Exception {
@@ -127,7 +127,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 	/**
 	 * @Description: 删除内容商激活码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeBusinessSerialNumber(List<ReqRemoveBusinessSerialNumber> list) throws Exception {
@@ -146,7 +146,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 	/**
 	 * @Description: 修复内容商激活码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/11
+	 * @DateTime 2021/07/11
 	 */
 	@Override
 	public void restoreSn(List<ReqRestoreSn> list) throws Exception {
@@ -169,7 +169,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 	/**
 	 * @Description: 获取内容商激活码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/02
+	 * @DateTime 2021/07/02
 	 */
 	@Override
 	public List<RespGetBusinessSn> getBusinessSn(String packageName,String deviceId,List<ReqGetBusinessSn> req) throws Exception {
@@ -232,7 +232,7 @@ public class BusinessSerialNumberService implements IBusinessSerialNumberService
 	/**
 	 * @Description: 内容商激活码使用状态
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/01/10
+	 * @DateTime 2021/07/10
 	 */
 	@Transactional
 	@Override

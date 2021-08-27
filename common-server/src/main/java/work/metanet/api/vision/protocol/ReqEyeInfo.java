@@ -2,8 +2,6 @@ package work.metanet.api.vision.protocol;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
-
 import work.metanet.model.EyeBase;
 
 import io.swagger.annotations.ApiModel;
@@ -13,7 +11,7 @@ import lombok.experimental.Accessors;
 /**
  * @author Edison F.
  * @Description 请求-眼睛详情
- * @DateTime 2021/04/20
+ * @DateTime 2021/07/20
  */
 @ApiModel("请求-眼睛详情")
 @Accessors(chain = true)

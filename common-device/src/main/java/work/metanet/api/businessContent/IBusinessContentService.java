@@ -16,35 +16,35 @@ public interface IBusinessContentService {
 	/**
 	 * @Description: 内容商内容列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespBusinessContentList> businessContentList(ReqBusinessContentList req) throws Exception;
 	
 	/**
 	 * @Description: 内容商内容详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespBusinessContentInfo businessContentInfo(ReqBusinessContentInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存内容商内容
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespSaveBusinessContent saveBusinessContent(ReqSaveBusinessContent req) throws Exception;
 	
 	/**
 	 * @Description: 删除内容商内容
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeBusinessContent(List<ReqRemoveBusinessContent> req) throws Exception;
 	
 	/**
 	 * @Description: 修改父级节点
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void updBusinessContentParent(List<ReqUpdBusinessContentParent> req) throws Exception;
 }

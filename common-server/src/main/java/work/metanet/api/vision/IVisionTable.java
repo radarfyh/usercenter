@@ -14,13 +14,13 @@ import work.metanet.base.RespPaging;
 /**
  * @author Edison F.
  * @Description 视力表
- * @DateTime 2021/05/1
+ * @DateTime 2021/07/1
  */
 public interface IVisionTable {
 	/**
 	 * @Description: 查询视力表
 	 * @Author Edison F.
-	 * @DateTime 2021/05/1
+	 * @DateTime 2021/07/1
 	 */
 	RespVisionTableInfo getVisionTableInfo(ReqVisionTableInfo req) throws Exception;
 	

@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -22,8 +21,9 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 public class ReqSaveVisionExercise extends VisionExerciseBase implements Serializable {
+	private static final long serialVersionUID = 8144037240379673587L;
 
-    @ApiModelProperty(value = "内容id")
+	@ApiModelProperty(value = "内容id")
     private String eyesArticleId;
 
     @ApiModelProperty(value = "锻炼和内容关联id")

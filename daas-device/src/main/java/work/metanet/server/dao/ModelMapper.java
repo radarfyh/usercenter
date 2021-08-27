@@ -25,21 +25,21 @@ public interface ModelMapper extends Mapper<Model>{
 	/**
 	 * @Description: 型号详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/25
+	 * @DateTime 2021/8/27
 	 */
 	RespModelInfo modelInfo(Map<String, Object> map);
 	
 	/**
 	 * @Description: 型号列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespModelList> modelList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除型号
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeModel(@Param("list")List<ReqRemoveModel> list);
 	

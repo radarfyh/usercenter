@@ -10,14 +10,14 @@ public interface IFmCollectService {
 	/**
 	 * @Description: 新增收藏
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/27
+	 * @DateTime 2021/07/27
 	 */
 	void addFmCollect(String userId,ReqAddFmCollect req) throws Exception;
 	
 	/**
 	 * @Description: 资源收藏列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/27
+	 * @DateTime 2021/07/27
 	 */
 	RespPaging<RespFmCollectList> fmCollectList(String userId, ReqFmCollectList req) throws Exception;
 	

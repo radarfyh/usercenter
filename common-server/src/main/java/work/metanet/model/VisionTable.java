@@ -6,7 +6,7 @@ import javax.persistence.Table;
 /**
  * @author Edison F.
  * @Description Model: 视力表t_vision_table
- * @DateTime 2021/05/01
+ * @DateTime 2021/07/01
  */
 @Table(name = "t_vision_report")
 public class VisionTable extends VisionTableBase implements Serializable {

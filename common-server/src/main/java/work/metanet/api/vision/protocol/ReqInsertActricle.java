@@ -1,6 +1,5 @@
 package work.metanet.api.vision.protocol;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -15,8 +14,9 @@ import java.io.Serializable;
 @Data
 @Accessors
 public class ReqInsertActricle implements Serializable {
+	private static final long serialVersionUID = -4500448860124632373L;
 
-    @ApiModelProperty(value = "接收文本")
+	@ApiModelProperty(value = "接收文本")
     String data;
 
     @ApiModelProperty(value = "修改时原文件地址")

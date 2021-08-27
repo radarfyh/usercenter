@@ -10,7 +10,7 @@ public interface IStatisticalService {
 	/**
 	 * @Description: 统计日活用户
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/08
+	 * @DateTime 2021/07/08
 	 */
 	RespDayActiveUser dayActiveUser(String channelId) throws Exception;
 	

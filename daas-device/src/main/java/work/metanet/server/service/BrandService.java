@@ -43,7 +43,7 @@ public class BrandService implements IBrandService{
 	/**
 	 * @Description: 品牌列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespBrandList> brandList(ReqBrandList req) throws Exception {
@@ -60,7 +60,7 @@ public class BrandService implements IBrandService{
 	/**
 	 * @Description: 品牌信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespBrandInfo brandInfo(ReqBrandInfo req) throws Exception {
@@ -74,7 +74,7 @@ public class BrandService implements IBrandService{
 	/**
 	 * @Description: 保存品牌
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespSaveBrand saveBrand(ReqSaveBrand req) throws Exception {
@@ -110,7 +110,7 @@ public class BrandService implements IBrandService{
 	/**
 	 * @Description: 删除品牌
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeBrand(List<ReqRemoveBrand> req) throws Exception {

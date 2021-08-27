@@ -30,7 +30,7 @@ public interface IDeviceService {
 	/**
 	 * @Description:善旧数据缺失导致认证失败问题 
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/21
+	 * @DateTime 2021/07/21
 	 */
 	void repairDeviceSerialNumber(String wirelessMac,String serialNumber);
 
@@ -51,14 +51,14 @@ public interface IDeviceService {
 	/**
 	 * @Description: 设备列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespDeviceList> deviceList(ReqDeviceList req) throws Exception;
 	
 	/**
 	 * @Description: 设备详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespDeviceInfo deviceInfo(String channelId,ReqDeviceInfo req) throws Exception;
 	
@@ -72,14 +72,14 @@ public interface IDeviceService {
 	/**
 	 * @Description: 保存设备
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveDevice(ReqSaveDevice req) throws Exception;
 	
 	/**
 	 * @Description: 删除设备
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeDevice(List<ReqRemoveDevice> devices) throws Exception;
 	

@@ -1,27 +1,18 @@
 package work.metanet.model;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 /**
  * @author Edison F.
  * @Description Model: 眼睛t_eye 的基类
- * @DateTime 2021/04/20
+ * @DateTime 2021/07/20
  */
 @Accessors(chain = true)
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class EyeBase extends Base {
 	/**
      * 用户序列号，关联用户信息

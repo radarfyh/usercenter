@@ -18,7 +18,7 @@ public interface IChannelService {
 	/**
 	 * @Description: 重置渠道密码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/12
+	 * @DateTime 2021/07/12
 	 */
 	void resetChannelPassword(String channelId) throws Exception;
 	
@@ -33,28 +33,28 @@ public interface IChannelService {
 	/**
 	 * @Description: 渠道列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespChannelList> channelList(ReqChannelList req) throws Exception;
 	
 	/**
 	 * @Description: 渠道详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespChannelInfo channelInfo(ReqChannelInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存渠道
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveChannel(ReqSaveChannel req) throws Exception;
 	
 	/**
 	 * @Description: 删除渠道
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeChannel(List<ReqRemoveChannel> req) throws Exception;
 	

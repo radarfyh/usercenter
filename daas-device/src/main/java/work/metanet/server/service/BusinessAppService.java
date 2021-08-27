@@ -57,7 +57,7 @@ public class BusinessAppService implements IBusinessAppService{
 	/**
 	 * @Description: 第三方产品升级
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/27
+	 * @DateTime 2021/07/27
 	 */
 	@Override
 	public BusinessAppVo upgradeThirdApp(ReqUpgradeThirdApp req) throws Exception {
@@ -91,7 +91,7 @@ public class BusinessAppService implements IBusinessAppService{
 	/**
 	 * @Description: 内容商产品列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespBusinessAppList> businessAppList(ReqBusinessAppList req) throws Exception {
@@ -108,7 +108,7 @@ public class BusinessAppService implements IBusinessAppService{
 	/**
 	 * @Description: 内容商产品信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespBusinessAppInfo businessAppInfo(ReqBusinessAppInfo req) throws Exception {
@@ -120,7 +120,7 @@ public class BusinessAppService implements IBusinessAppService{
 	/**
 	 * @Description: 保存内容商产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void saveBusinessApp(ReqSaveBusinessApp req) throws Exception {
@@ -159,7 +159,7 @@ public class BusinessAppService implements IBusinessAppService{
 	/**
 	 * @Description: 删除内容商产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeBusinessApp(List<ReqRemoveBusinessApp> req) throws Exception {

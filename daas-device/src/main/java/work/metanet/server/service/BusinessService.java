@@ -40,7 +40,7 @@ public class BusinessService implements IBusinessService{
 	/**
 	 * @Description: 内容商列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespBusinessList> businessList(ReqBusinessList req) throws Exception {
@@ -54,7 +54,7 @@ public class BusinessService implements IBusinessService{
 	/**
 	 * @Description: 内容商信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespBusinessInfo businessInfo(ReqBusinessInfo req) throws Exception {
@@ -65,7 +65,7 @@ public class BusinessService implements IBusinessService{
 	/**
 	 * @Description: 保存内容商
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespSaveBusiness saveBusiness(ReqSaveBusiness req) throws Exception {
@@ -101,7 +101,7 @@ public class BusinessService implements IBusinessService{
 	/**
 	 * @Description: 删除内容商
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeBusiness(List<ReqRemoveBusiness> req) throws Exception {

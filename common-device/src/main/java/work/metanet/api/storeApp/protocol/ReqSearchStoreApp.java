@@ -3,8 +3,6 @@ package work.metanet.api.storeApp.protocol;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.validation.constraints.Pattern;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import work.metanet.base.Paging;
 

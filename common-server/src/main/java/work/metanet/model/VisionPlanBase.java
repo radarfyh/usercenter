@@ -5,14 +5,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
@@ -23,7 +22,10 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors
+@EqualsAndHashCode(callSuper=false)
 public class VisionPlanBase extends Base implements Serializable {
+	private static final long serialVersionUID = -4276933667099944371L;
+
 	/**
      * 用户序列号，关联用户信息
      */	

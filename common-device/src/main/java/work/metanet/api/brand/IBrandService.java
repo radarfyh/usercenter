@@ -16,28 +16,28 @@ public interface IBrandService {
 	/**
 	 * @Description: 品牌列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespBrandList> brandList(ReqBrandList req) throws Exception;
 	
 	/**
 	 * @Description: 品牌详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespBrandInfo brandInfo(ReqBrandInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存品牌
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespSaveBrand saveBrand(ReqSaveBrand req) throws Exception;
 	
 	/**
 	 * @Description: 删除品牌
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeBrand(List<ReqRemoveBrand> req) throws Exception;
 	

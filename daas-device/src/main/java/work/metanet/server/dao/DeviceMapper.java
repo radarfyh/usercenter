@@ -38,7 +38,7 @@ public interface DeviceMapper extends Mapper<Device>{
 	/**
 	 * @Description: 完善旧数据缺失导致认证失败问题
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/21
+	 * @DateTime 2021/07/21
 	 */
 	@Update("update t_device set serial_number=#{serialNumber} where status=true and (ISNULL(serial_number) or LENGTH(serial_number)=0) and wireless_mac=#{wirelessMac}")
 	int repairDeviceSerialNumber(@Param("wirelessMac")String wirelessMac,@Param("serialNumber")String serialNumber);
@@ -46,7 +46,7 @@ public interface DeviceMapper extends Mapper<Device>{
 	/**
 	 * @Description: 获取认证设备信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/17
+	 * @DateTime 2021/07/17
 	 */
 	DeviceVo getAuthDevice(AuthDeviceParam param);
 	
@@ -60,14 +60,14 @@ public interface DeviceMapper extends Mapper<Device>{
 	/**
 	 * @Description: 设备列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespDeviceList> deviceList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除设备
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeDevice(@Param("list")List<ReqRemoveDevice> list);
 	

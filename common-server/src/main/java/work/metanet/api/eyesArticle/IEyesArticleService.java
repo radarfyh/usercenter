@@ -10,7 +10,7 @@ public interface IEyesArticleService {
 	/**
 	 * @Description: 爱眼软文列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/07/24
+	 * @DateTime 2021/07/24
 	 */
 	RespPaging<ReqAppEyesArticleList.RespAppEyesArticleList> appEyesArticleList(ReqAppEyesArticleList req) throws Exception;
 	

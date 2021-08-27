@@ -25,21 +25,21 @@ public interface AppVersionMapper extends Mapper<AppVersion>{
 	/**
 	 * @Description: 版本详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/25
+	 * @DateTime 2021/8/27
 	 */
 	RespAppVersionInfo appVersionInfo(Map<String, Object> map);
 	
 	/**
 	 * @Description: 版本列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespAppVersionList> appVersionList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除版本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeAppVersion(@Param("list")List<ReqRemoveAppVersion> list);
 	

@@ -19,28 +19,28 @@ public interface IAppVersionService {
 	/**
 	 * @Description: 版本列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespAppVersionList> appVersionList(ReqAppVersionList req) throws Exception;
 	
 	/**
 	 * @Description: 版本详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespAppVersionInfo appVersionInfo(ReqAppVersionInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存版本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespSaveAppVersion saveAppVersion(ReqSaveAppVersion req) throws Exception;
 	
 	/**
 	 * @Description: 删除版本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeAppVersion(List<ReqRemoveAppVersion> req) throws Exception;
 	

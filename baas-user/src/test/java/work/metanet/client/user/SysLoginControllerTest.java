@@ -1,12 +1,6 @@
 package work.metanet.client.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
-
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 public class SysLoginControllerTest extends AbstractMockMvcTest {
 	@Test

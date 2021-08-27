@@ -7,7 +7,7 @@ import javax.persistence.Table;
 /**
  * @author Edison F.
  * @Description Model: 视疲劳记录t_eyestrain
- * @DateTime 2021/05/14
+ * @DateTime 2021/07/14
  */
 @Table(name = "t_eyestrain")
 public class Eyestrain extends EyestrainBase implements Serializable {

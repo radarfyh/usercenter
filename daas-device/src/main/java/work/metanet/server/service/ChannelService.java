@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -26,7 +25,6 @@ import work.metanet.api.channel.protocol.ReqChannelLogin.RespChannelLogin;
 import work.metanet.api.channel.protocol.ReqRemoveChannel;
 import work.metanet.api.channel.protocol.ReqSaveChannel;
 import work.metanet.api.channel.protocol.ReqUpdChannelPassword;
-import work.metanet.api.permission.vo.MenuVo;
 import work.metanet.base.RespPaging;
 
 import work.metanet.constant.ConstCacheKey;
@@ -36,10 +34,7 @@ import work.metanet.exception.ResultResponseEnum;
 import work.metanet.model.Channel;
 import work.metanet.server.dao.ChannelMapper;
 import work.metanet.server.dao.SequenceMapper;
-import work.metanet.util.menu.MenuUtil;
-
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.pinyin.PinyinUtil;
@@ -61,7 +56,7 @@ public class ChannelService implements IChannelService{
 	/**
 	 * @Description: 重置渠道密码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/12
+	 * @DateTime 2021/07/12
 	 */
 	@Override
 	public void resetChannelPassword(String channelId) throws Exception {
@@ -112,7 +107,7 @@ public class ChannelService implements IChannelService{
 	/**
 	 * @Description: 渠道列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespChannelList> channelList(ReqChannelList req) throws Exception {
@@ -126,7 +121,7 @@ public class ChannelService implements IChannelService{
 	/**
 	 * @Description: 渠道信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespChannelInfo channelInfo(ReqChannelInfo req) throws Exception {
@@ -137,7 +132,7 @@ public class ChannelService implements IChannelService{
 	/**
 	 * @Description: 保存渠道
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void saveChannel(ReqSaveChannel req) throws Exception {
@@ -174,7 +169,7 @@ public class ChannelService implements IChannelService{
 	/**
 	 * @Description: 删除渠道
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeChannel(List<ReqRemoveChannel> req) throws Exception {

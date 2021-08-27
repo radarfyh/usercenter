@@ -2,8 +2,6 @@ package work.metanet.api.vision.protocol;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-
 import javax.validation.constraints.Pattern;
 
 import io.swagger.annotations.ApiModel;

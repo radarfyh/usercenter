@@ -28,8 +28,8 @@ dubbo:
 #    base-packages: work.metanet.server.usercenter.service.impl, work.metanet.server.service
   registry:
 #    id: ${spring.application.name}-registry
-#    address: nacos://localhost:8848
-    address: spring-cloud://localhost
+    address: nacos://localhost:8848
+#    address: spring-cloud://localhost
     
 logging: 
   level:

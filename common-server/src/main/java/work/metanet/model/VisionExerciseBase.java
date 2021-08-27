@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,6 +22,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class VisionExerciseBase extends Base {
     /**
      * 用户序列号，关联用户信息

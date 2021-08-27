@@ -1,15 +1,10 @@
 package work.metanet.model;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotBlank;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
@@ -20,6 +15,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class VisionReportBase extends Base {
 
 	/**

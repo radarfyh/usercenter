@@ -8,7 +8,7 @@ import javax.persistence.Table;
 /**
  * @author Edison F.
  * @Description Model: 视力锻炼活动t_vision_exercise
- * @DateTime 2021/05/14
+ * @DateTime 2021/07/14
  */
 @Table(name = "t_vision_exercise")
 public class VisionExercise extends VisionExerciseBase implements Serializable {

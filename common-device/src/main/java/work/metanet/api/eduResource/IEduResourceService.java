@@ -13,28 +13,28 @@ public interface IEduResourceService {
 	/**
 	 * @Description: 资源信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/16
+	 * @DateTime 2021/07/16
 	 */
 	EduResourceVo eduResourceInfo(ReqEduResourceInfo req)throws Exception;
 	
 	/**
 	 * @Description: 搜索资源
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/05
+	 * @DateTime 2021/07/05
 	 */
 	RespPaging<EduResourceVo> searchResource(ReqSearchResource req)throws Exception;
 	
 	/**
 	 * @Description: 推荐资源
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/05
+	 * @DateTime 2021/07/05
 	 */
 	RespPaging<EduResourceVo> recommendResource(ReqRecommendResource req)throws Exception;
 	
 	/**
 	 * @Description: 资源详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/31
+	 * @DateTime 2021/07/31
 	 */
 	RespPaging<RespEduResourceDetail> getEduResourceDetail(ReqEduResourceDetail req) throws Exception;
 	

@@ -46,8 +46,8 @@ public class FeedbackService implements IFeedbackService{
 
 	/**
 	 * @Description: 新增问题反馈
-	 * @Author wanbo
-	 * @DateTime 2020/03/09
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/07/09
 	 */
 	@Override
 	public void addFeedback(String userId,String packageName, String versionCode, ReqAddFeedback req) throws Exception {
@@ -62,8 +62,8 @@ public class FeedbackService implements IFeedbackService{
 	
 	/**
 	 * @Description: 获取问题反馈选项
-	 * @Author wanbo
-	 * @DateTime 2020/03/09
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/07/09
 	 */
 	@LxRedisCache(key = ConstCacheKey.FEEDBACK_OPTION)
 	@Override

@@ -12,21 +12,21 @@ public interface IUserScoreExchangeService {
 	/**
 	 * @Description: 用户积分兑换
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/06/29
+	 * @DateTime 2021/07/29
 	 */
 	void userScoreExchange(String userId, ReqUserScoreExchange req) throws Exception;
 	
 	/**
 	 * @Description: 积分兑换信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/09/01
+	 * @DateTime 2021/07/01
 	 */
 	RespUserScoreExchangeInfo userScoreExchangeInfo(String userScoreExchangeId) throws Exception;
 	
 	/**
 	 * @Description: 兑换列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/08/31
+	 * @DateTime 2021/08/31
 	 */
 	RespPaging<RespUserScoreExchangeList> userScoreExchangeList(ReqUserScoreExchangeList req) throws Exception;
 	

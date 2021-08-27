@@ -14,7 +14,9 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class EyesArticleExerciseBase implements Serializable {
 
-    /**
+	private static final long serialVersionUID = 3321425534399806854L;
+
+	/**
      * 关系id
      */
     private String articleExerciseId;

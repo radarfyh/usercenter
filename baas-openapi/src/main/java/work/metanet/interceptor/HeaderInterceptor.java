@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.hutool.core.util.StrUtil;
 import work.metanet.api.deviceApp.IDeviceAppService;
 import work.metanet.exception.MetanetExceptionAssert;
 import work.metanet.exception.ResultResponseEnum;
@@ -33,9 +32,9 @@ public class HeaderInterceptor implements HandlerInterceptor {
         MetanetExceptionAssert.assertTrue(StringUtils.isBlank(nonce)
         		, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
         		, "%s", "nonce不能为空");
-        MetanetExceptionAssert.assertTrue(StringUtils.isBlank(nonce)
+        MetanetExceptionAssert.assertTrue(StringUtils.isBlank(sign)
         		, ResultResponseEnum.INVALID_REQUEST.getResponseCode()
-        		, "%s", "nonce不能为空");
+        		, "%s", "sign不能为空");
        
         return true;
     }

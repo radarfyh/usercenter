@@ -2,7 +2,6 @@ package work.metanet.server.usercenter.service.impl;
 
 import java.util.List;
 
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Sort;
 
 import work.metanet.server.usercenter.repository.FmRewardRepository;
 import work.metanet.server.usercenter.service.RewardService;
-import work.metanet.api.fmreward.protocol.ReqAddReward;
 import work.metanet.base.page.MyPageRequest;
 import work.metanet.base.page.MyPageResult;
 import work.metanet.exception.MetanetException;
@@ -30,10 +28,10 @@ public class RewardServiceImpl implements RewardService {
 	/**
 	 * @Description: 新增奖励-奖励后期需要根据指定资源奖励
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/16
+	 * @DateTime 2021/07/16
 	 */
 	@Override
-	public void addReward(ReqAddReward req) throws Exception {
+	public void addReward(UcRewards req) throws Exception {
 		if(rewardRepository.existsReward(req)) throw MetanetException.of().setMsg("请勿重复奖励");
 		UcRewards reward = new UcRewards();
 		BeanUtil.copyProperties(req, reward);

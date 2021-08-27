@@ -25,7 +25,7 @@ public interface AppVersionModuleMapper extends Mapper<AppVersionModule>{
 	/**
 	 * @Description: 产品模块展示
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/06
+	 * @DateTime 2021/8/27
 	 */
 	RespViewAppVersionModule viewAppVersionModule(@Param("packageName")String packageName,@Param("versionCode")String versionCode);
 	
@@ -34,28 +34,28 @@ public interface AppVersionModuleMapper extends Mapper<AppVersionModule>{
 	/**
 	 * @Description: 版本模块详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/25
+	 * @DateTime 2021/8/27
 	 */
 	RespAppVersionModuleInfo appVersionModuleInfo(Map<String, Object> map);
 	
 	/**
 	 * @Description: 版本模块列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespAppVersionModuleList> appVersionModuleList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除版本模块
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeAppVersionModule(@Param("list")List<ReqRemoveAppVersionModule> list);
 	
 	/**
 	 * @Description: 修改父级节点
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/02/27
+	 * @DateTime 2021/8/27
 	 */
 	@Update("update t_app_version_module set parent_id=#{parentId} where version_module_id=#{versionModuleId}")
 	int updAppVersionModuleParent(@Param("versionModuleId")String versionModuleId,@Param("parentId")String parentId);

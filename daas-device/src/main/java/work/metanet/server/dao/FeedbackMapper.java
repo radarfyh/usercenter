@@ -1,7 +1,7 @@
 /**  
  * @Title: OrderMfeedbacker.java
  * @Description: TODO
- * @author wanbo
+ * @Author edison F. & w.b.
  * @date 2018年3月28日
  */
 package work.metanet.server.dao;
@@ -24,23 +24,23 @@ public interface FeedbackMapper extends Mapper<Feedback>{
 	
 	/**
 	 * @Description: 获取反馈信息
-	 * @Author wanbo
-	 * @DateTime 2020/03/12
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/07/12
 	 */
 	@Select("select * from t_feedback where status=true and feedback_id=#{feedbackId}")
 	RespFeedbackInfo feedbackInfo(ReqFeedbackInfo req);
 	
 	/**
 	 * @Description: 反馈列表
-	 * @Author wanbo
-	 * @DateTime 2019/11/20
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/8/27
 	 */
 	List<RespFeedbackList> feedbackList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除反馈
-	 * @Author wanbo
-	 * @DateTime 2019/11/20
+	 * @Author edison F. & w.b.
+	 * @DateTime 2021/8/27
 	 */
 	int removeFeedback(@Param("list")List<ReqRemoveFeedback> list);
 	

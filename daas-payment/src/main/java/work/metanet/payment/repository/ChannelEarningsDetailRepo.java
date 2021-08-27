@@ -16,7 +16,7 @@ public interface ChannelEarningsDetailRepo extends JpaRepository<ChannelEarnings
 	/**
 	 * @Description: 渠道收益详情列表汇总
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/06/05
+	 * @DateTime 2021/07/05
 	 */
 	@Query(value = "select\r\n"
 			+ "			sum(ced.order_pay_amount) orderPayAmount,\r\n"
@@ -63,7 +63,7 @@ public interface ChannelEarningsDetailRepo extends JpaRepository<ChannelEarnings
 	/**
 	 * @Description: 渠道收益详情列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/06/04
+	 * @DateTime 2021/07/04
 	 */
 	@Query(value = "select\r\n"
 			+ "			ced.channel_earnings_detail_id,\r\n"

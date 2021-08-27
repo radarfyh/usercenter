@@ -27,14 +27,14 @@ public interface ChannelMapper extends Mapper<Channel>{
 	/**
 	 * @Description: 列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespChannelList> channelList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除渠道
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeChannel(@Param("list")List<ReqRemoveChannel> list);
 	

@@ -40,7 +40,7 @@ public class SerialNumberService implements ISerialNumberService{
 	/**
 	 * @Description: SN码列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespSerialNumberList> serialNumberList(ReqSerialNumberList req) throws Exception {
@@ -54,7 +54,7 @@ public class SerialNumberService implements ISerialNumberService{
 	/**
 	 * @Description: SN码信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespSerialNumberInfo serialNumberInfo(ReqSerialNumberInfo req) throws Exception {
@@ -65,7 +65,7 @@ public class SerialNumberService implements ISerialNumberService{
 	/**
 	 * @Description: 保存SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void saveSerialNumber(ReqSaveSerialNumber req) throws Exception {
@@ -102,7 +102,7 @@ public class SerialNumberService implements ISerialNumberService{
 	/**
 	 * @Description: 删除SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeSerialNumber(List<ReqRemoveSerialNumber> req) throws Exception {

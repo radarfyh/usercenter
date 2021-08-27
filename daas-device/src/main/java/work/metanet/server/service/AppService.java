@@ -110,7 +110,7 @@ public class AppService implements IAppService{
 	/**
 	 * @Description: 产品列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespAppList> appList(ReqAppList req) throws Exception {
@@ -128,7 +128,7 @@ public class AppService implements IAppService{
 	/**
 	 * @Description: 产品信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespAppInfo appInfo(ReqAppInfo req) throws Exception {
@@ -144,7 +144,7 @@ public class AppService implements IAppService{
 	/**
 	 * @Description: 保存产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Transactional
 	@Override
@@ -220,7 +220,7 @@ public class AppService implements IAppService{
 	/**
 	 * @Description: 删除产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeApp(List<ReqRemoveApp> req) throws Exception {
@@ -278,7 +278,7 @@ public class AppService implements IAppService{
 	/**
 	 * @Description: 启用激活码激活
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/09
+	 * @DateTime 2021/07/09
 	 */
 	@Override
 	public void enableSn(ReqEnableSn req) throws Exception {

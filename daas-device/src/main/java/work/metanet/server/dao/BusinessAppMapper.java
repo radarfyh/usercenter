@@ -24,7 +24,7 @@ public interface BusinessAppMapper extends Mapper<BusinessApp>{
 	/**
 	 * @Description: 获取内容商最新产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/27
+	 * @DateTime 2021/07/27
 	 */
 	BusinessAppVo latestBusinessApp(@Param("businessCode")String businessCode,@Param("packageName")String packageName);
 	
@@ -37,14 +37,14 @@ public interface BusinessAppMapper extends Mapper<BusinessApp>{
 	/**
 	 * @Description: 列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	List<RespBusinessAppList> businessAppList(Map<String, Object> map);
 	
 	/**
 	 * @Description: 删除
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	int removeBusinessApp(@Param("list")List<ReqRemoveBusinessApp> list);
 	

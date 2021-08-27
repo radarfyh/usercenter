@@ -17,7 +17,7 @@ public interface IBusinessSerialNumberService {
 	/**
 	 * @Description: 内容商激活码列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespBusinessSerialNumberList> businessSerialNumberList(ReqBusinessSerialNumberList req) throws Exception;
 	
@@ -31,28 +31,28 @@ public interface IBusinessSerialNumberService {
 	/**
 	 * @Description: 删除内容商激活码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeBusinessSerialNumber(List<ReqRemoveBusinessSerialNumber> businessSerialNumbers) throws Exception;
 	
 	/**
 	 * @Description: 修复内容商激活码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/11
+	 * @DateTime 2021/07/11
 	 */
 	void restoreSn(List<ReqRestoreSn> list)throws Exception;
 	
 	/**
 	 * @Description: 获取内容商激活码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/02
+	 * @DateTime 2021/07/02
 	 */
 	List<RespGetBusinessSn> getBusinessSn(String packageName,String deviceId,List<ReqGetBusinessSn> req) throws Exception;
 	
 	/**
 	 * @Description: 更新内容商激活码使用状态
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/01/10
+	 * @DateTime 2021/07/10
 	 */
 	void updBusinessSnUseStatus(String packageName,String versionCode,String deviceId,ReqUpdBusinessSnUseStatus req) throws Exception;
 	

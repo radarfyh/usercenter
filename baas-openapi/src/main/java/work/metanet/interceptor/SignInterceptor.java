@@ -4,7 +4,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -69,7 +68,8 @@ public class SignInterceptor extends BaseController implements HandlerIntercepto
         map.put("timestamp", timestamp);
         map.put("nonce", nonce);
         
-        MetanetExceptionAssert.assertTrue(!StrUtil.equals(LxSignUtil.getDigestStr_sha256(map), LxSignUtil.unSign_AES(openApp.getAppKey(),sign))
+        MetanetExceptionAssert.assertTrue(!StrUtil.equals(LxSignUtil.getDigestStr_sha256(map)
+        		, LxSignUtil.unSign_AES(openApp.getAppKey(),sign))
         		, ResultResponseEnum.FAILURE_AUTH_SIGN_SECRET.getResponseCode()
         		, "%s", ResultResponseEnum.FAILURE_AUTH_SIGN_SECRET.getMessage());        
         return true;

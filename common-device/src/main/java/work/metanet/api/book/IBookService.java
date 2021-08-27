@@ -17,35 +17,35 @@ public interface IBookService {
 	/**
 	 * @Description: 课本列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespBookList> bookList(ReqBookList req) throws Exception;
 	
 	/**
 	 * @Description: 导入课本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveBook(ReqSaveBook req) throws Exception;
 	
 	/**
 	 * @Description: 课本信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/26
+	 * @DateTime 2021/07/26
 	 */
 	RespBookInfo bookInfo(ReqBookInfo req) throws Exception;
 	
 	/**
 	 * @Description: 删除课本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeBook(List<ReqRemoveBook> req) throws Exception;
 	
 	/**
 	 * @Description: 搜索课本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/01/13
+	 * @DateTime 2021/07/13
 	 */
 	RespPaging<RespSearchBook> searchBook(ReqSearchBook req) throws Exception;
 	

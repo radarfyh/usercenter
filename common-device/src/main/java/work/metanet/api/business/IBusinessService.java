@@ -16,28 +16,28 @@ public interface IBusinessService {
 	/**
 	 * @Description: 内容商列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespBusinessList> businessList(ReqBusinessList req) throws Exception;
 	
 	/**
 	 * @Description: 内容商详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespBusinessInfo businessInfo(ReqBusinessInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存内容商
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespSaveBusiness saveBusiness(ReqSaveBusiness req) throws Exception;
 	
 	/**
 	 * @Description: 删除内容商
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeBusiness(List<ReqRemoveBusiness> req) throws Exception;
 	

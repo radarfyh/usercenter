@@ -2,14 +2,12 @@ package work.metanet.api.vision.protocol;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import work.metanet.base.Paging;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 

@@ -16,7 +16,7 @@ public interface ChannelEarningsRepo extends JpaRepository<ChannelEarnings, Stri
 	/**
 	 * @Description: 渠道收益列表汇总
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/06/05
+	 * @DateTime 2021/07/05
 	 */
 	@Query(value = "select\r\n"
 			+ "			sum(dt.detailTotal) detailTotal,\r\n"
@@ -48,7 +48,7 @@ public interface ChannelEarningsRepo extends JpaRepository<ChannelEarnings, Stri
 	/**
 	 * @Description: 渠道收益列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/06/03
+	 * @DateTime 2021/07/03
 	 */
 	
 	@Query(value = "select\r\n"
@@ -89,7 +89,7 @@ public interface ChannelEarningsRepo extends JpaRepository<ChannelEarnings, Stri
 	/**
 	 * @Description: 获取某月渠道收益信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/06/08
+	 * @DateTime 2021/07/08
 	 */
 	@Query(value = "select * from t_channel_earnings where status=true and month=#{month} and channel_id=#{channelId}", nativeQuery = true)
 	ChannelEarnings getChannelEarnings(@Param("month")String month,@Param("channelId")String channelId);

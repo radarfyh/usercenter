@@ -13,14 +13,14 @@ public interface ScoreDetailService extends CurdService<UcScoreDetail> {
 	/**
 	 * @Description: 积分明细
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/07/02
+	 * @DateTime 2021/07/02
 	 */
 	RespPaging<RespAppUserScoreDetail> appUserScoreDetail(ReqAppUserScoreDetail req) throws Exception;
 	
 	/**
 	 * @Description: 用户积分明细列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/07/08
+	 * @DateTime 2021/07/08
 	 */
 	RespPaging<RespUserScoreDetailList> userScoreDetailList(ReqUserScoreDetailList req) throws Exception;
 	

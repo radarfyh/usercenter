@@ -16,35 +16,35 @@ public interface IFamilyMemberService {
 	/**
 	 * @Description: 成长记录
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/04/14
+	 * @DateTime 2021/08/27
 	 */
 	RespGrowthRecord growthRecord(ReqGrowthRecord req)throws Exception;
 
 	/**
 	 * @Description: 家庭成员列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/18
+	 * @DateTime 2021/8/27
 	 */
 	List<RespFamilyMemberList> familyMemberList(String joinUserId) throws Exception;
 	
 	/**
 	 * @Description: 获取家庭成员信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/18
+	 * @DateTime 2021/8/27
 	 */
 	RespFamilyMemberInfo familyMemberInfo(ReqFamilyMemberInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存家庭成员信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/18
+	 * @DateTime 2021/8/27
 	 */
 	RespSaveFamilyMember saveFamilyMember(ReqSaveFamilyMember req) throws Exception;
 	
 	/**
 	 * @Description: 删除家庭成员
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeFamilyMember(ReqRemoveFamilyMember req) throws Exception;
 	

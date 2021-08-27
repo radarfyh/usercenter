@@ -8,7 +8,7 @@ import javax.persistence.Table;
 /**
  * @author Edison F.
  * @Description Model: 视力计划t_vision_plan
- * @DateTime 2021/05/14
+ * @DateTime 2021/07/14
  */
 @Table(name = "t_vision_plan")
 public class VisionPlan extends VisionPlanBase  implements Serializable {

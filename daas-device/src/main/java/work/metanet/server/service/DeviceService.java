@@ -120,7 +120,7 @@ public class DeviceService implements IDeviceService{
 	/**
 	 * @Description: 设备认证
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/18
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespDeviceAuth deviceAuth(ReqDeviceAuth req) throws Exception {
@@ -238,7 +238,7 @@ public class DeviceService implements IDeviceService{
 	/**
 	 * @Description: 设备激活
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/18
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	@Transactional
@@ -297,7 +297,7 @@ public class DeviceService implements IDeviceService{
 	/**
 	 * @Description: 验证激活码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/09
+	 * @DateTime 2021/07/09
 	 */
 	private SerialNumberVo validationSn(String snCode,App app) throws Exception{
 		if(StringUtils.isBlank(snCode))  throw MetanetException.of().setMsg("激活码不能为空");
@@ -311,7 +311,7 @@ public class DeviceService implements IDeviceService{
 	/**
 	 * @Description: 设备列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespDeviceList> deviceList(ReqDeviceList req) throws Exception {
@@ -329,7 +329,7 @@ public class DeviceService implements IDeviceService{
 	/**
 	 * @Description: 设备详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespDeviceInfo deviceInfo(String channelId,ReqDeviceInfo req) throws Exception {
@@ -392,7 +392,7 @@ public class DeviceService implements IDeviceService{
 	/**
 	 * @Description:保存设备
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Transactional
 	@Override
@@ -477,7 +477,7 @@ public class DeviceService implements IDeviceService{
 	/**
 	 * @Description: 删除设备
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeDevice(List<ReqRemoveDevice> devices) throws Exception {

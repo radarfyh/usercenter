@@ -133,7 +133,7 @@ public class CosUtil {
 	/**
 	 * @Description: 过滤url域名
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/03/03
+	 * @DateTime 2021/07/03
 	 */
 	public String filterUrlDomain(String url) {
     	//return StrUtil.subBetween(url, "myqcloud.com/", "?sign=");
@@ -146,7 +146,7 @@ public class CosUtil {
 	/**
      * @Description: 获取访问的url
      * @Author Louis & Edison & W.B.
-     * @DateTime 2020/03/03
+     * @DateTime 2021/07/03
      */
 	public String getAccessUrl(String key) {
 		if(StrUtil.isBlank(key)) return key;

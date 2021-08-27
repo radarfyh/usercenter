@@ -21,14 +21,14 @@ public interface IVisionTest {
 	/**
 	 * @Description: 查询视力测试活动列表
 	 * @Author Edison F.
-	 * @DateTime 2021/04/20
+	 * @DateTime 2021/07/20
 	 */
 	RespPaging<RespVisionTestList> getVisionTestList(ReqVisionTestList req) throws Exception;
 	
 	/**
 	 * @Description: 查询视力测试活动详情
 	 * @Author Edison F.
-	 * @DateTime 2021/04/20
+	 * @DateTime 2021/07/20
 	 */
 	RespVisionTestInfo getVisionTestInfo(ReqVisionTestInfo req) throws Exception;
 	
@@ -36,21 +36,21 @@ public interface IVisionTest {
 	 * @return 
 	 * @Description: 增加、修改视力测试活动信息
 	 * @Author Edison F.
-	 * @DateTime 2021/04/20
+	 * @DateTime 2021/07/20
 	 */
 	RespSaveVisionTest saveVisionTest(ReqSaveVisionTest req) throws Exception;
 	
 	/**
 	 * @Description: 增加测试活动信息
 	 * @Author Edison F.
-	 * @DateTime 2021/05/03
+	 * @DateTime 2021/07/03
 	 */
 	RespSaveVisionTest insertVisionTest(ReqSaveVisionTest req) throws Exception;
 	
 	/**
 	 * @Description: 删除视力测试活动信息
 	 * @Author Edison F.
-	 * @DateTime 2021/04/20
+	 * @DateTime 2021/07/20
 	 */
 	String removeVisionTest(List<ReqRemoveVisionTest> tests) throws Exception;
 }

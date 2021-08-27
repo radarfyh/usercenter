@@ -2,8 +2,6 @@ package work.metanet.api.vision.protocol;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Pattern;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import work.metanet.api.vision.protocol.ReqVisionReportInfo.RespVisionReportInfo;
 import work.metanet.base.Paging;

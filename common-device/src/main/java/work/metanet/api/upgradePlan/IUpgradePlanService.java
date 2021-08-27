@@ -16,28 +16,28 @@ public interface IUpgradePlanService {
 	/**
 	 * @Description: 升级计划列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespUpgradePlanList> upgradePlanList(ReqUpgradePlanList req) throws Exception;
 	
 	/**
 	 * @Description: 升级计划详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespUpgradePlanInfo upgradePlanInfo(ReqUpgradePlanInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存升级计划
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveUpgradePlan(ReqSaveUpgradePlan req) throws Exception;
 	
 	/**
 	 * @Description: 删除升级计划
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeUpgradePlan(List<ReqRemoveUpgradePlan> req) throws Exception;
 	

@@ -67,7 +67,7 @@ public class AppVersionService implements IAppVersionService{
 	/**
 	 * @Description: 版本列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespAppVersionList> appVersionList(ReqAppVersionList req) throws Exception {
@@ -88,7 +88,7 @@ public class AppVersionService implements IAppVersionService{
 	/**
 	 * @Description: 版本信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespAppVersionInfo appVersionInfo(ReqAppVersionInfo req) throws Exception {
@@ -104,7 +104,7 @@ public class AppVersionService implements IAppVersionService{
 	/**
 	 * @Description: 保存版本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespSaveAppVersion saveAppVersion(ReqSaveAppVersion req) throws Exception {
@@ -149,7 +149,7 @@ public class AppVersionService implements IAppVersionService{
 	/**
 	 * @Description: 删除版本
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeAppVersion(List<ReqRemoveAppVersion> req) throws Exception {

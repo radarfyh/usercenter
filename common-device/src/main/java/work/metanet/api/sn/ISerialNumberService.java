@@ -15,28 +15,28 @@ public interface ISerialNumberService {
 	/**
 	 * @Description: SN码列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespSerialNumberList> serialNumberList(ReqSerialNumberList req) throws Exception;
 	
 	/**
 	 * @Description: SN码详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespSerialNumberInfo serialNumberInfo(ReqSerialNumberInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveSerialNumber(ReqSaveSerialNumber req) throws Exception;
 	
 	/**
 	 * @Description: 删除SN码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeSerialNumber(List<ReqRemoveSerialNumber> req) throws Exception;
 	

@@ -1,13 +1,11 @@
 package work.metanet.api.vision.protocol;
 
 import work.metanet.model.VisionPlanBase;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**

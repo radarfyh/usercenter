@@ -42,7 +42,7 @@ public class ModelService implements IModelService{
 	/**
 	 * @Description: 型号列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespPaging<RespModelList> modelList(ReqModelList req) throws Exception {
@@ -59,7 +59,7 @@ public class ModelService implements IModelService{
 	/**
 	 * @Description: 型号信息
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespModelInfo modelInfo(ReqModelInfo req) throws Exception {
@@ -73,7 +73,7 @@ public class ModelService implements IModelService{
 	/**
 	 * @Description: 保存型号
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public RespSaveModel saveModel(ReqSaveModel req) throws Exception {
@@ -110,7 +110,7 @@ public class ModelService implements IModelService{
 	/**
 	 * @Description: 删除型号
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	@Override
 	public void removeModel(List<ReqRemoveModel> req) throws Exception {

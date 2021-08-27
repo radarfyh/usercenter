@@ -60,7 +60,7 @@ public class FileController {
 	 * @throws Exception 
 	 * @Description: 文件上传
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/18
+	 * @DateTime 2021/8/27
 	 */
 	@ApiPermission(AUTH.OPEN)
 	@ApiOperLog(action = ACTION.UPLOAD)
@@ -108,7 +108,7 @@ public class FileController {
 	/**
 	 * @Description: 文件上传-商店应用
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/05/26
+	 * @DateTime 2021/07/26
 	 */
 	@ApiOperLog(action = ACTION.UPLOAD, desc = "上传商店应用获取详情")
 	@ApiOperation(value = "上传文件-上传商店应用获取详情")
@@ -126,7 +126,7 @@ public class FileController {
 	 * @throws Exception 
 	 * @Description: 文件上传-内容商产品
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/18
+	 * @DateTime 2021/8/27
 	 */
 	@ApiOperLog(action = ACTION.UPLOAD, desc = "内容商产品")
 	@ApiOperation(value = "文件上传-内容商产品")

@@ -18,8 +18,9 @@ import java.io.Serializable;
 @Accessors
 @ApiModel("请求-新增视力计划")
 public class ReqInsertVisionPlan extends VisionPlanBase implements Serializable {
-
-    @NotBlank(message = "用户序列号不能为空")
+	private static final long serialVersionUID = 2466705957995419682L;
+	
+	@NotBlank(message = "用户序列号不能为空")
     @ApiModelProperty(value = "用户序列号", required = true , example = "2734086da3a945d5baef67b1f5f0041f")
     private String userId;
 }

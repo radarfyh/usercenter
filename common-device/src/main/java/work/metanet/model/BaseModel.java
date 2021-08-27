@@ -14,7 +14,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * basemodel基础模型,继承映射方策略：single Table

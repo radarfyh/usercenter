@@ -23,21 +23,21 @@ public interface IEyestrain {
 	/**
 	 * @Description: 查询列表
 	 * @Author Edison F.
-	 * @DateTime 2021/05/14
+	 * @DateTime 2021/07/14
 	 */
 	RespPaging<RespEyestrainList> getEyestrainList(ReqEyestrainList req) throws Exception;
 
 	/**
 	 * @Description: 查询列表
 	 * @Author Edison F.
-	 * @DateTime 2021/05/14
+	 * @DateTime 2021/07/14
 	 */
 	RespPaging<RespEyestrainList> getEyestrainListOrderByUseTypeAndGroupByTime(ReqEyestrainList req) throws Exception;
 	
 	/**
 	 * @Description: 查询详情
 	 * @Author Edison F.
-	 * @DateTime 2021/05/14
+	 * @DateTime 2021/07/14
 	 */
 	RespEyestrainInfo getEyestrainInfo(ReqEyestrainInfo req) throws Exception;
 	
@@ -45,21 +45,21 @@ public interface IEyestrain {
 	 * @return 
 	 * @Description: 保存信息
 	 * @Author Edison F.
-	 * @DateTime 2021/05/14
+	 * @DateTime 2021/07/14
 	 */
 	RespSaveEyestrain saveEyestrain(ReqSaveEyestrain req) throws Exception;
 	
 	/**
 	 * @Description: 增加信息
 	 * @Author Edison F.
-	 * @DateTime 2021/05/14
+	 * @DateTime 2021/07/14
 	 */
 	RespSaveEyestrain insertEyestrain(ReqSaveEyestrain req) throws Exception;
 	
 	/**
 	 * @Description: 删除信息
 	 * @Author Edison F.
-	 * @DateTime 2021/05/14
+	 * @DateTime 2021/07/14
 	 */
 	String removeEyestrain(List<ReqRemoveEyestrain> tests) throws Exception;
 	/**

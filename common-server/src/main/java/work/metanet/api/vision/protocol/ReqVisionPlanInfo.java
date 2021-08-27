@@ -19,7 +19,9 @@ import java.io.Serializable;
 @ApiModel(value = "请求-计划详情")
 public class ReqVisionPlanInfo implements Serializable {
 
-    @NotBlank(message = "计划序列号不能为空")
+	private static final long serialVersionUID = 6286259881514329171L;
+
+	@NotBlank(message = "计划序列号不能为空")
     @ApiModelProperty(value = "计划Id",required = true , example = "878c068db6da11eb8b765254006d7470")
     private String planId;
 

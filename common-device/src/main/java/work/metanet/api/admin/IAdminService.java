@@ -26,35 +26,35 @@ public interface IAdminService {
 	/**
 	 * @Description: 管理员列表
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespAdminList> adminList(ReqAdminList req) throws Exception;
 	
 	/**
 	 * @Description: 管理员详情
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	RespAdminInfo adminInfo(ReqAdminInfo req) throws Exception;
 	
 	/**
 	 * @Description: 保存管理员
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void saveAdmin(ReqSaveAdmin req) throws Exception;
 	
 	/**
 	 * @Description: 删除管理员
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/20
+	 * @DateTime 2021/8/27
 	 */
 	void removeAdmin(List<ReqRemoveAdmin> req) throws Exception;
 	
 	/**
 	 * @Description: 重置密码
 	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2020/07/03
+	 * @DateTime 2021/07/03
 	 */
 	void resetAdminPassword(String adminId) throws Exception;
 	
