@@ -3,7 +3,6 @@ spring:
     active: dev
   application:
     name: daas-payment
-  main:    allow-bean-definition-overriding: true
   cloud:
     alibaba:
       seata:
@@ -11,12 +10,12 @@ spring:
     nacos:
       server-addr: 127.0.0.1:8848
       discovery:
-        namespace: f7c685e5-24eb-4be5-af83-6366b9595bd4
+        namespace: usercenter
         group: DEFAULT_GROUP
       config:
         file-extension: yml
         prefix: ${spring.application.name}
-        namespace: f7c685e5-24eb-4be5-af83-6366b9595bd4
+        namespace: usercenter
         group: DEFAULT_GROUP
 
 

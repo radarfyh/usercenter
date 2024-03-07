@@ -117,11 +117,4 @@ public class BrandService implements IBrandService{
 		brandMapper.removeBrand(req);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 }
