@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>work.metanet</groupId>
 		<artifactId>metanet</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	
 	<groupId>work.metanet.device</groupId>
@@ -15,17 +15,17 @@
 		<dependency>
 			<groupId>work.metanet</groupId>
 			<artifactId>common</artifactId>
-			<version>${project.version}</version>
+
 		</dependency>
 		<dependency>
 			<groupId>work.metanet</groupId>
 			<artifactId>common-server</artifactId>
-			<version>${project.version}</version>
+
 		</dependency>
 		<dependency>
 			<groupId>work.metanet</groupId>
 			<artifactId>common-device</artifactId>
-			<version>${project.version}</version>
+
 		</dependency>
 
 		<dependency>
@@ -37,18 +37,21 @@
 			<groupId>io.github.openfeign</groupId>
 			<artifactId>feign-jaxrs2</artifactId>
 		</dependency>
-		
 
 		<dependency>
 		    <groupId>org.hibernate.javax.persistence</groupId>
 		    <artifactId>hibernate-jpa-2.1-api</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>javax.persistence</groupId> -->
-<!-- 			<artifactId>persistence-api</artifactId> -->
-<!-- 			<scope>test</scope> 使用test排除，否则会提示orphanRemoval找不到 -->
-<!-- 		</dependency>		 -->
-
+		<!-- 支持@CreatedBy、@CreatedDate、@LastModifiedBy、@LastModifiedDate-->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
+		<!-- 支持@DynamicInsert、@DynamicUpdate-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
 	</dependencies>
    
     <build>

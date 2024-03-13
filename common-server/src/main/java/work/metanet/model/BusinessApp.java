@@ -16,13 +16,13 @@ import lombok.Data;
 @Table(name = "t_business_app")
 public class BusinessApp implements Serializable {
     /**
-     * 内容商产品id
+     * 产品id
      */
 	@Id
     private String businessAppId;
 
     /**
-     * 内容商id
+     * id
      */
     private String businessId;
 

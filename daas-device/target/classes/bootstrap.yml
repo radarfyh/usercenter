@@ -10,20 +10,20 @@ spring:
       seata:
         tx-service-group: ${spring.application.name}-group
     nacos:
-      server-addr: 127.0.0.1:8848
+#      server-addr: 192.168.10.181:8848
       discovery:
-#        server-addr: localhost:8848
-        namespace: usercenter
+        server-addr: 192.168.10.181:8848
+        namespace: 
         group: DEFAULT_GROUP
       config:
         # nacos 配置中心服务地址 nginx 代理的地址
         # 默认  ${spring.cloud.nacos.server-addr}
-#        server-addr: localhost:8848
-        file-extension: properties
+        server-addr: 192.168.10.181:8848
+        file-extension: yml
         prefix: ${spring.application.name}
         # dataID  ${prefix}-${spring.profiles.active}.${file-extension}
-        # 命名空间 默认 public, bug：默认public的时候循环捕获变更，尽管可能没有变更
-        namespace: usercenter
+        # 命名空间 默认 public, bug：默认public的时候循环捕获变更，尽管可能没有变更，#循环提示get changedGroupKeys:[]解决办法：public时要空着
+        namespace: 
         # 配置组  默认 DEFAULT_GROUP
         group: DEFAULT_GROUP
         # 共享配置(公共配置)

@@ -23,35 +23,35 @@ public interface IBusinessAppService {
 	BusinessAppVo upgradeThirdApp(ReqUpgradeThirdApp req) throws Exception;
 	
 	/**
-	 * @Description: 内容商应用树
+	 * @Description: 应用树
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
 	List<Map<String, Object>> businessAppTree() throws Exception;
 
 	/**
-	 * @Description: 内容商产品列表
+	 * @Description: 产品列表
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
 	RespPaging<RespBusinessAppList> businessAppList(ReqBusinessAppList req) throws Exception;
 	
 	/**
-	 * @Description: 内容商产品详情
+	 * @Description: 产品详情
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
 	RespBusinessAppInfo businessAppInfo(ReqBusinessAppInfo req) throws Exception;
 	
 	/**
-	 * @Description: 保存内容商产品
+	 * @Description: 保存产品
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
 	void saveBusinessApp(ReqSaveBusinessApp req) throws Exception;
 	
 	/**
-	 * @Description: 删除内容商产品
+	 * @Description: 删除产品
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */

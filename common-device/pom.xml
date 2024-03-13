@@ -5,23 +5,28 @@
 	<parent>
 		<groupId>work.metanet</groupId>
 		<artifactId>metanet</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>common-device</artifactId>
 	<name>common device for libraries</name>
-	<description>common device library</description>
+	<description>存放设备相关的服务接口（API）、实体类、请求类、响应类等</description>
 
 	<dependencies>
   		<dependency>
 	  		<groupId>work.metanet</groupId>
 	  		<artifactId>common</artifactId>
-	  		<version>${project.version}</version>
 	  	</dependency>
 
 		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
 		</dependency>
+		<!-- 支持@Column、@Id等注解-->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+		</dependency>
+
 	</dependencies>
 
 </project>

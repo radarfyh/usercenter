@@ -89,7 +89,7 @@ public class BusinessAppService implements IBusinessAppService{
 	}
 	
 	/**
-	 * @Description: 内容商产品列表
+	 * @Description: 产品列表
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
@@ -106,7 +106,7 @@ public class BusinessAppService implements IBusinessAppService{
 	}
 
 	/**
-	 * @Description: 内容商产品信息
+	 * @Description: 产品信息
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
@@ -118,7 +118,7 @@ public class BusinessAppService implements IBusinessAppService{
 	}
 
 	/**
-	 * @Description: 保存内容商产品
+	 * @Description: 保存产品
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
@@ -137,7 +137,7 @@ public class BusinessAppService implements IBusinessAppService{
 		if(StringUtils.isNotBlank(businessApp.getBusinessAppId())) {
 			//修改操作
 			if(dbBusinessApp!=null && !dbBusinessApp.getBusinessAppId().equals(businessApp.getBusinessAppId())) 
-				throw MetanetException.of().setMsg("内容商产品已存在");
+				throw MetanetException.of().setMsg("产品已存在");
 			if(BeanUtil.isEmpty(dbBusinessApp) || dbBusinessApp.getBusinessAppId().equals(businessApp.getBusinessAppId())) {
 				businessAppMapper.updateByPrimaryKeySelective(businessApp);				
 			}else {
@@ -146,7 +146,7 @@ public class BusinessAppService implements IBusinessAppService{
 		}else {
 			//新增操作
 			if(dbBusinessApp!=null)
-				throw MetanetException.of().setMsg("内容商产品已存在");
+				throw MetanetException.of().setMsg("产品已存在");
 			businessApp.setBusinessAppId(IdUtil.fastSimpleUUID());
 			businessAppMapper.insertSelective(businessApp);
 		}
@@ -157,7 +157,7 @@ public class BusinessAppService implements IBusinessAppService{
 	}
 
 	/**
-	 * @Description: 删除内容商产品
+	 * @Description: 删除产品
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */

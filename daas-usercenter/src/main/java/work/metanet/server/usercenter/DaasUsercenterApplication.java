@@ -8,10 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@ComponentScan(value={"work.metanet.utils",
-		"work.metanet.constant",
-		"work.metanet.util.sms",
-		"work.metanet.util.redis"})
+@ComponentScan(value={"work.metanet.utils","work.metanet.constant","work.metanet.util.sms","work.metanet.util.redis"})
 //@EnableJpaRepositories(basePackages={"work.metanet.server.usercenter.repository"})
 //@EntityScan(basePackages = {"work.metanet.model","work.metanet.api.user.model"})
 public class DaasUsercenterApplication {
@@ -20,5 +17,4 @@ public class DaasUsercenterApplication {
 //		SpringApplication.run(DaasUsercenterApplication.class, args);
 		new SpringApplicationBuilder().web(WebApplicationType.NONE).sources(DaasUsercenterApplication.class).run(args);
 	}
-
 }

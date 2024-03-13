@@ -1,0 +1,23 @@
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: baas-questionnaire
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.10.181:8848
+        username: nacos
+        password: nacos
+        namespace: usercenter
+        group: DEFAULT_GROUP
+      config:
+        server-addr: 192.168.10.181:8848
+        username: nacos
+        password: nacos
+        file-extension: yml
+        namespace: usercenter
+        group: DEFAULT_GROUP

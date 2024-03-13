@@ -1,1 +1,0 @@
-mvn -Dfile.encoding=utf-8 spring-boot:run

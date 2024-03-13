@@ -75,8 +75,8 @@ public class FileController {
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/27
 	 */
-	@ApiOperLog(action = ACTION.UPLOAD, desc = "上传爱眼课堂视频")
-	@ApiOperation(value = "上传文件-爱眼课堂视频")
+	@ApiOperLog(action = ACTION.UPLOAD, desc = "上传视频")
+	@ApiOperation(value = "上传文件-视频")
 	@PostMapping(value = "uploadEyesVideo", headers = "content-type=multipart/form-data")
 	public ResultResponse<RespUpload> uploadEyesVideo(@RequestParam("file") MultipartFile file) throws Exception {
 		String key = StrUtil.concat(true, "eyesVideo/",IdUtil.fastSimpleUUID(),".",FileUtil.extName(file.getOriginalFilename()));
@@ -124,12 +124,12 @@ public class FileController {
 	
 	/**
 	 * @throws Exception 
-	 * @Description: 文件上传-内容商产品
+	 * @Description: 文件上传-产品
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2021/8/27
 	 */
-	@ApiOperLog(action = ACTION.UPLOAD, desc = "内容商产品")
-	@ApiOperation(value = "文件上传-内容商产品")
+	@ApiOperLog(action = ACTION.UPLOAD, desc = "产品")
+	@ApiOperation(value = "文件上传-产品")
 	@PostMapping(value = "uploadBusinessApp", headers = "content-type=multipart/form-data")
 	public ResultResponse<String> uploadBusinessApp(@RequestParam("file") MultipartFile file) throws Exception {
 		String key = StrUtil.concat(true, "businessApps/",file.getOriginalFilename());

@@ -59,7 +59,7 @@ public class AppVersionModule implements Serializable {
     private String moduleIcon;
 
     /**
-     * 内容商产品id逗号分隔
+     * 产品id逗号分隔
      */
     private String businessAppIds;
 

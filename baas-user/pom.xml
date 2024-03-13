@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>work.metanet</groupId>
 		<artifactId>metanet</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<artifactId>baas-user</artifactId>
@@ -19,11 +19,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>work.metanet</groupId>
-			<artifactId>common-client</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>work.metanet</groupId>
 			<artifactId>common-user</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -32,24 +27,28 @@
 			<artifactId>common-device</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>work.metanet</groupId>
+			<artifactId>common-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- commons-beanutils -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
-
 		<!-- security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

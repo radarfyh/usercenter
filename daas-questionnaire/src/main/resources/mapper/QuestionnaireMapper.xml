@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.metanet.questionnaire.dao.QuestionnaireMapper">
+    <select id="getQuestionnaireList" parameterType="work.metanet.api.questionnaire.protocol.ReqQuestionnaireList"
+            resultType="work.metanet.api.questionnaire.protocol.ReqQuestionnaireList$RespQuestionnaireList">
+        select
+        id,
+        type_code
+        name,
+        introduction,
+        qr_url,
+        total_score,
+        remark,
+        create_time,
+        update_time
+        from t_questionnaire
+        <where>
+            status = 1
+            <if test="name != null and name!= ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="typeCode != null and typeCode != -1">
+                and type_code = #{typeCode}
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+
+        </where>
+        order by update_time desc
+    </select>
+
+    <select id="getQuestionnaireInfo" parameterType="work.metanet.api.questionnaire.protocol.ReqQuestionnaireInfo"
+            resultType="work.metanet.api.questionnaire.protocol.ReqQuestionnaireInfo$RespQuestionnaireInfo">
+        select
+        id,
+        type_code
+        name,
+        introduction,
+        qr_url,
+        total_score,
+        remark,
+        create_time,
+        update_time
+        from t_questionnaire
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <update id="saveQuestionnaire" parameterType="work.metanet.api.questionnaire.protocol.ReqSaveQuestionnaire">
+        update
+        t_questionnaire
+        <set>
+            update_time = current_timestamp,
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="typeCode != null">
+                type_code = #{typeCode},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                introduction = #{introduction},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="qrUrl != null and qrUrl != ''">
+                qr_url = #{qrUrl},
+            </if>
+            <if test="totalScore != null">
+                total_score = #{totalScore},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            1 = 1
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <insert id="insertQuestionnaire" parameterType="work.metanet.api.questionnaire.protocol.ReqInsertQuestionnaire">
+        insert into t_questionnaire
+        (
+        id,
+        type_code
+        name,
+        introduction,
+        qr_url,
+        total_score,
+        remark,
+        create_time,
+        update_time,
+        create_user,
+        update_user
+         )
+        values
+        (#{id},
+         #{typeCode},
+         #{name},
+         #{introduction},
+         #{qrUrl},
+         #{totalScore},
+         #{remark},
+         current_timestamp,
+         current_timestamp,
+         #{createUser},
+         #{updateUser})
+    </insert>
+
+    <update id="removeQuestionnaire" parameterType="work.metanet.api.questionnaire.protocol.ReqRemoveQuestionnaire">
+        update
+        t_questionnaire
+        <set>
+            status = 0
+        </set>
+        <where>
+            id in
+            <foreach collection="list" item="item" open="(" close=")" separator=",">
+                #{item.id}
+            </foreach>
+        </where>
+    </update>
+
+
+</mapper>

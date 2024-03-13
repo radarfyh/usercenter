@@ -1,0 +1,56 @@
+  
+server:
+  port: 8608
+  servlet:
+    encoding:
+      force: true
+  
+spring:
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 300MB
+      max-request-size: 300MB
+
+  resources:
+    static-locations: classpath:/static/    
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    servlet:
+      content-type: text/html 
+    mode: HTML
+    cache: false
+      
+dubbo:
+  application:
+    #id: ${spring.application.name}-consumer
+    #name: ${spring.application.name}-consumer
+    qosEnable: false
+  cloud:
+    subscribed-services: daas-questionaire,daas-device,daas-usercenter
+#  consumer:
+#    check: false
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: -1
+  provider:
+    loadbalance: roundrobin
+    retries: 0
+    timeout: 60000
+    version: 1.0.0
+  registry:
+    address: nacos://192.168.10.181:8848
+
+       
+mapper:
+  identity: MYSQL
+  mappers: tk.mybatis.mapper.common.Mapper
+  not-empty: false
+
+      
+      

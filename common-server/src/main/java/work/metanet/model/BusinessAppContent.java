@@ -15,18 +15,18 @@ import lombok.Data;
 @Table(name = "t_business_app")
 public class BusinessAppContent implements Serializable {
     /**
-     * 内容商产品内容id
+     * 产品内容id
      */
 	@Id
     private String businessAppContentId;
 
     /**
-     * 内容商产品id
+     * 产品id
      */
     private String businessAppId;
 
     /**
-     * 内容商内容id
+     * 内容id
      */
     private String businessContentId;
 

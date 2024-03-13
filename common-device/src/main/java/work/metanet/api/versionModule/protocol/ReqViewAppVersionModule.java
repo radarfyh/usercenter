@@ -33,9 +33,9 @@ public class ReqViewAppVersionModule implements Serializable{
 	    private String parameter;
 		@ApiModelProperty("图标")
 	    private String moduleIcon;
-		@ApiModelProperty("内容商产品下载地址")
+		@ApiModelProperty("产品下载地址")
 	    private String businessAppsUrl;
-		@ApiModelProperty("内容商代码")
+		@ApiModelProperty("代码")
 	    private String businessCode;
 		
 	}
