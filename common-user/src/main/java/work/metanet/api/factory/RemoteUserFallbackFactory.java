@@ -2,7 +2,7 @@ package work.metanet.api.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.openfeign.FallbackFactory;
+
 import org.springframework.stereotype.Component;
 import work.metanet.domain.R;
 import work.metanet.api.RemoteUserService;
@@ -15,11 +15,11 @@ import work.metanet.api.model.LoginUser;
  * @author ruoyi
  */
 @Component
-public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserService>
+public class RemoteUserFallbackFactory 
 {
     private static final Logger log = LoggerFactory.getLogger(RemoteUserFallbackFactory.class);
 
-    @Override
+
     public RemoteUserService create(Throwable throwable)
     {
         log.error("用户服务调用失败:{}", throwable.getMessage());
