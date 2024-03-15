@@ -9,8 +9,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import work.metanet.common.swagger.annotation.EnableCustomSwagger2;
+
 @EnableAsync
 @EnableDiscoveryClient
+@EnableCustomSwagger2
 //如果加载了数据源依赖,属性文件未配置的情况下需要排除数据源加载
 @SpringBootApplication(exclude= {
 		DataSourceAutoConfiguration.class,

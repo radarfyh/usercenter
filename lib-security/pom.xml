@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>work.metanet</groupId>
+		<artifactId>metanet</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>lib-security</artifactId>
+
+	<description>
+		security安全模块
+	</description>
+
+	<dependencies>
+		<dependency>			<groupId>work.metanet</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>work.metanet</groupId>
+			<artifactId>common-user</artifactId>
+		</dependency>
+		<dependency>			<groupId>work.metanet</groupId>
+			<artifactId>lib-redis</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>work.metanet</groupId>
+			<artifactId>common-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+	</dependencies>
+
+</project>

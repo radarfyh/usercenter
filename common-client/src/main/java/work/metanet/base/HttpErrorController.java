@@ -14,7 +14,7 @@ import work.metanet.aop.ApiPermission;
 import work.metanet.aop.ApiPermission.AUTH;
 import work.metanet.exception.ResultResponse;
 import work.metanet.exception.ResultResponseEnum;
-import work.metanet.utils.HttpServletRequestUtil;
+import work.metanet.web.utils.HttpServletRequestUtil;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.servlet.ServletUtil;

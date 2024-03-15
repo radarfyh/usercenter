@@ -12,9 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import work.metanet.server.usercenter.domain.UcUsers;
-import work.metanet.server.usercenter.domain.UserFromThird;
 import work.metanet.api.user.protocol.ReqRemoveUser;
-import work.metanet.api.user.protocol.ReqUserInfo;
 import work.metanet.api.user.protocol.ReqUserList.RespUserList;
 
 /**
@@ -102,11 +100,6 @@ public interface UsersRepository extends JpaRepository<UcUsers, String> {
 	@Query(value = "update uc_users set status=false "
 			+ "		where user_id in(:list)", nativeQuery = true)
 	int removeUser(@Param("list")List<ReqRemoveUser> list);
-
-	@Query(value = "select * from uc_users"
-			+ "		where phone = :uft.ownerTel"
-			+ "		order by create_time desc limit 1", nativeQuery = true)
-	ReqUserInfo.RespUserInfo userInfoFromThird(@Param("uft")UserFromThird uft);
 
 	@Modifying
 	@Query(value = "update uc_users"

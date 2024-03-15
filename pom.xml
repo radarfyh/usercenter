@@ -5,16 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>work.metanet</groupId>
 	<artifactId>metanet</artifactId>
-	<version>${revision}</version>
+	<version>1.0.0</version>
 	<name>metanet services</name>
 	<description>metanet services for AI SaaS</description>
 	<packaging>pom</packaging>
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.12.RELEASE</version>
-	</parent>
 
 	<properties>
 		<revision>1.0.0</revision>
@@ -30,15 +24,25 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 
 		<spring.version>5.2.15.RELEASE</spring.version>
-		<spring-data.version>2.3.9.RELEASE</spring-data.version>
-		<spring-boot.version>2.3.12.RELEASE</spring-boot.version>
-		<spring-cloud.version>2.2.8.RELEASE</spring-cloud.version>
-		<spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
-		<spring-boot-seata.version>1.4.2</spring-boot-seata.version>
-		<spring-boot-nacos.version>0.2.12</spring-boot-nacos.version>
-		<spring-boot-dubbo.version>2.7.8</spring-boot-dubbo.version>
 
-		<swagger.version>2.9.2</swagger.version>
+		<!-- cloud/boot/alibaba版本对照如下，不能轻易更改-->
+		<spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+		<spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+		<spring-cloud-alibaba.version>2.2.7.RELEASE</spring-cloud-alibaba.version>
+
+		<spring-boot-seata.version>1.4.2</spring-boot-seata.version>
+		<!-- nacos-config-spring-boot-starter版本 0.2.x.RELEASE 对应的是 Spring Boot
+		2.x 版本，版本 0.1.x.RELEASE 对应的是 Spring Boot 1.x 版本-->
+		<spring-boot-nacos.version>0.2.12</spring-boot-nacos.version>
+
+		<spring-boot-dubbo.version>2.7.8</spring-boot-dubbo.version>
+		<spring-cloud-config.version>2.2.8.RELEASE</spring-cloud-config.version>
+		<spring-cloud-loadbalance.version>2.2.8.RELEASE</spring-cloud-loadbalance.version>
+		<spring-data.version>2.3.9.RELEASE</spring-data.version>
+
+		<!--<swagger.version>2.9.2</swagger.version>
+		<swagger.fox.version>3.0.0</swagger.fox.version>
+		<swagger.core.version>1.6.2</swagger.core.version>-->
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<lombok.version>1.18.20</lombok.version>
 
@@ -51,63 +55,52 @@
 		<hamcrest.version>2.2</hamcrest.version>
 		<hibernate.version>5.5.3.Final</hibernate.version>
 		<fasterxml.jackson.version>2.11.4</fasterxml.jackson.version>
+		<transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
+		<commons.fileupload.version>1.4</commons.fileupload.version>
+		<fastjson.version>2.0.22</fastjson.version>
+		<velocity.version>2.3</velocity.version>
+		<jjwt.version>0.9.1</jjwt.version>
+		<minio.version>8.2.2</minio.version>
+		<poi.version>4.1.2</poi.version>
+		<tobato.version>1.27.2</tobato.version>
+
+
 	</properties>
 	<!-- 父POM负责管理版本 -->
 	<dependencyManagement>
 		<dependencies>
-			<!-- spring -->
+			<!-- spring boot -->
 			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${spring.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>commons-logging</groupId>
-						<artifactId>commons-logging</artifactId>
-					</exclusion>
-				</exclusions>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
+			<!-- SpringCloud 微服务 -->
 			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-beans</artifactId>
-				<version>${spring.version}</version>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
 
+			<!-- alibaba -->
 			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${spring.version}</version>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
-
+			<!-- alibaba要使用下面这个上下文支持库 -->
 			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${spring.version}</version>
+				<groupId>com.alibaba.spring</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>1.0.11</version>
 			</dependency>
 
 			<!-- Logging -->
@@ -148,52 +141,6 @@
 				<groupId>org.logback-extensions</groupId>
 				<artifactId>logback-ext-spring</artifactId>
 				<version>0.1.4</version>
-			</dependency>
-			
-			<!-- spring boot -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<!-- alibaba -->
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
-				<version>${spring-cloud-alibaba.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-starter-dubbo</artifactId>
-				<version>${spring-cloud-alibaba.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-				<version>${spring-cloud-alibaba.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-				<version>${spring-cloud-alibaba.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-				<exclusions>
-					<!--版本较低，1.3.0，因此排除-->
-					<exclusion>
-						<artifactId>seata-spring-boot-starter</artifactId>
-						<groupId>io.seata</groupId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 
 			<!-- 使用log4j或者log4j2应排除spring-boot-starter-logging -->
@@ -319,28 +266,35 @@
 				<version>3.1.67</version>
 			</dependency>
 
-			<!-- spring cloud config -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-config</artifactId>
-				<version>${spring-cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-config-server</artifactId>
-				<version>${spring-cloud.version}</version>
+				<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+				<version>${spring-cloud-loadbalance.version}</version>
 			</dependency>
 
 			<!--swagger2 -->
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger2</artifactId>
-				<version>${swagger.version}</version>
+				<!--<version>${swagger.version}</version>-->
+				<version>3.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.xiaoymin</groupId>
 				<artifactId>swagger-bootstrap-ui</artifactId>
 				<version>1.9.4</version>
+			</dependency>
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-models</artifactId>
+				<!--<version>${swagger.core.version}</version>-->
+				<version>1.6.2</version>
+			</dependency>
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-annotations</artifactId>
+				<!--<version>${swagger.core.version}</version>-->
+				<version>1.6.2</version>
 			</dependency>
 
 			<!--lombok -->
@@ -367,6 +321,13 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>1.2.17</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.fastjson2</groupId>
+				<artifactId>fastjson2</artifactId>
+				<!--<version>${fastjson.version}</version>-->
+				<version>2.0.22</version>
 			</dependency>
 
 			<dependency>
@@ -446,12 +407,12 @@
 			<dependency>
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi</artifactId>
-				<version>3.17</version>
+				<version>${poi.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi-ooxml</artifactId>
-				<version>3.17</version>
+				<version>${poi.version}</version>
 			</dependency>
 			<!--常用工具 CSR 数字证书处理 -->
 			<dependency>
@@ -512,6 +473,36 @@
 				<artifactId>cos_api</artifactId>
 				<version>5.6.27</version>
 			</dependency>
+			<!-- 线程传递值 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>transmittable-thread-local</artifactId>
+				<!--<version>${transmittable-thread-local.version}</version>-->
+				<version>2.14.2</version>
+			</dependency>
+
+			<!-- 文件上传工具类 -->
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<!--<version>${commons.fileupload.version}</version>-->
+				<version>1.4</version>
+			</dependency>
+
+			<!-- FastDFS 分布式文件系统 -->
+			<dependency>
+				<groupId>com.github.tobato</groupId>
+				<artifactId>fastdfs-client</artifactId>
+				<version>${tobato.version}</version>
+			</dependency>
+
+			<!-- 代码生成使用模板 -->
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-engine-core</artifactId>
+				<version>${velocity.version}</version>
+			</dependency>
+
 
 			<dependency>
 				<groupId>work.metanet</groupId>
@@ -547,34 +538,92 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<dependencies>
+		<!-- bootstrap 启动器 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+			<version>4.1.1</version>
+		</dependency>
+	</dependencies>
+
 	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.12.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
 
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<modules>
 		<module>common</module>
+
 		<module>common-user</module>
-
 		<module>common-payment</module>
-
 		<module>common-device</module>
 
-		<module>common-server</module>
+		<module>lib-mysql</module>
+		<module>lib-redis</module>
+		<module>lib-nacos</module>
+		<module>lib-seata</module>
+		<module>lib-security</module>
+		<module>lib-swagger</module>
 
+		<module>common-server</module>
 		<module>daas-device</module>
 		<module>daas-payment</module>
 		<module>daas-usercenter</module>
 		<module>daas-questionnaire</module>
 
 		<module>common-client</module>
-
 		<module>baas-openapi</module>
 		<module>baas-user</module>
 		<module>baas-questionnaire</module>

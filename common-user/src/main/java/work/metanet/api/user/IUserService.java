@@ -9,15 +9,12 @@ import work.metanet.api.user.protocol.ReqLoginSuper;
 import work.metanet.api.user.protocol.ReqRemoveUser;
 import work.metanet.api.user.protocol.ReqResetPassword;
 import work.metanet.api.user.protocol.ReqSendCode;
-import work.metanet.api.user.protocol.ReqSyncUserFromThird;
-import work.metanet.api.user.protocol.ReqSyncUserFromThird.RespSyncUserFromThird;
 import work.metanet.api.user.protocol.ReqUpdPassword;
 import work.metanet.api.user.protocol.ReqUpdUser;
 import work.metanet.api.user.protocol.ReqUserInfo.RespUserInfo;
 import work.metanet.api.user.protocol.ReqUserList;
 import work.metanet.api.user.protocol.ReqUserList.RespUserList;
 import work.metanet.base.RespPaging;
-import work.metanet.server.usercenter.domain.UserFromThird;
 
 public interface IUserService {
 	
@@ -78,13 +75,6 @@ public interface IUserService {
 	 * @DateTime 2019/11/12
 	 */
 	RespUserInfo userInfo(String userId) throws Exception;
-
-	/**
-	 * @Description: 获取用户信息
-	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/12
-	 */
-	RespUserInfo userInfoFromThird(UserFromThird uft) throws Exception;
 	
 	/**
 	 * @Description: 修改密码
@@ -135,12 +125,5 @@ public interface IUserService {
 	 * @DateTime 2021/07/26
 	 */
 	String syncUser(String phone) throws Exception;
-	
-	/**
-	 * @Description: 使用第三方用户信息创建新用户
-	 * @Author Edison F.
-	 * @DateTime 2021/07/26
-	 */
-	RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws Exception;
 	
 }

@@ -9,7 +9,9 @@
 	</parent>
 
 	<artifactId>baas-openapi</artifactId>
-
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 	<dependencies>
 
 		<dependency>
@@ -23,11 +25,15 @@
 			<version>${project.version}</version>
 		</dependency>
 		<!-- swagger UI必须要，不能因为引用库common-client里面已经引用就删除 -->
-		<dependency>
+<!--		<dependency>
 			<groupId>com.github.xiaoymin</groupId>
 			<artifactId>swagger-bootstrap-ui</artifactId>
+		</dependency>-->
+		<dependency>
+			<groupId>work.metanet</groupId>
+			<artifactId>lib-swagger</artifactId>
+			<version>${project.version}</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

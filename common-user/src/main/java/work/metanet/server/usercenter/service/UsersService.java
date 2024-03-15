@@ -8,7 +8,6 @@ import work.metanet.server.usercenter.domain.UcRoles;
 import work.metanet.server.usercenter.domain.UcUserDept;
 import work.metanet.server.usercenter.domain.UcUserRole;
 import work.metanet.server.usercenter.domain.UcUsers;
-import work.metanet.server.usercenter.domain.UserFromThird;
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
 import work.metanet.api.user.protocol.ReqLoginSuper;
@@ -16,12 +15,10 @@ import work.metanet.api.user.protocol.ReqRegister;
 import work.metanet.api.user.protocol.ReqRemoveUser;
 import work.metanet.api.user.protocol.ReqResetPassword;
 import work.metanet.api.user.protocol.ReqSendCode;
-import work.metanet.api.user.protocol.ReqSyncUserFromThird;
 import work.metanet.api.user.protocol.ReqUpdPassword;
 import work.metanet.api.user.protocol.ReqUpdUser;
 import work.metanet.api.user.protocol.ReqUserList;
 import work.metanet.api.user.protocol.ReqLogin.RespLogin;
-import work.metanet.api.user.protocol.ReqSyncUserFromThird.RespSyncUserFromThird;
 import work.metanet.api.user.protocol.ReqUserInfo.RespUserInfo;
 import work.metanet.api.user.protocol.ReqUserList.RespUserList;
 import work.metanet.base.RespPaging;
@@ -140,13 +137,6 @@ public interface UsersService extends CurdService<UcUsers> {
 	RespUserInfo userInfo(String userId) throws MetanetException;
 
 	/**
-	 * @Description: 获取用户信息
-	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/12
-	 */
-	RespUserInfo userInfoFromThird(UserFromThird uft) throws MetanetException;
-	
-	/**
 	 * @Description: 修改密码
 	 * @Author Louis & Edison & W.B.
 	 * @DateTime 2019/11/12
@@ -195,12 +185,5 @@ public interface UsersService extends CurdService<UcUsers> {
 	 * @DateTime 2021/07/26
 	 */
 	String syncUser(String appId, String phone) throws MetanetException;
-	
-	/**
-	 * @Description: 使用第三方用户信息创建新用户
-	 * @Author Edison F.
-	 * @DateTime 2021/07/26
-	 */
-	RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws MetanetException;
 	
 }

@@ -26,7 +26,7 @@ import work.metanet.constant.ConstCacheKey;
 import work.metanet.server.usercenter.domain.UcPrizes;
 import work.metanet.server.usercenter.repository.PrizesRepository;
 import work.metanet.server.usercenter.service.PrizesService;
-import work.metanet.utils.CosUtil;
+import work.metanet.web.utils.CosUtil;
 
 @DubboService
 @RefreshScope

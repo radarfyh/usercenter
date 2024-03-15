@@ -18,7 +18,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import work.metanet.aop.LxRedisCache;
+import work.metanet.aop.RedisCache;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
@@ -47,7 +47,7 @@ public class AopRedisCache{
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
 		Method method = signature.getMethod();
-		LxRedisCache redisCache = method.getAnnotation(LxRedisCache.class);
+		RedisCache redisCache = method.getAnnotation(RedisCache.class);
 		Type type = method.getGenericReturnType();
 		Class<?> c = method.getReturnType();
 		String cacheVal = stringRedisTemplate.opsForValue().get(redisCache.key().cacheKey());
@@ -67,7 +67,7 @@ public class AopRedisCache{
     public void doAfterReturning(JoinPoint joinPoint, Object resp) {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
-		LxRedisCache redisCache = method.getAnnotation(LxRedisCache.class);
+		RedisCache redisCache = method.getAnnotation(RedisCache.class);
 		if (!stringRedisTemplate.hasKey(redisCache.key().cacheKey()) && ObjectUtil.isNotEmpty(resp)) {
 			stringRedisTemplate.opsForValue().set(redisCache.key().cacheKey(), JSONUtil.toJsonStr(resp));			
 		}

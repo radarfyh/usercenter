@@ -14,7 +14,7 @@ import work.metanet.aop.ApiPermission.AUTH;
 import work.metanet.exception.ResultResponse;
 import work.metanet.exception.ResultResponseEnum;
 import work.metanet.aop.ApiPermission;
-import work.metanet.utils.CosUtil;
+import work.metanet.web.utils.CosUtil;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
@@ -70,23 +70,6 @@ public class FileController {
 		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(cosUtil.upload(file));
 	}
 
-	/**
-	 * @Description: 文件上传
-	 * @Author Louis & Edison & W.B.
-	 * @DateTime 2019/11/27
-	 */
-	@ApiOperLog(action = ACTION.UPLOAD, desc = "上传视频")
-	@ApiOperation(value = "上传文件-视频")
-	@PostMapping(value = "uploadEyesVideo", headers = "content-type=multipart/form-data")
-	public ResultResponse<RespUpload> uploadEyesVideo(@RequestParam("file") MultipartFile file) throws Exception {
-		String key = StrUtil.concat(true, "eyesVideo/",IdUtil.fastSimpleUUID(),".",FileUtil.extName(file.getOriginalFilename()));
-		RespUpload resp = new RespUpload()
-				.setMd5(SecureUtil.md5(file.getInputStream()))
-				.setUrl(cosUtil.upload(key,file))
-				.setFileSize(file.getSize());
-		return ResultResponseEnum.UPLOAD_SUCCESS.resultResponse(resp);
-	}
-	
 	/**
 	 * @Description: 文件上传
 	 * @Author Louis & Edison & W.B.

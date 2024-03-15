@@ -13,7 +13,7 @@ spring:
       server-addr: localhost:8848
       discovery:
 #        server-addr: localhost:8848
-        namespace: a2965a4f-13b2-4b57-8251-fad4411006bd
+        namespace: 
         group: DEFAULT_GROUP
         server-addr: localhost:8848
       config:
@@ -24,7 +24,7 @@ spring:
         prefix: ${spring.application.name}
         # dataID  ${prefix}-${spring.profiles.active}.${file-extension}
         # 命名空间 默认 public
-        namespace: a2965a4f-13b2-4b57-8251-fad4411006bd
+        namespace: 
         # 配置组  默认 DEFAULT_GROUP
         group: DEFAULT_GROUP
         # 共享配置(公共配置)

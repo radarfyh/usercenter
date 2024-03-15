@@ -14,13 +14,13 @@ import org.springframework.data.domain.Sort;
 
 import work.metanet.server.usercenter.repository.UserTargetPrizeRepository;
 import work.metanet.server.usercenter.service.OrderService;
+import work.metanet.web.utils.CosUtil;
 import work.metanet.api.userTargetPrize.protocol.ReqSaveUserTargetPrize;
 import work.metanet.api.userTargetPrize.protocol.ReqUserTargetPrizeInfo.RespUserTargetPrizeInfo;
 import work.metanet.base.page.MyPageRequest;
 import work.metanet.base.page.MyPageResult;
 import work.metanet.constant.SysConstants;
 import work.metanet.server.usercenter.domain.UcTargetPrizes;
-import work.metanet.utils.CosUtil;
 
 import cn.hutool.core.bean.BeanUtil;
 

@@ -43,7 +43,7 @@ import work.metanet.constant.SysConstants;
 import work.metanet.exception.MetanetException;
 import work.metanet.exception.ResultResponseEnum;
 import work.metanet.util.sms.SmsUtil;
-import work.metanet.utils.CosUtil;
+import work.metanet.web.utils.CosUtil;
 import work.metanet.utils.token.TokenUtil;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -60,7 +60,6 @@ import work.metanet.server.usercenter.domain.UcRoles;
 import work.metanet.server.usercenter.domain.UcUserDept;
 import work.metanet.server.usercenter.domain.UcUserRole;
 import work.metanet.server.usercenter.domain.UcUsers;
-import work.metanet.server.usercenter.domain.UserFromThird;
 import work.metanet.api.user.protocol.ReqAccountCancel;
 import work.metanet.api.user.protocol.ReqCheckCode;
 import work.metanet.api.user.protocol.ReqLogin.RespLogin;
@@ -69,8 +68,6 @@ import work.metanet.api.user.protocol.ReqRegister;
 import work.metanet.api.user.protocol.ReqRemoveUser;
 import work.metanet.api.user.protocol.ReqResetPassword;
 import work.metanet.api.user.protocol.ReqSendCode;
-import work.metanet.api.user.protocol.ReqSyncUserFromThird;
-import work.metanet.api.user.protocol.ReqSyncUserFromThird.RespSyncUserFromThird;
 import work.metanet.api.user.protocol.ReqUpdPassword;
 import work.metanet.api.user.protocol.ReqUpdUser;
 import work.metanet.api.user.protocol.ReqUserInfo.RespUserInfo;
@@ -594,13 +591,6 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public RespUserInfo userInfoFromThird(UserFromThird utf) throws MetanetException {
-		RespUserInfo userInfo = usersRepo.userInfoFromThird(utf);
-		return userInfo;
-	}
-
-
-	@Override
 	public void updPassword(String userId, ReqUpdPassword requestParam) throws MetanetException {
 		Optional<UcUsers> user = usersRepo.findById(userId);
 		if(!user.isPresent()) {
@@ -712,120 +702,5 @@ public class UsersServiceImpl implements UsersService {
 		return dbUser.get().getId();
 	}
 	
-	@Override
-	public RespSyncUserFromThird syncUserMore(ReqSyncUserFromThird user) throws MetanetException {
-		String name = "第三方同步用户"; //设置默认昵称
-		String tel = "13800000000"; //设置默认电话号码
-		String appId = "f1e247a486ef4c6ebc34cba4f775e924"; //设置一个默认的appid
-		String userId = "edison3";  //设置默认用户名
-		String password = "0000"; //设置默认密码，四个0
-		Integer age = 0; //设置默认年龄0
 
-		RespSyncUserFromThird resp = new RespSyncUserFromThird();
-		if(user != null) {
-
-			if(StringUtils.isNotBlank(user.getOwnerTel())) {
-				tel = user.getOwnerTel();
-			}
-			if(StringUtils.isNotBlank(user.getOwnerName())) {
-				name = user.getOwnerName();
-			}
-			
-			if(StringUtils.isNotBlank(user.getOwnerId())) {
-				userId = user.getOwnerId();
-			}
-			age = user.getOwnerAge();
-		}
-		try {
-			UserFromThird tmpUser = new UserFromThird();
-			BeanUtil.copyProperties(user, tmpUser);
-			RespUserInfo respUserInfo = usersRepo.userInfoFromThird(tmpUser);
-			
-			if (respUserInfo != null && StringUtils.isNotBlank(respUserInfo.getUserId())) {
-				usersRepo.updateUserById(user.getOwnerId(), user.getOwnerName(), 
-						user.getOwnerAge(), user.getOwnerTel(), respUserInfo.getUserId());
-				
-				Optional<UcUsers> one = usersRepo.findById(respUserInfo.getUserId());
-				BeanUtil.copyProperties(one.get(), resp);
-				
-				return resp;
-			}
-			UcUsers dbUser = new UcUsers()
-					.setAppId(appId)
-					.setPhone(tel)
-					.setUsername(userId)
-					.setPassword(SecureUtil.md5(password))
-					.setNickName(name)
-					.setEnableStatus(true)
-					.setAge(age.doubleValue())
-					;
-
-			if(usersRepo.save(dbUser) != null) {
-				BeanUtil.copyProperties(dbUser, resp);
-			}
-		}
-		catch(Exception e) {
-			throw MetanetException.of().setMsg("同步用户信息异常:" + e.getMessage());
-		}
-
-		return resp;
-
-	}
-	
-//	private RespLogin login(UcUsers user,String deviceId,String packageName,String versionCode) throws Exception{
-//		if(user==null)
-//			throw MetanetException.of().setMsg("用户名或密码错误");
-//		if(!user.getEnableStatus())
-//			throw MetanetException.of().setMsg("您已被锁定");
-//		
-//		AppVersionVo appVersionVo = appVersionService.getAppVersion(packageName, versionCode);
-//	 	String deviceAppId = deviceAppService.getDeviceAppId(deviceId, packageName);
-//	 	
-//	 	//登录记录
-//	 	userLoginService.loginRecord(user.getId(), deviceId, appVersionVo.getVersionId());
-//	 	
-//	 	//生成token(阶段一过期时间限制拉长,实际是需要采用短期刷新token方案)
-//	 	UserToken userToken = new UserToken(deviceAppId, deviceId, appVersionVo.getAppId() ,user.getId(), user.getUsername(),false);
-//	 	String token = TokenUtil.generateToken(JSONUtil.toJsonStr(userToken), 60*60*24*365L);
-//		
-//		//更新用户token
-//		cacheUserToken(user.getId(), token);
-//		
-//		RespLogin resp = new RespLogin();
-//		BeanUtil.copyProperties(user, resp);
-//		resp.setToken(token);
-//		resp.setHeadUrl(cosUtil.getAccessUrl(resp.getHeadUrl()));
-//		
-//		return resp;
-//	}
-//	
-//	@Override
-//	public RespLogin loginSuper(String deviceId, String packageName, String versionCode, ReqLoginSuper requestParam) throws Exception {
-//
-//		//短信验证码
-//		validationCode(null,requestParam.getPhone(),requestParam.getCode(),ConstSmsRequestType.LOGIN);
-//		
-//		AppVo appVo = appService.getAppByPackageName(packageName);
-//
-//		UcUsers user = usersRepo.getUser(appVo.getAppId(), null, requestParam.getPhone(), null, null);
-//		
-//		if(user == null) {
-//			if(StringUtils.isEmpty(requestParam.getPassword())) throw MetanetException.of().setMsg("请输入密码");
-//			//注册
-//			String phone = requestParam.getPhone();
-//			user = new UcUsers();
-//			user.setAppId(appVo.getAppId());
-//			user.setUsername(phone);
-//			user.setPassword(SecureUtil.md5(requestParam.getPassword()));
-//			user.setPhone(phone);
-//			user.setNickName(phone.substring(phone.length()-6, phone.length()));
-//			user.setEnableStatus(true);
-//			usersRepo.save(user);
-//			//初始化用户积分
-//			userScoreService.initUserScore(user.getId());
-//		}
-//
-//		//登录
-//		return login(user,deviceId,packageName,versionCode);
-//	}
 }

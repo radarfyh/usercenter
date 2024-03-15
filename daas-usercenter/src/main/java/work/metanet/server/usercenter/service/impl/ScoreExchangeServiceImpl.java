@@ -23,6 +23,8 @@ import work.metanet.server.usercenter.repository.UsersRepository;
 import work.metanet.server.usercenter.service.PrizesService;
 import work.metanet.server.usercenter.service.ScoreExchangeService;
 import work.metanet.server.usercenter.service.ScoreService;
+import work.metanet.web.utils.CosUtil;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import work.metanet.server.usercenter.domain.UcUsers;
@@ -44,7 +46,6 @@ import work.metanet.server.usercenter.domain.UcPrizes;
 import work.metanet.server.usercenter.domain.UcScoreExchanges;
 import work.metanet.server.usercenter.domain.UcTargetPrizes;
 import work.metanet.server.usercenter.domain.UcUserLogistics;
-import work.metanet.utils.CosUtil;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.NumberUtil;
